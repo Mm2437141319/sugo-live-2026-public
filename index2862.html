@@ -1,103 +1,852 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>📈 股票關卡計算機 V43.2｜台美港日韓</title>
+<meta name="theme-color" content="#080a0c">
+<title>台股法人籌碼與突破分析 V11</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f2f6fa;color:#18263a;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif}
-.wrap{max-width:900px;margin:auto;padding:12px}.title{text-align:center;font-size:28px;font-weight:950;margin:12px 0 4px}
-.sub{text-align:center;color:#687486;line-height:1.6;font-size:14px;margin-bottom:14px}.card{background:#fff;border-radius:28px;padding:18px;margin:14px 0;box-shadow:0 7px 24px rgba(35,55,80,.08)}
-h2{font-size:23px;margin:0 0 14px;font-weight:950}label{display:block;font-weight:850;margin:9px 0 6px}
-input{width:100%;height:56px;border:0;border-radius:18px;background:#f0f4f8;padding:10px 14px;font-size:19px;outline:0;color:#18263a}
-.search{display:grid;grid-template-columns:1fr 120px;gap:10px}.grid2,.basic,.funds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}button{border:0;border-radius:18px;min-height:56px;padding:10px 16px;font-size:18px;font-weight:950;cursor:pointer}
-.black{background:#202020;color:#fff}.purple{background:linear-gradient(90deg,#5c5ff2,#a64cf0);color:#fff}
-.status,.note{margin-top:11px;padding:13px 15px;border-radius:16px;background:#f1f3f5;font-weight:800;line-height:1.6}.ok{background:#e7f8ed;color:#14652f}
-.warn{background:#fff5d8;color:#755500}.err{background:#ffe8e8;color:#9e0000}.box{background:#f1f4f8;border-radius:18px;padding:14px;min-height:82px}
-.box span{display:block;color:#87919c;font-size:14px}.box b{display:block;font-size:21px;margin-top:7px;word-break:break-word}
-.up{color:#b00000}.down{color:#087f3b}.market-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:10px}
-.tab{background:#edf1f6}.tab.active{background:#202020;color:#fff}.hidden{display:none}
-.rabbit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.rabbit-card{border-radius:24px;padding:17px;min-height:180px}
-.green{background:#e8f9ed}.blue{background:#e9f1ff}.purplebg{background:#f0e8ff}.yellow{background:#fff4d2}.orange{background:#ffecd9}
-.rabbit-name{font-size:18px;font-weight:950}.rabbit-price{font-size:34px;font-weight:1000;margin:8px 0}.start{width:100%;font-size:25px;min-height:68px}
-.small{font-size:13px;color:#74808d;line-height:1.7}.scan-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.scan-card{border-radius:24px;padding:22px;min-height:190px;background:#eef2f7;cursor:pointer;transition:.15s}.scan-card:active{transform:scale(.98)}
-.scan-card h3{font-size:28px;margin:12px 0}.scan-card p{font-size:16px;color:#718096;line-height:1.7;margin:0}.scan-results{display:grid;gap:10px;margin-top:14px}
-.result{background:#f1f4f8;border-radius:18px;padding:14px}.result-head{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.result-title{font-size:19px;font-weight:950}.badge{padding:5px 9px;border-radius:10px;background:#e7f8ed;color:#14652f;font-weight:900}
-.result-line{font-size:14px;color:#657180;line-height:1.7;margin-top:6px}.portfolio-list{display:grid;gap:10px;margin-top:12px}
-.portfolio-item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:#f1f4f8;border-radius:18px;padding:13px 15px}
-.danger{background:#ffe7e7;color:#a40000}.market-note{font-size:13px;color:#687486;margin-top:8px;line-height:1.6}.source-note{font-size:12px;color:#7a8490;line-height:1.6}
-.spin{display:inline-block;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.bias-positive{color:#b00000}.bias-negative{color:#087f3b}.bias-neutral{color:#755500}
-.trend-card{border-radius:20px;padding:16px;margin-top:12px}.trend-up{background:#e7f8ed}.trend-down{background:#ffe8e8}.trend-side{background:#fff5d8}
-.money-card{background:#eef2ff;border-radius:22px;padding:17px;margin-top:12px}.money-total{font-size:30px;font-weight:1000;margin:5px 0}
-.money-table{width:100%;border-collapse:collapse;margin-top:12px}.money-table th,.money-table td{padding:10px 7px;text-align:center;border-bottom:1px solid #dfe5ec;font-size:14px}
-.money-table th{font-weight:950;background:#e8edf5}.highlight{font-weight:950}
-@media(max-width:600px){.wrap{padding:10px}.title{font-size:24px}.card{border-radius:25px;padding:16px}.rabbit-grid,.scan-grid{grid-template-columns:1fr}
-.grid3{grid-template-columns:1fr 1fr}.market-tabs{grid-template-columns:repeat(3,1fr)}.market-tabs button{font-size:14px;padding:7px 4px}
-.money-table{font-size:12px}.money-table th,.money-table td{padding:8px 4px}}
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent
+}
+
+:root{
+--bg:#080a0c;
+--card:#191b1f;
+--card2:#121416;
+--line:#41444a;
+--text:#f5f5f5;
+--muted:#96999f;
+--green:#35e56b;
+--red:#ff5966;
+--orange:#ff9f1c;
+--yellow:#ffd447;
+--blue:#36b9ff;
+--purple:#bd83ff
+}
+
+html{
+scroll-behavior:smooth
+}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"PingFang TC",
+"Microsoft JhengHei",Arial,sans-serif;
+padding-bottom:100px
+}
+
+.wrap{
+max-width:920px;
+margin:auto;
+padding:8px 12px 120px
+}
+
+.search{
+position:sticky;
+top:0;
+z-index:50;
+display:flex;
+gap:9px;
+padding:8px 0 10px;
+background:rgba(8,10,12,.96);
+backdrop-filter:blur(14px)
+}
+
+input{
+width:100%;
+height:60px;
+border:2px solid #55585e;
+border-radius:21px;
+background:#191b1f;
+color:#fff;
+padding:0 17px;
+font-size:20px;
+outline:0
+}
+
+input:focus{
+border-color:var(--orange)
+}
+
+button{
+font:inherit;
+cursor:pointer
+}
+
+.search button{
+width:112px;
+border:0;
+border-radius:21px;
+background:var(--orange);
+color:#111;
+font-size:21px;
+font-weight:900
+}
+
+.hint{
+font-size:13px;
+color:var(--muted);
+line-height:1.7;
+padding:0 5px 8px
+}
+
+.status{
+display:none;
+padding:11px 13px;
+border:1px solid var(--line);
+border-radius:14px;
+background:#17191c;
+margin-bottom:10px;
+line-height:1.7
+}
+
+.status.show{
+display:block
+}
+
+.status.ok{
+color:#8affaa;
+border-color:#28653b
+}
+
+.status.loading{
+color:var(--yellow);
+border-color:#66531f
+}
+
+.status.error{
+color:#ff9da6;
+border-color:#74333c
+}
+
+.status.info{
+color:#7ed4ff;
+border-color:#245d79
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:21px;
+padding:16px;
+margin-top:12px
+}
+
+.title{
+font-size:24px;
+font-weight:900;
+margin-bottom:12px
+}
+
+.intro{
+color:#a1a4aa;
+font-size:15px;
+line-height:1.8
+}
+
+.hero{
+background:#181a1e;
+border:1px solid #45484e;
+border-radius:20px;
+padding:15px
+}
+
+.heroTop{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.icon{
+font-size:35px
+}
+
+.stockTitle{
+font-size:28px;
+font-weight:900
+}
+
+.stockSub{
+font-size:14px;
+color:#aaa;
+margin-top:4px
+}
+
+.update{
+margin-left:auto;
+font-size:12px;
+color:#999;
+text-align:right;
+white-space:nowrap
+}
+
+.grid3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:13px
+}
+
+.box{
+background:#141619;
+border:1px solid #41444a;
+border-radius:15px;
+padding:10px;
+text-align:center
+}
+
+.boxMain{
+font-size:19px;
+font-weight:900
+}
+
+.boxSub{
+font-size:12px;
+color:#999;
+margin-top:3px
+}
+
+.priceStrip{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+margin-top:12px;
+background:#101214;
+border-radius:14px;
+padding:9px 2px
+}
+
+.priceCell{
+text-align:center;
+border-right:1px solid #36393e
+}
+
+.priceCell:last-child{
+border-right:0
+}
+
+.priceLabel{
+font-size:12px;
+color:#999
+}
+
+.priceValue{
+font-size:18px;
+font-weight:900;
+margin-top:4px;
+white-space:nowrap
+}
+
+.green{
+color:var(--green)!important
+}
+
+.red{
+color:var(--red)!important
+}
+
+.orange{
+color:var(--orange)!important
+}
+
+.yellow{
+color:var(--yellow)!important
+}
+
+.blue{
+color:var(--blue)!important
+}
+
+.purple{
+color:var(--purple)!important
+}
+
+.break{
+background:#181a1e;
+border:1px solid #41444a;
+border-radius:20px;
+padding:15px
+}
+
+.breakTitle{
+font-size:21px;
+font-weight:900;
+color:var(--green);
+margin-bottom:11px
+}
+
+.breakGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px 15px
+}
+
+.checkRow{
+display:flex;
+align-items:center;
+gap:7px;
+font-size:15px;
+line-height:1.9;
+color:#aaa
+}
+
+.check{
+width:20px;
+height:20px;
+border-radius:50%;
+background:#35d96b;
+color:#09200f;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+font-weight:900;
+flex:0 0 20px
+}
+
+.check.no{
+background:#444;
+color:#aaa
+}
+
+.data{
+border-left:1px solid #383b40;
+padding-left:14px
+}
+
+.dataRow{
+display:flex;
+justify-content:space-between;
+gap:8px;
+font-size:14px;
+line-height:2;
+color:#aaa
+}
+
+.dataRow b{
+color:#eee
+}
+
+.featureGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px
+}
+
+.feature{
+min-height:96px;
+background:#141619;
+border:1px solid #41444a;
+border-radius:17px;
+color:#fff;
+padding:10px 5px;
+text-align:center
+}
+
+.feature:active,
+.search button:active,
+.action:active,
+.row:active,
+.navBtn:active{
+transform:scale(.97)
+}
+
+.featureIcon{
+font-size:27px
+}
+
+.featureName{
+font-size:16px;
+font-weight:900;
+margin-top:3px
+}
+
+.featureDesc{
+font-size:11px;
+color:#888;
+margin-top:4px
+}
+
+.action{
+width:100%;
+padding:14px;
+border-radius:16px;
+background:#111315;
+border:1px solid #55585d;
+color:#fff;
+font-weight:900;
+font-size:16px;
+margin-top:9px
+}
+
+.action.primary{
+border-color:var(--orange)
+}
+
+.action:disabled{
+opacity:.55
+}
+
+.levelGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px
+}
+
+.level{
+background:#141619;
+border:1px solid #3e4146;
+border-radius:15px;
+padding:11px
+}
+
+.levelLabel{
+font-size:13px;
+color:#999
+}
+
+.levelValue{
+font-size:21px;
+font-weight:900;
+margin-top:4px
+}
+
+.sectionGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:9px
+}
+
+.metric{
+background:#141619;
+border-radius:15px;
+padding:12px
+}
+
+.metricLabel{
+font-size:13px;
+color:#92959a
+}
+
+.metricValue{
+font-size:23px;
+font-weight:900;
+margin-top:4px
+}
+
+.metricSub{
+font-size:12px;
+color:#777;
+margin-top:3px
+}
+
+.signal{
+background:#111315;
+border:1px solid #41444a;
+border-radius:17px;
+padding:15px
+}
+
+.signalState{
+font-size:29px;
+font-weight:900
+}
+
+.scoreBar{
+height:10px;
+background:#303237;
+border-radius:999px;
+overflow:hidden;
+margin-top:10px
+}
+
+.scoreBar span{
+display:block;
+height:100%;
+background:var(--orange)
+}
+
+.notice{
+font-size:13px;
+line-height:1.8;
+color:#91949a;
+margin-top:9px
+}
+
+.tableWrap{
+overflow:auto;
+-webkit-overflow-scrolling:touch
+}
+
+table{
+width:100%;
+min-width:560px;
+border-collapse:collapse
+}
+
+th,
+td{
+padding:9px 6px;
+border-bottom:1px solid #36393e;
+text-align:center
+}
+
+th{
+color:#92959a;
+font-weight:500
+}
+
+.recTable{
+overflow:hidden;
+border:1px solid #3c3f44;
+border-radius:17px
+}
+
+.recHead,
+.row{
+display:grid;
+grid-template-columns:1.45fr .8fr .8fr 1fr .8fr .25fr;
+gap:5px;
+align-items:center;
+padding:10px 8px
+}
+
+.recHead{
+font-size:12px;
+color:#999;
+background:#141619
+}
+
+.row{
+border-top:1px solid #34373c;
+background:#181a1d;
+cursor:pointer
+}
+
+.recName{
+font-size:15px;
+font-weight:900
+}
+
+.recSmall{
+font-size:13px;
+font-weight:700
+}
+
+.arrow{
+text-align:right;
+font-size:21px;
+color:#aaa
+}
+
+.searchResults{
+margin-top:8px
+}
+
+.searchResult{
+background:#141619;
+border:1px solid #3e4146;
+border-radius:14px;
+padding:12px;
+margin-top:7px
+}
+
+.searchResult b{
+font-size:16px
+}
+
+.searchResult small{
+display:block;
+color:#92959a;
+margin-top:3px
+}
+
+.empty{
+padding:18px;
+text-align:center;
+color:#888;
+line-height:1.8
+}
+
+.loadingBox{
+text-align:center;
+padding:18px;
+color:var(--yellow);
+line-height:1.8
+}
+
+.progress{
+height:8px;
+background:#303237;
+border-radius:999px;
+overflow:hidden;
+margin-top:9px
+}
+
+.progress span{
+display:block;
+height:100%;
+width:0;
+background:var(--yellow);
+transition:.2s
+}
+
+.footer{
+text-align:center;
+font-size:12px;
+color:#666;
+line-height:1.7;
+padding:18px 8px
+}
+
+.bottomNav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+z-index:999;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+background:rgba(18,20,23,.98);
+border-top:1px solid #383b40;
+backdrop-filter:blur(15px);
+padding:
+7px max(8px,env(safe-area-inset-left))
+calc(7px + env(safe-area-inset-bottom))
+max(8px,env(safe-area-inset-right))
+}
+
+.navBtn{
+border:0;
+background:transparent;
+color:#aaa;
+padding:6px 2px;
+min-height:57px;
+border-radius:12px
+}
+
+.navBtn.active{
+color:var(--orange);
+background:rgba(255,159,28,.06)
+}
+
+.navIcon{
+font-size:24px;
+display:block;
+line-height:1
+}
+
+.navText{
+font-size:12px;
+display:block;
+margin-top:5px
+}
+
+.dot{
+width:9px;
+height:9px;
+border-radius:50%;
+background:#777;
+display:inline-block
+}
+
+.dot.ok{
+background:var(--green);
+box-shadow:0 0 8px rgba(57,229,111,.5)
+}
+
+.dot.bad{
+background:var(--red)
+}
+
+.dot.wait{
+background:var(--yellow)
+}
+
+.hidden{
+display:none!important
+}
+
+.liveBox{
+border:1px solid #285f3a;
+background:#101a14;
+border-radius:17px;
+padding:14px;
+margin-top:12px
+}
+
+.liveTitle{
+font-size:16px;
+font-weight:900;
+color:var(--green)
+}
+
+.livePrice{
+font-size:40px;
+font-weight:900;
+margin-top:5px
+}
+
+.liveChange{
+font-size:18px;
+font-weight:900;
+margin-top:3px
+}
+
+.apiBox{
+background:#101214;
+border:1px solid #35383d;
+border-radius:15px;
+padding:12px;
+margin-top:10px;
+font-size:12px;
+line-height:1.8;
+color:#999
+}
+
+.apiBox b{
+color:#eee
+}
+
+@media(max-width:650px){
+
+.wrap{
+padding:7px 10px 120px
+}
+
+.search button{
+width:102px
+}
+
+.card{
+padding:14px
+}
+
+.stockTitle{
+font-size:26px
+}
+
+.breakGrid{
+grid-template-columns:1fr
+}
+
+.data{
+border-left:0;
+border-top:1px solid #383b40;
+padding:9px 0 0;
+margin-top:8px
+}
+
+.featureGrid{
+gap:7px
+}
+
+.feature{
+min-height:91px
+}
+
+.featureName{
+font-size:15px
+}
+
+}
+
+@media(max-width:420px){
+
+.grid3{
+grid-template-columns:1fr
+}
+
+.priceValue{
+font-size:15px
+}
+
+.featureDesc{
+display:none
+}
+
+.sectionGrid{
+grid-template-columns:1fr
+}
+
+.levelGrid{
+grid-template-columns:repeat(2,1fr)
+}
+
+}
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
-<div class="title">📈 股票關卡計算機 V43.2</div>
-<div class="sub">🇹🇼 台股／ETF｜🇺🇸 美股｜🇭🇰 港股｜🇯🇵 日股｜🇰🇷 韓股<br>
-📈 5／20／60／120／240日線｜📊 漲跌／漲跌幅｜📐均線乖離／斜率｜🧭趨勢判斷｜💰資金管理｜🔥起漲突破｜🐰仙兔關卡</div>
 
-<div class="card"><h2>🔎 搜尋股票</h2>
-<div class="market-tabs">
-<button id="twTab" class="tab active" onclick="setMarket('TW')">🇹🇼 台股</button><button id="usTab" class="tab" onclick="setMarket('US')">🇺🇸 美股</button>
-<button id="hkTab" class="tab" onclick="setMarket('HK')">🇭🇰 港股</button><button id="jpTab" class="tab" onclick="setMarket('JP')">🇯🇵 日股</button><button id="krTab" class="tab" onclick="setMarket('KR')">🇰🇷 韓股</button>
+<div class="search">
+
+<input
+id="searchInput"
+type="search"
+placeholder="搜尋股票／ETF／代號／關鍵字"
+autocomplete="off"
+autocapitalize="off"
+spellcheck="false">
+
+<button
+id="searchBtn"
+type="button">
+查詢
+</button>
+
 </div>
-<label>股票代號／名稱</label><div class="search"><input id="search" placeholder="2330、0050、00631L、台化"><button class="black" onclick="searchStock()">搜尋</button></div>
-<div id="status" class="status">尚未查詢</div><div id="marketNote" class="market-note">台股：可輸入股票代號、ETF代號或中文名稱。英文代號會自動轉大寫。</div>
+
+<div class="hint">
+可搜尋股票代碼、股票名稱、ETF代碼、ETF名稱、名稱關鍵字。
+<br>
+例如：台化、1326、台積、2330、鴻海、0050、高股息
 </div>
 
-<div class="card"><h2>📊 基本資訊</h2><div class="basic">
-<div class="box"><span>股票代號</span><b id="symbol">--</b></div><div class="box"><span>股票名稱</span><b id="name">--</b></div>
-<div class="box"><span>交易日期</span><b id="date">--</b></div><div class="box"><span>市場</span><b id="market">--</b></div>
-<div class="box"><span>現價</span><b id="price">--</b></div><div class="box"><span>昨收</span><b id="prev">--</b></div>
-<div class="box"><span>📈 漲跌</span><b id="change">--</b></div><div class="box"><span>📊 漲跌幅</span><b id="changePct">--</b></div>
-<div class="box"><span>開盤</span><b id="open">--</b></div><div class="box"><span>最高</span><b id="high">--</b></div>
-<div class="box"><span>最低</span><b id="low">--</b></div><div class="box"><span>成交量</span><b id="volume">--</b></div>
-<div class="box"><span>📈 5日線</span><b id="ma5">--</b></div><div class="box"><span>📈 20日線</span><b id="ma20">--</b></div>
-<div class="box"><span>📈 60日線</span><b id="ma60">--</b></div><div class="box"><span>📈 120日線</span><b id="ma120">--</b></div>
-<div class="box"><span>📈 240日線</span><b id="ma240">--</b></div></div></div>
+<div id="status" class="status"></div>
 
-<div class="card"><h2>📐 均線乖離率</h2><div class="note">乖離率＝（現價－均線）÷均線 × 100%。<br>正數＝股價在均線上方；負數＝股價在均線下方。</div>
-<div class="basic"><div class="box"><span>5日線乖離</span><b id="bias5">--</b></div><div class="box"><span>20日線乖離</span><b id="bias20">--</b></div>
-<div class="box"><span>60日線乖離</span><b id="bias60">--</b></div><div class="box"><span>120日線乖離</span><b id="bias120">--</b></div><div class="box"><span>240日線乖離</span><b id="bias240">--</b></div></div>
-<div id="biasSummary" class="status">搜尋股票後自動計算。</div></div>
+<div id="searchResults" class="searchResults hidden"></div>
 
-<div class="card"><h2>📐 均線斜率</h2><div class="note">比較目前均線與前一交易日均線，判斷均線正在上彎、下彎或接近水平。</div>
-<div class="basic"><div class="box"><span>5日線斜率</span><b id="slope5">--</b></div><div class="box"><span>20日線斜率</span><b id="slope20">--</b></div>
-<div class="box"><span>60日線斜率</span><b id="slope60">--</b></div><div class="box"><span>120日線斜率</span><b id="slope120">--</b></div><div class="box"><span>240日線斜率</span><b id="slope240">--</b></div></div>
-<div id="slopeSummary" class="status">搜尋股票後自動判斷。</div></div>
+<div id="home">
 
-<div class="card"><h2>🧭 趨勢判斷</h2><div id="trendResult" class="trend-card trend-side">搜尋股票後自動分析。</div>
-<div class="basic"><div class="box"><span>短期趨勢</span><b id="shortTrend">--</b></div><div class="box"><span>中期趨勢</span><b id="midTrend">--</b></div>
-<div class="box"><span>長期趨勢</span><b id="longTrend">--</b></div><div class="box"><span>整體趨勢</span><b id="overallTrend">--</b></div></div></div>
+<div class="card">
 
-<div class="card"><h2>🔍 跌破／站回判斷</h2><div id="breakJudge" class="status">搜尋股票後自動判斷。</div></div>
+<div class="title">
+📊 台股法人籌碼與突破分析 V11
+</div>
 
-<div class="card"><h2>🔥 熱門股票／起漲突破</h2><div class="scan-grid">
-<div class="scan-card" onclick="scanStocks('breakout')"><div style="font-size:48px">🚀</div><h3>起漲突破</h3><p>現價站上20／60／120日線，並觀察240日線。<br><b>👉 點我開始掃描</b></p></div>
-<div class="scan-card" onclick="scanStocks('strong')"><div style="font-size:48px">🔥</div><h3>強勢股</h3><p>多條均線上方，搭配漲跌幅與趨勢觀察。<br><b>👉 點我開始掃描</b></p></div>
-<div class="scan-card" onclick="scanStocks('watch')"><div style="font-size:48px">🟡</div><h3>觀察突破</h3><p>接近關鍵均線，等待站回重要關卡。<br><b>👉 點我開始掃描</b></p></div>
-<div class="scan-card" onclick="scanStocks('all')"><div style="font-size:48px">📊</div><h3>熱門總覽</h3><p>掃描內建熱門清單，依目前均線位置排序。<br><b>👉 點我開始掃描</b></p></div>
-</div><div id="scanStatus" class="status">請選擇上方任一掃描。</div><div id="scanResults" class="scan-results"></div>
-<div class="source-note">📌 掃描只會使用實際取得到的行情；若資料來源暫時無法連線，不自行亂填價格。</div></div>
+<div class="intro">
 
-<div id="twOnly">
-<div class="card"><h2>🌍 三大法人</h2><div class="funds">
-<div class="box"><span>外資及陸資（張）</span><b id="foreign">--</b></div><div class="box"><span>投信（張）</span><b id="trust">--</b></div>
-<div class="box"><span>自營商（張）</span><b id="dealer">--</b></div><div class="box"><span>三大法人合計（張）</span><b id="fundTotal">--</b></div></div>
-<div id="fundStatus" class="status">搜尋台股後取得最近交易日資料。</div></div>
-<div class="card"><h2>💳 融資券</h2><div class="funds">
-<div class="box"><span>融資買進</span><b id="marginBuy">--</b></div><div class="box"><span>融資賣出</span><b id="marginSell">--</b></div>
-<div class="box"><span>融資餘額</span><b id="marginBal">--</b></div><div class="box"><span>融券買進</span><b id="shortBuy">--</b></div>
-<div class="box"><span>融券賣出</span><b id="shortSell">--</b></div><div class="box"><span>融券餘額</span><b id="shortBal">--</b></div></div>
-<div id="marginStatus" clas
+搜尋任何台股／ETF。
+
+<br>
+
+系統分析：
+<b>多頭／偏多／中性／偏空／空頭</b>
+
+<br>
+
+估值：
+<b>便宜／合理／普通／偏貴／貴</b>
+
+<br><br>
+
+<span>
+<span id="systemDot" class="dot"></span>
+<span id="systemText">V11 系統初始化中…</span>
+</span>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="break">
+
+<div class="brea
