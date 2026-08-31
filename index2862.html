@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111318">
+<title>台股潮流輪動｜法人・熱門・當沖・零股・長短線</title>
+<style>
+:root{
+  --bg:#0f1115;--card:#171a20;--card2:#1d2129;--line:#303641;
+  --text:#f5f7fa;--muted:#9da5b1;--red:#ff4d5a;--green:#35df7a;
+  --yellow:#ffd166;--orange:#ff9f43;--blue:#5aa9ff;--purple:#b78cff;
+  --shadow:0 8px 28px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC",Arial,sans-serif}
+body{padding-bottom:30px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.header{position:sticky;top:0;z-index:20;background:rgba(15,17,21,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:1180px;margin:auto;padding:14px 14px 10px}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+h1{font-size:21px;margin:0;font-weight:800}
+.sub{font-size:12px;color:var(--muted);margin-top:4px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:10px;padding:8px 11px}
+.btn.primary{background:#245b9f;border-color:#3277ca}
+.btn.good{background:#143d28;border-color:#226e47}
+.btn.warn{background:#513c16;border-color:#7c5c20}
+.nav{display:flex;gap:7px;overflow:auto;padding:10px 14px 12px;max-width:1180px;margin:auto}
+.nav button{white-space:nowrap;border:1px solid var(--line);background:#15181e;color:#cbd1d9;border-radius:999px;padding:7px 12px}
+.nav button.active{background:#f0a500;color:#111;border-color:#f0a500;font-weight:800}
+.container{max-width:1180px;margin:auto;padding:14px}
+.search{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-bottom:14px}
+.search input{width:100%;background:var(--card);color:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;margin-bottom:14px}
+.card h2{font-size:17px;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:11px}
+.stat .label{font-size:12px;color:var(--muted)}
+.stat .value{font-size:20px;font-weight:800;margin-top:3px}
+.red{color:var(--red)!important}.green{color:var(--green)!important}.yellow{color:var(--yellow)!important}
+.orange{color:var(--orange)!important}.blue{color:var(--blue)!important}.purple{color:var(--purple)!important}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800}
+.badge.green{background:#123722}.badge.red{background:#451c22}.badge.yellow{background:#4b3d12}
+.badge.blue{background:#173555}.badge.purple{background:#30204e}.badge.gray{background:#2b3038;color:#cbd1d9}
+.table-wrap{overflow:auto;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{background:#20242c;color:#cfd5de;font-size:12px;position:sticky;top:0}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+tr.clickable{cursor:pointer}
+tr.clickable:hover{background:#222731}
+.section{display:none}.section.active{display:block}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.price{font-size:43px;font-weight:900;letter-spacing:-1px}
+.price-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kpi{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
+.kpi:last-child{border-bottom:0}
+.kpi span:first-child{color:var(--muted)}
+.score{font-size:32px;font-weight:900}
+.progress{height:8px;background:#2a2f38;border-radius:99px;overflow:hidden;margin-top:7px}
+.progress i{display:block;height:100%;width:0;background:#35df7a}
+.notice{padding:10px 12px;border-radius:12px;background:#242831;color:#cbd1d9;font-size:13px;line-height:1.6}
+.loading{color:var(--muted);padding:14px;text-align:center}
+.empty{color:var(--muted);padding:18px;text-align:center}
+.tag-row{display:flex;gap:7px;flex-wrap:wrap}
+.chartbox{height:220px;display:flex;align-items:flex-end;gap:4px;padding:15px;background:#11141a;border-radius:12px;border:1px solid var(--line)}
+.bar{flex:1;min-width:3px;background:#5aa9ff;border-radius:3px 3px 0 0;opacity:.8}
+.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.formgrid label{font-size:12px;color:var(--muted)}
+.formgrid input,.formgrid select{margin-top:4px;width:100%;background:#11141a;border:1px solid var(--line);color:#fff;border-radius:9px;padding:9px}
+.footer{text-align:center;color:#6f7783;font-size:11px;padding:15px}
+.small{font-size:12px;color:var(--muted)}
+@media(max-width:800px){
+ .grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}
+ .formgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+ .container{padding:9px}.header-inner{padding:11px 10px}.title-row{align-items:flex-start}
+ .actions .btn{padding:7px 8px;font-size:12px}.grid2{grid-template-columns:1fr}
+ .price{font-size:37px}.card{padding:11px;border-radius:13px}
+ .search{grid-template-columns:1fr auto}
+ .search .manual-btn{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+ <div class="header-inner">
+
+  <div class="title-row">
+   <div>
+    <h1>🐰 台股潮流輪動・法人選股中心</h1>
+    <div class="sub">熱門排行｜三大法人｜處置｜漲跌停｜均線｜當沖｜零股｜長短線</div>
+   </div>
+
+   <div class="actions">
+    <button class="btn primary" onclick="refreshAll()">↻ 更新</button>
+    <button class="btn good" onclick="saveState()">💾 儲存</button>
+   </div>
+  </div>
+
+  <nav class="nav">
+   <button class="active" data-tab="home">首頁</button>
+   <button data-tab="hot">🔥熱門</button>
+   <button data-tab="sector">🌊板塊輪動</button>
+   <button data-tab="institution">🏦法人</button>
+   <button data-tab="short">⚡短線</button>
+   <button data-tab="intraday">🎯當沖</button>
+   <button data-tab="odd">🟣零股</button>
+   <button data-tab="long">💰長期</button>
+   <button data-tab="risk">🚨特殊</button>
+  </nav>
+
+ </div>
+</header>
+
+<main class="container">
+
+ <div class="search">
+  <input id="stockSearch" autocomplete="off"
+   placeholder="輸入代號、完整中文、部分中文、英文或關鍵字，例如：2330、台積、積電、TSMC">
+  <button class="btn primary" onclick="searchStock()">查詢</button>
+  <button class="btn manual-btn" onclick="manualMode()">手動</button>
+ </div>
+
+ <div id="searchResults" class="card" style="display:none;padding:10px;margin-top:-5px"></div>
+
+ <div class="card">
+  <h2>💰 本益比・合理價估值</h2>
+
+  <div class="formgrid">
+   <label>
+    合理本益比
+    <input id="targetPE" type="number" value="15" step="0.5" min="1">
+   </label>
+
+   <label>
+    偏高門檻
+    <input id="highPEPct" type="number" value="20" step="5" min="0">
+   </label>
+
+   <label>
+    便宜門檻
+    <input id="cheapPEPct" type="number" value="20" step="5" min="0">
+   </label>
+
+   <label>
+    即時更新秒數
+    <input id="refreshSec" type="number" value="5" min="3" max="60">
+   </label>
+  </div>
+
+  <div class="small" style="margin-top:8px">
+   合理價＝估算EPS × 你設定的合理本益比。
+   金融、景氣循環、虧損公司，本益比可能不適用。
+  </div>
+ </div>
+
+
+ <section id="home" class="section active">
+
+  <div class="hero">
+
+   <div class="card">
+    <h2>📌 股票即時檢視</h2>
+    <div id="stockHero">
+     <div class="empty">輸入股票代號或股票名稱開始查詢</div>
+    </div>
+   </div>
+
+   <div class="card">
+    <h2>🧭 市場狀態</h2>
+
+    <div id="marketStatus">
+     <div class="kpi">
+      <span>資料日期</span>
+      <b id="dataDate">--</b>
+     </div>
+
+     <div class="kpi">
+      <span>市場模式</span>
+      <b class="yellow">等待更新</b>
+     </div>
+
+     <div class="kpi">
+      <span>熱門板塊</span>
+      <b id="topSector">--</b>
+     </div>
+
+     <div class="kpi">
+      <span>法人焦點</span>
+      <b id="instFocus">--</b>
+     </div>
+
+     <div class="kpi">
+      <span>風險</span>
+      <b id="marketRisk">--</b>
+     </div>
+    </div>
+
+   </div>
+  </div>
+
+
+  <div class="card">
+   <h2>🏆 綜合選股排行榜</h2>
+
+   <div class="notice">
+    綜合分數僅作選股篩選，不代表保證獲利。
+    綜合趨勢、量能、法人、突破、板塊與均線乖離。
+   </div>
+
+   <div id="overallTable" class="table-wrap" style="margin-top:10px">
+    <div class="loading">載入中…</div>
+   </div>
+  </div>
+
+
+  <div class="card">
+   <h2>🚨 9月「吞噬」警報邏輯</h2>
+
+   <div class="grid">
+
+    <div class="stat">
+     <div class="label">連漲後大黑K</div>
+     <div class="value red">警戒</div>
+    </div>
+
+    <div class="stat">
+     <div class="label">跌破前低</div>
+     <div class="value red">反轉</div>
+    </div>
+
+    <div class="stat">
+     <div class="label">爆量下跌</div>
+     <div class="value orange">高風險</div>
+    </div>
+
+    <div class="stat">
+     <div class="label">站回關鍵價</div>
+     <div class="value green">恢復觀察</div>
+    </div>
+
+   </div>
+  </div>
+
+ </section>
+
+
+ <section id="hot" class="section">
+
+  <div class="card">
+
+   <h2>🔥 熱門排行</h2>
+
+   <div class="tag-row" id="hotTags"></div>
+
+   <div id="hotTable" class="table-wrap">
+    <div class="loading">載入中…</div>
+   </div>
+
+  </div>
+
+ </section>
+
+
+ <section id="sector" class="section">
+
+  <div class="card">
+
+   <h2>🌊 潮流板塊輪動</h2>
+
+   <div class="notice">
+    觀察板塊強度、成交量與法人資金方向。
+    不以單日漲幅直接追高。
+   </div>
+
+   <div id="sectorTable" class="table-wrap" style="margin-top:10px"></div>
+
+  </div>
+
+  <div class="card">
+   <h2>🔎 板塊內「下一棒」</h2>
+   <div id="nextSector" class="grid"></div>
+  </div>
+
+ </section>
+
+
+ <section id="institution" class="section">
+
+  <div class="card">
+
+   <h2>🏦 三大法人動向</h2>
+
+   <div class="grid">
+
+    <div class="stat">
+     <div class="label">外資</div>
+     <div class="value" id="foreignNow">--</div>
+    </div>
+
+    <div class="stat">
+     <div class="label">投信</div>
+     <div class="value" id="trustNow">--</div>
+    </div>
+
+    <div class="stat">
+     <div class="label">自營商</div>
+     <div class="value" id="dealerNow">--</div>
+    </div>
+
+   
