@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f7fb">
+<title>SUGO｜2026年8月視頻直播統計</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#f5f7fb;
+  color:#1f2937;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "PingFang TC",
+    "Noto Sans TC",
+    Arial,
+    sans-serif;
+}
+
+.app{
+  width:min(760px,100%);
+  margin:0 auto;
+  padding:16px 14px 40px;
+}
+
+.header{
+  text-align:center;
+  padding:10px 4px 20px;
+}
+
+.header h1{
+  margin:0;
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.header p{
+  margin:7px 0 0;
+  color:#6b7280;
+  font-size:14px;
+}
+
+/* 卡片 */
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
+
+.card-title{
+  font-size:19px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+/* 新增區 */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.field label{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+select{
+  width:100%;
+  height:48px;
+  border:1px solid #d6dae2;
+  border-radius:14px;
+  background:#fff;
+  color:#111827;
+  padding:0 12px;
+  font-size:16px;
+  outline:none;
+}
+
+select:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
+
+.add-btn{
+  width:100%;
+  height:50px;
+  margin-top:14px;
+  border:0;
+  border-radius:15px;
+  background:#2563eb;
+  color:#fff;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.add-btn:active{
+  transform:scale(.98);
+}
+
+/* 總統計 */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.stat{
+  background:#f5f7fb;
+  border-radius:17px;
+  padding:15px 10px;
+  text-align:center;
+}
+
+.stat-icon{
+  font-size:23px;
+  margin-bottom:4px;
+}
+
+.stat-number{
+  font-size:28px;
+  line-height:1.15;
+  font-weight:950;
+}
+
+.stat-label{
+  margin-top:5px;
+  color:#6b7280;
+  font-size:13px;
+  font-weight:700;
+}
+
+/* 大總計 */
+
+.total-highlight{
+  margin-top:12px;
+  padding:16px;
+  border-radius:17px;
+  background:#eff6ff;
+  text-align:center;
+}
+
+.total-highlight .big{
+  font-size:23px;
+  font-weight:950;
+}
+
+.total-highlight .small{
+  margin-top:4px;
+  color:#6b7280;
+  font-size:13px;
+}
+
+/* 時數分布 */
+
+.distribution{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.dist-row{
+  display:grid;
+  grid-template-columns:70px 1fr 55px;
+  align-items:center;
+  gap:8px;
+}
+
+.dist-hour{
+  font-weight:800;
+}
+
+.dist-bar-bg{
+  height:12px;
+  background:#edf0f4;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.dist-bar{
+  height:100%;
+  background:#2563eb;
+  border-radius:999px;
+  transition:width .25s ease;
+}
+
+.dist-days{
+  text-align:right;
+  font-weight:900;
+}
+
+/* 每日紀錄 */
+
+.record{
+  display:grid;
+  grid-template-columns:1fr 90px 62px;
+  gap:8px;
+  align-items:center;
+  padding:11px 0;
+  border-bottom:1px solid #edf0f4;
+}
+
+.record:last-child{
+  border-bottom:0;
+}
+
+.record-date{
+  font-size:16px;
+  font-weight:850;
+}
+
+.record-hours{
+  text-align:center;
+  font-size:17px;
+  font-weight:900;
+}
+
+.delete-btn{
+  height:40px;
+  border:1px solid #fecaca;
+  background:#fff;
+  border-radius:10px;
+  color:#dc2626;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.delete-btn:active{
+  transform:scale(.96);
+}
+
+.empty{
+  padding:25px 10px;
+  text-align:center;
+  color:#9ca3af;
+}
+
+/* 按鈕 */
+
+.action-row{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.secondary-btn,
+.danger-btn{
+  flex:1;
+  height:44px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.secondary-btn{
+  background:#fff;
+  border:1px solid #d6dae2;
+  color:#374151;
+}
+
+.danger-btn{
+  background:#fff;
+  border:1px solid #fecaca;
+  color:#dc2626;
+}
+
+/* 提示 */
+
+.notice{
+  text-align:center;
+  color:#6b7280;
+  font-size:12px;
+  line-height:1.7;
+  padding:4px 8px;
+}
+
+/* Toast */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  background:#111827;
+  color:#fff;
+  padding:11px 18px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:800;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:9999;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+}
+
+/* 手機 */
+
+@media(max-width:430px){
+
+  .app{
+    padding:12px 10px 35px;
+  }
+
+  .header h1{
+    font-size:24px;
+  }
+
+  .card{
+    padding:15px;
+    border-radius:19px;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat-number{
+    font-size:25px;
+  }
+
+  .record{
+    grid-template-columns:1fr 65px 55px;
+  }
+
+  .record-date{
+    font-size:15px;
+  }
+
+  .record-hours{
+    font-size:16px;
+  }
+
+  .dist-row{
+    grid-template-columns:58px 1fr 48px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- 標題 -->
+
+  <div class="header">
+    <h1>📺 SUGO 2026/08</h1>
+    <p>視頻直播時數統計</p>
+  </div>
+
+
+  <!-- 新增 -->
+
+  <div class="card">
+
+    <div class="card-title">
+      ➕ 新增直播紀錄
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="dateSelect">
+          📅 日期
+        </label>
+
+        <select id="dateSelect"></select>
+      </div>
+
+
+      <div class="field">
+        <label for="hoursSelect">
+          ⏱️ 直播時數
+        </label>
+
+        <select id="hoursSelect"></select>
+      </div>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="add-btn"
+      id="addBtn"
+    >
+      ＋ 新增／更新直播
+    </button>
+
+  </div>
+
+
+  <!-- 總統計 -->
+
+  <div class="card">
+
+    <div class="card-title">
+      📊 總統計
+    </div>
+
+
+    <div class="stats-grid">
+
+      <div class="stat">
+        <div class="stat-icon">🗓️</div>
+
+        <div
+          class="stat-number"
+          id="totalDays"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          共幾天
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-icon">⏱️</div>
+
+        <div
+          class="stat-number"
+          id="totalHours"
+        >
+          0H
+        </div>
+
+        <div class="stat-label">
+          總共幾H
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-icon">📈</div>
+
+        <div
+          class="stat-number"
+          id="averageDay"
+        >
+          0H
+        </div>
+
+        <div class="stat-label">
+          平均每天
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-icon">📅</div>
+
+        <div
+          class="stat-number"
+          id="averageWeek"
+        >
+          0H
+        </div>
+
+        <div class="stat-label">
+          平均每週
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-icon">🔝</div>
+
+        <div
+          class="stat-number"
+          id="maxHours"
+        >
+          0H
+        </div>
+
+        <div class="stat-label">
+          最長單次
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-icon">📊</div>
+
+        <div
+          class="stat-number"
+          id="currentMonth"
+        >
+          8月
+        </div>
+
+        <div class="stat-label">
+          統計月份
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="total-highlight">
+
+      <div class="big">
+        📺 共
+        <span id="summaryDays">0</span>
+        天 ／
+        <span id="summaryHours">0H</span>
+      </div>
+
+      <div class="small">
+        SUGO 2026 年 8 月視頻直播
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- 時數分布 -->
+
+  <div class="card">
+
+    <div class="card-title">
+      📊 直播時數分布
+    </div>
+
+    <div
+      class="distribution"
+      id="distribution"
+    ></div>
+
+  </div>
+
+
+  <!-- 每日紀錄 -->
+
+  <div class="card">
+
+    <div class="card-title">
+      📋 每日直播紀錄
+    </div>
+
+    <div id="recordList"></div>
+
+
+    <div class="action-row">
+
+      <button
+        type="button"
+        class="secondary-btn"
+        id="sortBtn"
+      >
+        🔽 日期排序
+      </button>
+
+
+      <button
+        type="button"
+        class="danger-btn"
+        id="clearBtn"
+      >
+        🗑️ 清除全部
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="notice">
+
+    同一天再次新增會直接更新該天時數，不會重複計算。<br>
+
+    資料會自動保存在此裝置的瀏覽器中。
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<script>
+
+(function(){
+
+"use strict";
+
+
+/* ================================
+   設定
+================================ */
+
+const STORAGE_KEY =
+  "SUGO_LIVE_2026_08";
+
+
+/* ================================
+   找到畫面元件
+================================ */
+
+const dateSelect =
+  document.getElementById("dateSelect");
+
+const hoursSelect =
+  document.getElementById("hoursSelect");
+
+const addBtn =
+  document.getElementById("addBtn");
+
+const totalDays =
+  document.getElementById("totalDays");
+
+const totalHours =
+  document.getElementById("totalHours");
+
+const averageDay =
+  document.getElementById("averageDay");
+
+const averageWeek =
+  document.getElementById("averageWeek");
+
+const maxHours =
+  document.getElementById("maxHours");
+
+const summaryDays =
+  document.getElementById("summaryDays");
+
+const summaryHours =
+  document.getElementById("summaryHours");
+
+const recordList =
+  document.getElementById("recordList");
+
+const distribution =
+  document.getElementById("distribution");
+
+const clearBtn =
+  document.getElementById("clearBtn");
+
+const sortBtn =
+  document.getElementById("sortBtn");
+
+const toast =
+  document.getElementById("toast");
+
+
+/* ================================
+   你目前的 8 月資料
+================================ */
+
+const DEFAULT_RECORDS = {
+
+  "2026-08-03":2,
+
+  "2026-08-07":1,
+
+  "2026-08-09":1,
+
+  "2026-08-10":1.5,
+
+  "2026-08-11":2,
+
+  "2026-08-13":1,
+
+  "2026-08-14":1,
+
+  "2026-08-16":2,
+
+  "2026-08-17":2,
+
+  "2026-08-18":2,
+
+  "2026-08-19":2,
+
+  "2026-08-20":1,
+
+  "2026-08-21":1,
+
+  "2026-08-23":2,
+
+  "2026-08-24":2,
+
+  "2026-08-25":2,
+
+  "2026-08-26":2,
+
+  "2026-08-27":1,
+
+  "2026-08-31":2
+
+};
+
+
+let records = {};
+
+let ascending = true;
+
+
+/* ================================
+   建立日期選項
+================================ */
+
+for(
+  let day = 1;
+  day <= 31;
+  day++
+){
+
+  const date =
+    "2026-08-" +
+    String(day).padStart(2,"0");
+
+
+  const option =
+    document.createElement("option");
+
+
+  option.value =
+    date;
+
+
+  option.textContent =
+    "08/" +
+    String(day).padStart(2,"0");
+
+
+  dateSelect.appendChild(option);
+
+}
+
+
+/* ================================
+   建立 H 選項
+================================ */
+
+for(
+  let h = 0.5;
+  h <= 12;
+  h += 0.5
+){
+
+  const option =
+    document.createElement("option");
+
+
+  option.value =
+    h;
+
+
+  option.textContent =
+    formatHours(h);
+
+
+  hoursSelect.appendChild(option);
+
+}
+
+
+/* ================================
+   H 格式
+================================ */
+
+function formatHours(value){
+
+  const number =
+    Number(value);
+
+
+  if(
+    !Number.isFinite(number)
+  ){
+
+    return "0H";
+
+  }
+
+
+  if(
+    Number.isInteger(number)
+  ){
+
+    return number + "H";
+
+  }
+
+
+  return number.toFixed(1) + "H";
+
+}
+
+
+/* ================================
+   日期格式
+================================ */
+
+function formatDate(value){
+
+  const parts =
+    value.split("-");
+
+
+  return (
+    parts[1] +
+    "/" +
+    parts[2]
+  );
+
+}
+
+
+/* ================================
+   顯示提示
+================================ */
+
+function showToast(message){
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add("show");
+
+
+  clearTimeout(
+    showToast.timer
+  );
+
+
+  showToast.timer =
+    setTimeout(
+      function(){
+
+        toast.classList.remove("show");
+
+      },
+      1800
+    );
+
+}
+
+
+/* ================================
+   載入
+================================ */
+
+function loadRecords(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+
+    if(saved){
+
+      const parsed =
+        JSON.parse(saved);
+
+
+      if(
+        parsed &&
+        typeof parsed === "object"
+      ){
+
+        records =
+          parsed;
+
+      }else{
+
+        records =
+          {...DEFAULT_RECORDS};
+
+      }
+
+    }else{
+
+      records =
+        {...DEFAULT_RECORDS};
+
+      saveRecords();
+
+    }
+
+  }catch(error){
+
+    records =
+      {...DEFAULT_RECORDS};
+
+  }
+
+}
+
+
+/* ================================
+   儲存
+================================ */
+
+function saveRecords(){
+
+  try{
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(records)
+    );
+
+  }catch(error){
+
+    console.log(
+      "無法儲存資料"
+    );
+
+  }
+
+}
+
+
+/* ================================
+   取得有效資料
+================================ */
+
+function getValidDates(){
+
+  return Object.keys(records)
+    .filter(function(date){
+
+      const hours =
+        Number(records[date]);
+
+
+      return (
+        /^2026-08-(0[1-9]|[12][0-9]|3[01])$/
+        .test(date)
+        &&
+        Number.isFinite(hours)
+        &&
+        hours > 0
+      );
+
+    });
+
+}
+
+
+/* ================================
+   總時數
+================================ */
+
+function calculateTotal(){
+
+  let total = 0;
+
+
+  getValidDates()
+    .forEach(function(date){
+
+      total +=
+        Number(records[date]);
+
+    });
+
+
+  return total;
+
+}
+
+
+/* ================================
+   更新統計
+================================ */
+
+function renderStats(){
+
+  const dates =
+    getValidDates();
+
+
+  const days =
+    dates.length;
+
+
+  const total =
+    calculateTotal();
+
+
+  let max = 0;
+
+
+  dates.forEach(function(date){
+
+    const h =
+      Number(records[date]);
+
+
+    if(h > max){
+
+      max = h;
+
+    }
+
+  });
+
+
+  let avgDay = 0;
+
+
+  if(days > 0){
+
+    avgDay =
+      total / days;
+
+  }
+
+
+  /*
+    8 月平均每週：
+    以該月份的日曆天數計算
+    30.5 ÷ 31 × 7
+  */
+
+  const avgWeek =
+    total / 31 * 7;
+
+
+  totalDays.textContent =
+    days;
+
+
+  totalHours.textContent =
+    formatHours(total);
+
+
+  averageDay.textContent =
+    avgDay.toFixed(2) + "H";
+
+
+  averageWeek.textContent =
+    avgWeek.toFixed(2) + "H";
+
+
+  maxHours.textContent =
+    formatHours(max);
+
+
+  summaryDays.textContent =
+    days;
+
+
+  summaryHours.textContent =
+    formatHours(total);
+
+}
+
+
+/* ================================
+   時數分布
+================================ */
+
+function renderDistribution(){
+
+  const dates =
+    getValidDates();
+
+
+  const counts = {};
+
+
+  dates.forEach(function(date){
+
+    const h =
+      Number(records[date]);
+
+
+    const key =
+      h.toFixed(1);
+
+
+    if(!counts[key]){
+
+      counts[key] = 0;
+
+    }
+
+
+    counts[key]++;
+
+  });
+
+
+  const keys =
+    Object.keys(counts)
+      .map(Number)
+      .sort(function(a,b){
+
+        return a-b;
+
+      });
+
+
+  distribution.innerHTML =
+    "";
+
+
+  if(keys.length === 0){
+
+    distribution.innerHTML =
+      '<div class="empty">目前沒有資料</div>';
+
+    return;
+
+  }
+
+
+  let maxCount = 0;
+
+
+  keys.forEach(function(h){
+
+    const count =
+      counts[h.toFixed(1)];
+
+
+    if(count > maxCount){
+
+      maxCount =
+        count;
+
+    }
+
+  });
+
+
+  keys.forEach(function(h){
+
+    const count =
+      counts[h.toFixed(1)];
+
+
+    const row =
+      document.createElement("div");
+
+
+    row.className =
+      "dist-row";
+
+
+    const hour =
+      document.createElement("div");
+
+
+    hour.className =
+      "dist-hour";
+
+
+    hour.textContent =
+      formatHours(h);
+
+
+    const bg =
+      document.createElement("div");
+
+
+    bg.className =
+      "dist-bar-bg";
+
+
+    const bar =
+      document.createElement("div");
+
+
+    bar.className =
+      "dist-bar";
+
+
+    const percent =
+      maxCount > 0
+      ? (count / maxCount) * 100
+      : 0;
+
+
+    bar.style.width =
+      percent + "%";
+
+
+    bg.appendChild(bar);
+
+
+    const day =
+      document.createElement("div");
+
+
+    day.className =
+      "dist-days";
+
+
+    day.textContent =
+      count + "天";
+
+
+    row.appendChild(hour);
+
+    row.appendChild(bg);
+
+    row.appendChild(day);
+
+
+    distribution.appendChild(row);
+
+  });
+
+}
+
+
+/* ================================
+   每日紀錄
+================================ */
+
+function renderRecords(){
+
+  let dates =
+    getValidDates();
+
+
+  dates.sort(function(a,b){
+
+    if(ascending){
+
+      return a.localeCompare(b);
+
+    }
+
+
+    return b.localeCompare(a);
+
+  });
+
+
+  recordList.innerHTML =
+    "";
+
+
+  if(dates.length === 0){
+
+    recordList.innerHTML =
+      '<div class="empty">目前沒有直播紀錄</div>';
+
+    return;
+
+  }
+
+
+  dates.forEach(function(date){
+
+    const row =
+      document.createElement("div");
+
+
+    row.className =
+      "record";
+
+
+    const dateDiv =
+      document.createElement("div");
+
+
+    dateDiv.className =
+      "record-date";
+
+
+    dateDiv.textContent =
+      "📅 " +
+      formatDate(date);
+
+
+    const hoursDiv =
+      document.createElement("div");
+
+
+    hoursDiv.className =
+      "record-hours";
+
+
+    hoursDiv.textContent =
+      formatHours(
+        records[date]
+      );
+
+
+    const deleteBtn =
+      document.createElement("button");
+
+
+    deleteBtn.type =
+      "button";
+
+
+    deleteBtn.className =
+      "delete-btn";
+
+
+    deleteBtn.textContent =
+      "刪除";
+
+
+    deleteBtn.addEventListener(
+      "click",
+      function(){
+
+        const ok =
+          confirm(
+            "確定刪除 " +
+            formatDate(date) +
+            " 的紀錄嗎？"
+          );
+
+
+        if(!ok){
+
+          return;
+
+        }
+
+
+        delete records[date];
+
+
+        saveRecords();
+
+
+        render();
+
+
+        showToast(
+          "已刪除 " +
+          formatDate(date)
+        );
+
+      }
+    );
+
+
+    row.appendChild(
+      dateDiv
+    );
+
+
+    row.appendChild(
+      hoursDiv
+    );
+
+
+    row.appendChild(
+      deleteBtn
+    );
+
+
+    recordList.appendChild(
+      row
+    );
+
+  });
+
+}
+
+
+/* ================================
+   完整重新整理
+================================ */
+
+function render(){
+
+  renderStats();
+
+  renderDistribution();
+
+  renderRecords();
+
+}
+
+
+/* ================================
+   新增／更新
+================================ */
+
+addBtn.addEventListener(
+  "click",
+  function(){
+
+    const date =
+      dateSelect.value;
+
+
+    const hours =
+      Number(
+        hoursSelect.value
+      );
+
+
+    if(!date){
+
+      showToast(
+        "請選擇日期"
+      );
+
+      return;
+
+    }
+
+
+    if(
+      !Number.isFinite(hours)
+      ||
+      hours <= 0
+    ){
+
+      showToast(
+        "請選擇直播時數"
+      );
+
+      return;
+
+    }
+
+
+    const existed =
+      Object.prototype.hasOwnProperty.call(
+        records,
+        date
+      );
+
+
+    records[date] =
+      hours;
+
+
+    saveRecords();
+
+
+    render();
+
+
+    if(existed){
+
+      showToast(
+        "已更新 " +
+        formatDate(date) +
+        "：" +
+        formatHours(hours)
+      );
+
+    }else{
+
+      showToast(
+        "已新增 " +
+        formatDate(date) +
+        "：" +
+        formatHours(hours)
+      );
+
+    }
+
+  }
+);
+
+
+/* ================================
+   排序
+================================ */
+
+sortBtn.addEventListener(
+  "click",
+  function(){
+
+    ascending =
+      !ascending;
+
+
+    if(ascending){
+
+      sortBtn.textContent =
+        "🔽 日期排序";
+
+    }else{
+
+      sortBtn.textContent =
+        "🔼 日期排序";
+
+    }
+
+
+    renderRecords();
+
+  }
+);
+
+
+/* ================================
+   清除全部
+================================ */
+
+clearBtn.addEventListener(
+  "click",
+  function(){
+
+    const ok =
+      confirm(
+        "確定要清除全部 8 月直播紀錄嗎？"
+      );
+
+
+    if(!ok){
+
+      return;
+
+    }
+
+
+    records = {};
+
+
+    saveRecords();
+
+
+    render();
+
+
+    showToast(
+      "已清除全部紀錄"
+    );
+
+  }
+);
+
+
+/* ================================
+   初始化
+================================ */
+
+loadRecords();
+
+
+dateSelect.value =
+  "2026-08-31";
+
+
+hoursSelect.value =
+  "2";
+
+
+render();
+
+
+})();
+</script>
+
+</body>
+</html>
