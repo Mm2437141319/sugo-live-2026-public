@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SUGO 2026/08｜視頻直播時數統計</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:0;
+    background:#f4f7fc;
+    color:#182230;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "PingFang TC",
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        Arial,
+        sans-serif;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:min(920px,100%);
+    margin:0 auto;
+    padding:28px 20px 60px;
+}
+
+/* =========================
+   標題
+========================= */
+
+.header{
+    text-align:center;
+    padding:12px 10px 28px;
+}
+
+.title-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
+.title-input{
+    width:100%;
+    max-width:680px;
+    border:0;
+    outline:none;
+    background:transparent;
+    text-align:center;
+    color:#182230;
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:-1px;
+    padding:5px 8px;
+}
+
+.title-input:focus{
+    background:#ffffff;
+    border-radius:16px;
+    box-shadow:0 0 0 3px rgba(55,100,225,.12);
+}
+
+.subtitle{
+    margin-top:4px;
+    font-size:22px;
+    font-weight:700;
+    color:#6d7480;
+}
+
+/* =========================
+   卡片
+========================= */
+
+.card{
+    background:#ffffff;
+    border:1px solid #e3e7ee;
+    border-radius:30px;
+    padding:28px;
+    margin-bottom:22px;
+    box-shadow:
+        0 3px 12px rgba(20,35,60,.04);
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:30px;
+    font-weight:900;
+    margin-bottom:24px;
+}
+
+.section-icon{
+    font-size:30px;
+}
+
+/* =========================
+   新增區
+========================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form-label{
+    display:block;
+    font-size:22px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.input-box{
+    width:100%;
+    height:74px;
+    border:2px solid #dce1e9;
+    border-radius:24px;
+    background:#fff;
+    padding:0 22px;
+    font-size:24px;
+    font-weight:800;
+    color:#182230;
+    outline:none;
+}
+
+.input-box:focus{
+    border-color:#3864e5;
+    box-shadow:0 0 0 4px rgba(56,100,229,.10);
+}
+
+.primary-btn{
+    width:100%;
+    height:76px;
+    border:0;
+    border-radius:25px;
+    background:#3864e5;
+    color:white;
+    font-size:27px;
+    font-weight:900;
+    margin-top:22px;
+    box-shadow:0 8px 18px rgba(56,100,229,.18);
+}
+
+.primary-btn:active{
+    transform:scale(.985);
+}
+
+/* =========================
+   統計
+========================= */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.stat{
+    background:#f4f7fc;
+    border-radius:28px;
+    min-height:190px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px 12px;
+}
+
+.stat-icon{
+    font-size:42px;
+    margin-bottom:6px;
+}
+
+.stat-number{
+    font-size:54px;
+    line-height:1.05;
+    font-weight:950;
+    letter-spacing:-1px;
+}
+
+.stat-label{
+    font-size:21px;
+    color:#6d7480;
+    font-weight:800;
+    margin-top:8px;
+}
+
+/* =========================
+   總結
+========================= */
+
+.summary{
+    background:#edf4ff;
+    border-radius:28px;
+    padding:26px 20px;
+    text-align:center;
+}
+
+.summary-main{
+    font-size:37px;
+    font-weight:950;
+}
+
+.summary-sub{
+    margin-top:6px;
+    color:#6d7480;
+    font-size:20px;
+    font-weight:800;
+}
+
+/* =========================
+   分布
+========================= */
+
+.distribution-row{
+    display:grid;
+    grid-template-columns:110px 1fr 80px;
+    align-items:center;
+    gap:12px;
+    margin:18px 0;
+}
+
+.distribution-name{
+    font-size:24px;
+    font-weight:900;
+}
+
+.bar-bg{
+    width:100%;
+    height:28px;
+    background:#e9edf3;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.bar{
+    height:100%;
+    background:#3864e5;
+    border-radius:20px;
+    transition:width .3s ease;
+}
+
+.distribution-count{
+    text-align:right;
+    font-size:23px;
+    font-weight:900;
+}
+
+/* =========================
+   紀錄工具列
+========================= */
+
+.record-toolbar{
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.tool-btn{
+    flex:1;
+    min-height:58px;
+    border-radius:18px;
+    border:2px solid #dce1e9;
+    background:white;
+    color:#182230;
+    font-size:19px;
+    font-weight:900;
+}
+
+.tool-btn:active{
+    transform:scale(.98);
+}
+
+.clear-all{
+    color:#d93636;
+    border-color:#f2c7c7;
+}
+
+/* =========================
+   查看區
+========================= */
+
+.records-wrap{
+    display:none;
+}
+
+.records-wrap.show{
+    display:block;
+}
+
+.record-row{
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    align-items:center;
+    gap:15px;
+    padding:20px 0;
+    border-bottom:1px solid #e8ebf0;
+}
+
+.record-row:last-child{
+    border-bottom:0;
+}
+
+.record-date{
+    font-size:24px;
+    font-weight:900;
+}
+
+.record-hours{
+    font-size:24px;
+    font-weight:950;
+    min-width:70px;
+    text-align:right;
+}
+
+.delete-btn{
+    border:2px solid #f3cccc;
+    background:white;
+    color:#d93636;
+    border-radius:18px;
+    padding:13px 19px;
+    font-size:18px;
+    font-weight:900;
+}
+
+.delete-btn:active{
+    transform:scale(.96);
+}
+
+.empty{
+    text-align:center;
+    color:#8a919c;
+    font-size:20px;
+    font-weight:800;
+    padding:35px 10px;
+}
+
+/* =========================
+   提示
+========================= */
+
+.note{
+    margin-top:18px;
+    text-align:center;
+    color:#747c88;
+    font-size:17px;
+    font-weight:700;
+    line-height:1.7;
+}
+
+.save-status{
+    text-align:center;
+    color:#3864e5;
+    font-size:15px;
+    font-weight:800;
+    margin-top:8px;
+    min-height:22px;
+}
+
+/* =========================
+   彈窗
+========================= */
+
+.modal-mask{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.42);
+    z-index:9999;
+    padding:20px;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-mask.show{
+    display:flex;
+}
+
+.modal{
+    width:min(430px,100%);
+    background:#fff;
+    border-radius:28px;
+    padding:28px 24px 22px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+.modal-icon{
+    font-size:48px;
+    margin-bottom:8px;
+}
+
+.modal-title{
+    font-size:26px;
+    font-weight:950;
+}
+
+.modal-text{
+    color:#666f7b;
+    font-size:18px;
+    font-weight:700;
+    line-height:1.6;
+    margin:12px 0 22px;
+}
+
+.modal-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.modal-btn{
+    height:56px;
+    border-radius:17px;
+    font-size:19px;
+    font-weight:900;
+    border:0;
+}
+
+.modal-cancel{
+    background:#eef1f5;
+    color:#182230;
+}
+
+.modal-confirm{
+    background:#df3d3d;
+    color:white;
+}
+
+/* =========================
+   RWD
+========================= */
+
+@media(max-width:650px){
+
+    .container{
+        padding:20px 14px 45px;
+    }
+
+    .header{
+        padding-top:8px;
+        padding-bottom:22px;
+    }
+
+    .title-input{
+        font-size:34px;
+    }
+
+    .subtitle{
+        font-size:18px;
+    }
+
+    .card{
+        border-radius:25px;
+        padding:21px 18px;
+        margin-bottom:17px;
+    }
+
+    .card-title{
+        font-size:27px;
+        margin-bottom:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .form-label{
+        font-size:20px;
+    }
+
+    .input-box{
+        height:66px;
+        font-size:22px;
+        border-radius:20px;
+    }
+
+    .primary-btn{
+        height:68px;
+        font-size:23px;
+        border-radius:21px;
+    }
+
+    .stats-grid{
+        gap:12px;
+    }
+
+    .stat{
+        min-height:155px;
+        border-radius:23px;
+    }
+
+    .stat-icon{
+        font-size:34px;
+    }
+
+    .stat-number{
+        font-size:42px;
+    }
+
+    .stat-label{
+        font-size:17px;
+    }
+
+    .summary-main{
+        font-size:30px;
+    }
+
+    .summary-sub{
+        font-size:17px;
+    }
+
+    .distribution-row{
+        grid-template-columns:65px 1fr 62px;
+        gap:8px;
+    }
+
+    .distribution-name{
+        font-size:20px;
+    }
+
+    .distribution-count{
+        font-size:19px;
+    }
+
+    .record-row{
+        grid-template-columns:1fr auto;
+        gap:8px;
+    }
+
+    .record-date{
+        font-size:21px;
+    }
+
+    .record-hours{
+        font-size:22px;
+    }
+
+    .delete-btn{
+        grid-column:2;
+        padding:10px 15px;
+        font-size:17px;
+    }
+
+    .tool-btn{
+        font-size:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         標題
+    ========================== -->
+    <header class="header">
+
+        <div class="title-wrap">
+            <input
+                id="titleInput"
+                class="title-input"
+                type="text"
+                value="📺 SUGO 2026/08"
+                maxlength="50"
+                aria-label="統計標題"
+            >
+        </div>
+
+        <div class="subtitle">
+            視頻直播時數統計
+        </div>
+
+        <div id="saveStatus" class="save-status"></div>
+
+    </header>
+
+
+    <!-- =========================
+         新增直播
+    ========================== -->
+    <section class="card">
+
+        <div class="card-title">
+            <span class="section-icon">➕</span>
+            新增直播紀錄
+        </div>
+
+        <div class="form-grid">
+
+            <div>
+                <label class="form-label" for="dateInput">
+                    📅 日期
+                </label>
+
+                <input
+                    id="dateInput"
+                    class="input-box"
+                    type="date"
+                >
+            </div>
+
+            <div>
+                <label class="form-label" for="hoursInput">
+                    ⏱️ 直播時數
+                </label>
+
+                <select id="hoursInput" class="input-box">
+                    <option value="0.5">0.5H</option>
+                    <option value="1">1H</option>
+                    <option value="1.5">1.5H</option>
+                    <option value="2" selected>2H</option>
+                    <option value="2.5">2.5H</option>
+                    <option value="3">3H</option>
+                    <option value="3.5">3.5H</option>
+                    <option value="4">4H</option>
+                    <option value="4.5">4.5H</option>
+                    <option value="5">5H</option>
+                    <option value="5.5">5.5H</option>
+                    <option value="6">6H</option>
+                    <option value="6.5">6.5H</option>
+                    <option value="7">7H</option>
+                    <option value="7.5">7.5H</option>
+                    <option value="8">8H</option>
+                    <option value="8.5">8.5H</option>
+                    <option value="9">9H</option>
+                    <option value="9.5">9.5H</option>
+                    <option value="10">10H</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button
+            id="addBtn"
+            class="primary-btn"
+            type="button"
+        >
+            ＋ 新增／更新直播
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         總統計
+    ========================== -->
+    <section class="card">
+
+        <div class="card-title">
+            <span class="section-icon">📊</span>
+            總統計
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat">
+                <div class="stat-icon">🗓️</div>
+                <div id="totalDays" class="stat-number">0</div>
+                <div class="stat-label">共幾天</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">⏱️</div>
+                <div id="totalHours" class="stat-number">0H</div>
+                <div class="stat-label">總共幾H</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">📈</div>
+                <div id="avgDay" class="stat-number">0H</div>
+                <div class="stat-label">平均每天</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">📅</div>
+                <div id="avgWeek" class="stat-number">0H</div>
+                <div class="stat-label">平均每週</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">🔝</div>
+                <div id="maxHours" class="stat-number">0H</div>
+                <div class="stat-label">最長單次</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">📊</div>
+                <div id="statMonth" class="stat-number">--</div>
+                <div class="stat-label">統計月份</div>
+            </div>
+
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="summary">
+            <div id="summaryMain" class="summary-main">
+                📺 共 0 天 / 0H
+            </div>
+
+            <div id="summarySub" class="summary-sub">
+                SUGO 視頻直播統計
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         直播時數分布
+    ========================== -->
+    <section class="card">
+
+        <div class="card-title">
+            <span class="section-icon">📊</span>
+            直播時數分布
+        </div>
+
+        <div id="distribution"></div>
+
+    </section>
+
+
+    <!-- =========================
+         每日紀錄
+    ========================== -->
+    <section class="card">
+
+        <div class="card-title">
+            <span class="section-icon">📋</span>
+            每日直播紀錄
+        </div>
+
+        <div class="record-toolbar">
+
+            <button
+                id="viewBtn"
+                class="tool-btn"
+                type="button"
+            >
+                👀 查看
+            </button>
+
+            <button
+                id="sortBtn"
+                class="tool-btn"
+                type="button"
+            >
+                🔽 日期排序
+            </button>
+
+            <button
+                id="clearAllBtn"
+                class="tool-btn clear-all"
+                type="button"
+            >
+                🗑️ 清除全部
+            </button>
+
+        </div>
+
+        <div id="recordsWrap" class="records-wrap">
+            <div id="records"></div>
+        </div>
+
+        <div class="note">
+            同一天再次新增會直接更新該天時數，不會重複計算。<br>
+            資料會自動保存在此裝置的瀏覽器中。
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     確認刪除彈窗
+========================== -->
+<div id="modalMask" class="modal-mask">
+
+    <div class="modal">
+
+        <div class="modal-icon">⚠️</div>
+
+        <div id="modalTitle" class="modal-title">
+            確定要刪除嗎？
+        </div>
+
+        <div id="modalText" class="modal-text">
+            刪除後資料將無法復原。
+        </div>
+
+        <div class="modal-buttons">
+
+            <button
+                id="modalCancel"
+                class="modal-btn modal-cancel"
+                type="button"
+            >
+                取消
+            </button>
+
+            <button
+                id="modalConfirm"
+                class="modal-btn modal-confirm"
+                type="button"
+            >
+                確定刪除
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   SUGO 直播統計
+   完整版
+========================================================= */
+
+(function(){
+
+    "use strict";
+
+
+    /* =====================================================
+       LocalStorage
+    ===================================================== */
+
+    const STORAGE_KEY = "sugo_live_records_v2";
+    const TITLE_KEY = "sugo_live_title_v2";
+    const SORT_KEY = "sugo_live_sort_v2";
+
+
+    /* =====================================================
+       DOM
+    ===================================================== */
+
+    const titleInput = document.getElementById("titleInput");
+    const dateInput = document.getElementById("dateInput");
+    const hoursInput = document.getElementById("hoursInput");
+    const addBtn = document.getElementById("addBtn");
+
+    const totalDays = document.getElementById("totalDays");
+    const totalHours = document.getElementById("totalHours");
+    const avgDay = document.getElementById("avgDay");
+    const avgWeek = document.getElementById("avgWeek");
+    const maxHours = document.getElementById("maxHours");
+    const statMonth = document.getElementById("statMonth");
+
+    const summaryMain = document.getElementById("summaryMain");
+    const summarySub = document.getElementById("summarySub");
+
+    const distribution = document.getElementById("distribution");
+
+    const viewBtn = document.getElementById("viewBtn");
+    const sortBtn = document.getElementById("sortBtn");
+    const clearAllBtn = document.getElementById("clearAllBtn");
+
+    const recordsWrap = document.getElementById("recordsWrap");
+    const recordsEl = document.getElementById("records");
+
+    const modalMask = document.getElementById("modalMask");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalText = document.getElementById("modalText");
+    const modalCancel = document.getElementById("modalCancel");
+    const modalConfirm = document.getElementById("modalConfirm");
+
+    const saveStatus = document.getElementById("saveStatus");
+
+
+    /* =====================================================
+       初始資料
+       使用你目前截圖中的 19 天 / 30.5H
+    ===================================================== */
+
+    const initialRecords = [
+        {date:"2026-08-03", hours:2},
+        {date:"2026-08-07", hours:1},
+        {date:"2026-08-09", hours:1},
+        {date:"2026-08-10", hours:1.5},
+        {date:"2026-08-11", hours:2},
+        {date:"2026-08-13", hours:1},
+        {date:"2026-08-14", hours:1},
+        {date:"2026-08-16", hours:2},
+        {date:"2026-08-17", hours:2},
+        {date:"2026-08-18", hours:2},
+        {date:"2026-08-19", hours:2},
+        {date:"2026-08-20", hours:1},
+        {date:"2026-08-21", hours:1},
+        {date:"2026-08-23", hours:2},
+        {date:"2026-08-24", hours:2},
+        {date:"2026-08-25", hours:2},
+        {date:"2026-08-26", hours:2},
+        {date:"2026-08-27", hours:1},
+        {date:"2026-08-31", hours:2}
+    ];
+
+
+    /* =====================================================
+       資料
+    ===================================================== */
+
+    let records = loadRecords();
+
+    let sortNewestFirst = localStorage.getItem(SORT_KEY) !== "oldest";
+
+    let pendingAction = null;
+
+    let recordsVisible = false;
+
+
+    /* =====================================================
+       初始化
+    ===================================================== */
+
+    function init(){
+
+        const savedTitle = localStorage.getItem(TITLE_KEY);
+
+        if(savedTitle !== null && savedTitle.trim() !== ""){
+            titleInput.value = savedTitle;
+        }
+
+        setTodayIfEmpty();
+
+        renderAll();
+
+        recordsVisible = false;
+        recordsWrap.classList.remove("show");
+        viewBtn.textContent = "👀 查看";
+
+    }
+
+
+    /* =====================================================
+       載入資料
+    ===================================================== */
+
+    function loadRecords(){
+
+        try{
+
+            const saved = localStorage.getItem(STORAGE_KEY);
+
+            if(saved){
+
+                const parsed = JSON.parse(saved);
+
+                if(Array.isArray(parsed)){
+
+                    return parsed
+                        .filter(item =>
+                            item &&
+                            typeof item.date === "string" &&
+                            Number.isFinite(Number(item.hours))
+                        )
+                        .map(item => ({
+                            date:item.date,
+                            hours:Number(item.hours)
+                        }));
+
+                }
+
+            }
+
+        }catch(error){
+
+            console.error("讀取資料失敗：",error);
+
+        }
+
+
+        /* 第一次使用 → 使用目前截圖資料 */
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(initialRecords)
+        );
+
+        return [...initialRecords];
+
+    }
+
+
+    /* =====================================================
+       儲存資料
+    ===================================================== */
+
+    function saveRecords(){
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(records)
+        );
+
+        showSaved();
+
+    }
+
+
+    /* =====================================================
+       儲存標題
+    ===================================================== */
+
+    function saveTitle(){
+
+        let title = titleInput.value.trim();
+
+        if(title === ""){
+            title = "📺 SUGO";
+            titleInput.value = title;
+        }
+
+        localStorage.setItem(TITLE_KEY,title);
+
+        document.title = title + "｜視頻直播時數統計";
+
+        showSaved();
+
+    }
+
+
+    /* =====================================================
+       儲存提示
+    ===================================================== */
+
+    let saveTimer = null;
+
+    function showSaved(){
+
+        saveStatus.textContent = "✓ 已自動儲存";
+
+        clearTimeout(saveTimer);
+
+        saveTimer = setTimeout(function(){
+
+            saveStatus.textContent = "";
+
+        },1200);
+
+    }
+
+
+    /* =====================================================
+       日期
+    ===================================================== */
+
+    function setTodayIfEmpty(){
+
+        if(dateInput.value) return;
+
+        const now = new Date();
+
+        const y = now.getFullYear();
+
+        const m = String(now.getMonth()+1).padStart(2,"0");
+
+        const d = String(now.getDate()).padStart(2,"0");
+
+        dateInput.value = `${y}-${m}-${d}`;
+
+    }
+
+
+    /* =====================================================
+       格式化日期
+    ===================================================== */
+
+    function formatDate(dateString){
+
+        const parts = dateString.split("-");
+
+        if(parts.length !== 3){
+            return dateString;
+        }
+
+        return `${parts[1]}/${parts[2]}`;
+
+    }
+
+
+    /* =====================================================
+       顯示小數
+    ===================================================== */
+
+    function formatHours(value){
+
+        const num = Number(value);
+
+        if(!Number.isFinite(num)){
+            return "0";
+        }
+
+        if(Number.isInteger(num)){
+            return String(num);
+        }
+
+        return num.toFixed(2).replace(/0+$/,"").replace(/\.$/,"");
+
+    }
+
+
+    /* =====================================================
+       取得月份
+    ===================================================== */
+
+    function getMonthText(){
+
+        if(records.length === 0){
+
+            const value = dateInput.value;
+
+            if(value){
+
+                const month = Number(value.split("-")[1]);
+
+                return month + "月";
+
+            }
+
+            return "--";
+
+        }
+
+        const months = {};
+
+        records.forEach(item => {
+
+            const month = item.date.substring(0,7);
+
+            months[month] = (months[month] || 0) + 1;
+
+        });
+
+        const keys = Object.keys(months);
+
+        keys.sort();
+
+        const latest = keys[keys.length - 1];
+
+        if(!latest) return "--";
+
+        return Number(latest.substring(5,7)) + "月";
+
+    }
+
+
+    /* =====================================================
+       計算統計
+    ===================================================== */
+
+    function calculateStats(){
+
+        const days = records.length;
+
+        const hours = records.reduce(
+            (sum,item) => sum + Number(item.hours),
+            0
+        );
+
+        const averageDay = days > 0
+            ? hours / days
+            : 0;
+
+        const averageWeek = days > 0
+            ? hours / (days / 7)
+            : 0;
+
+        const max = days > 0
+            ? Math.max(...records.map(item => Number(item.hours)))
+            : 0;
+
+        return {
+            days,
+            hours,
+            averageDay,
+            averageWeek,
+            max
+        };
+
+    }
+
+
+    /* =====================================================
+       更新統計
+    ===================================================== */
+
+    function renderStats(){
+
+        const stats = calculateStats();
+
+        totalDays.textContent = stats.days;
+
+        totalHours.textContent =
+            formatHours(stats.hours) + "H";
+
+        avgDay.textContent =
+            formatHours(stats.averageDay) + "H";
+
+        avgWeek.textContent =
+            formatHours(stats.averageWeek) + "H";
+
+        maxHours.textContent =
+            formatHours(stats.max) + "H";
+
+        statMonth.textContent =
+            getMonthText();
+
+        summaryMain.textContent =
+            `📺 共 ${stats.days} 天 / ${formatHours(stats.hours)}H`;
+
+        summarySub.textContent =
+            `${titleInput.value.trim() || "SUGO"} 視頻直播`;
+
+    }
+
+
+    /* =====================================================
+       時數分布
+    ===================================================== */
+
+    function renderDistribution(){
+
+        const distributionMap = {};
+
+        records.forEach(item => {
+
+            const h = Number(item.hours);
+
+            const key = formatHours(h);
+
+            distributionMap[key] =
+                (distributionMap[key] || 0) + 1;
+
+        });
+
+
+        const keys = Object.keys(distributionMap)
+            .map(Number)
+            .sort((a,b) => a-b);
+
+
+        if(keys.length === 0){
+
+            distribution.innerHTML =
+                `<div class="empty">目前沒有直播紀錄</div>`;
+
+            return;
+
+        }
+
+
+        const maxCount = Math.max(
+            ...keys.map(k => distributionMap[formatHours(k)])
+        );
+
+
+        distribution.innerHTML = "";
+
+
+        keys.forEach(hour => {
+
+            const key = formatHours(hour);
+
+            const count = distributionMap[key];
+
+            const percent =
+                maxCount > 0
+                ? (count / maxCount) * 100
+                : 0;
+
+
+            const row = document.createElement("div");
+
+            row.className = "distribution-row";
+
+
+            const name = document.createElement("div");
+
+            name.className = "distribution-name";
+
+            name.textContent = key + "H";
+
+
+            const bg = document.createElement("div");
+
+            bg.className = "bar-bg";
+
+
+            const bar = document.createElement("div");
+
+            bar.className = "bar";
+
+            bar.style.width = percent + "%";
+
+
+            bg.appendChild(bar);
+
+
+            const countEl = document.createElement("div");
+
+            countEl.className = "distribution-count";
+
+            countEl.textContent = count + "天";
+
+
+            row.appendChild(name);
+
+            row.appendChild(bg);
+
+            row.appendChild(countEl);
+
+
+            distribution.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       排序
+    ===================================================== */
+
+    function getSortedRecords(){
+
+        const copy = [...records];
+
+        copy.sort((a,b) => {
+
+            const comparison =
+                a.date.localeCompare(b.date);
+
+            return sortNewestFirst
+                ? -comparison
+                : comparison;
+
+        });
+
+        return copy;
+
+    }
+
+
+    /* =====================================================
+       顯示紀錄
+    ===================================================== */
+
+    function renderRecords(){
+
+        recordsEl.innerHTML = "";
+
+
+        const sorted = getSortedRecords();
+
+
+        if(sorted.length === 0){
+
+            recordsEl.innerHTML =
+                `<div class="empty">
+                    📋 目前沒有直播紀錄
+                 </div>`;
+
+            return;
+
+        }
+
+
+        sorted.forEach(item => {
+
+            const row = document.createElement("div");
+
+            row.className = "record-row";
+
+
+            const date = document.createElement("div");
+
+            date.className = "record-date";
+
+            date.textContent =
+                "📅 " + formatDate(item.date);
+
+
+            const hours = document.createElement("div");
+
+            hours.className = "record-hours";
+
+            hours.textContent =
+                formatHours(item.hours) + "H";
+
+
+            const deleteBtn = document.createElement("button");
+
+            deleteBtn.className = "delete-btn";
+
+            deleteBtn.type = "button";
+
+            deleteBtn.textContent = "刪除";
+
+
+            deleteBtn.addEventListener(
+                "click",
+                function(){
+
+                    confirmDeleteSingle(item.date);
+
+                }
+            );
+
+
+            row.appendChild(date);
+
+            row.appendChild(hours);
+
+            row.appendChild(deleteBtn);
+
+
+            recordsEl.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       全部重新渲染
+    ===================================================== */
+
+    function renderAll(){
+
+        renderStats();
+
+        renderDistribution();
+
+        renderRecords();
+
+    }
+
+
+    /* =====================================================
+       新增 / 更新
+    ===================================================== */
+
+    function addOrUpdateRecord(){
+
+        const date = dateInput.value;
+
+        const hours = Number(hoursInput.value);
+
+
+        if(!date){
+
+            alert("請先選擇日期。");
+
+            return;
+
+        }
+
+
+        if(!Number.isFinite(hours) || hours <= 0){
+
+            alert("請選擇直播時數。");
+
+            return;
+
+        }
+
+
+        const index =
+            records.findIndex(item => item.date === date);
+
+
+        if(index >= 0){
+
+            records[index].hours = hours;
+
+        }else{
+
+            records.push({
+                date,
+                hours
+            });
+
+        }
+
+
+        saveRecords();
+
+        renderAll();
+
+
+        /* 新增後自動顯示紀錄 */
+
+        recordsVisible = true;
+
+        recordsWrap.classList.add("show");
+
+        viewBtn.textContent = "🙈 隱藏";
+
+
+        /* 捲到紀錄區附近 */
+
+        setTimeout(function(){
+
+            recordsWrap.scrollIntoView({
+                behavior:"smooth",
+                block:"nearest"
+            });
+
+        },100);
+
+    }
+
+
+    /* =====================================================
+       查看 / 隱藏
+    ===================================================== */
+
+    function toggleRecords(){
+
+        recordsVisible = !recordsVisible;
+
+        if(recordsVisible){
+
+            recordsWrap.classList.add("show");
+
+            viewBtn.textContent = "🙈 隱藏";
+
+        }else{
+
+            recordsWrap.classList.remove("show");
+
+            viewBtn.textContent = "👀 查看";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       排序
+    ===================================================== */
+
+    function toggleSort(){
+
+        sortNewestFirst = !sortNewestFirst;
+
+        localStorage.setItem(
+            SORT_KEY,
+            sortNewestFirst ? "newest" : "oldest"
+        );
+
+        renderRecords();
+
+        sortBtn.textContent =
+            sortNewestFirst
+            ? "🔽 日期排序"
+            : "🔼 日期排序";
+
+    }
+
+
+    /* =====================================================
+       自訂確認視窗
+    ===================================================== */
+
+    function openConfirm(
+        title,
+        text,
+        action
+    ){
+
+        pendingAction = action;
+
+        modalTitle.textContent = title;
+
+        modalText.textContent = text;
+
+        modalMask.classList.add("show");
+
+    }
+
+
+    function closeConfirm(){
+
+        pendingAction = null;
+
+        modalMask.classList.remove("show");
+
+    }
+
+
+    /* =====================================================
+       刪除單筆
+    ===================================================== */
+
+    function confirmDeleteSingle(date){
+
+        const target =
+            records.find(item => item.date === date);
+
+        if(!target) return;
+
+
+        openConfirm(
+            "確定要刪除這筆嗎？",
+            `即將刪除 ${formatDate(date)} 的 ${formatHours(target.hours)}H 直播紀錄。`,
+            function(){
+
+                records =
+                    records.filter(
+                        item => item.date !== date
+                    );
+
+                saveRecords();
+
+                renderAll();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       清除全部
+    ===================================================== */
+
+    function confirmClearAll(){
+
+        if(records.length === 0){
+
+            alert("目前沒有任何直播紀錄。");
+
+            return;
+
+        }
+
+
+        openConfirm(
+            "⚠️ 確定要清除全部嗎？",
+            `目前共有 ${records.length} 天、${formatHours(calculateStats().hours)}H。刪除後無法復原。`,
+            function(){
+
+                records = [];
+
+                saveRecords();
+
+                renderAll();
+
+                recordsVisible = true;
+
+                recordsWrap.classList.add("show");
+
+                viewBtn.textContent = "🙈 隱藏";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       事件
+    ===================================================== */
+
+    addBtn.addEventListener(
+        "click",
+        addOrUpdateRecord
+    );
+
+
+    viewBtn.addEventListener(
+        "click",
+        toggleRecords
+    );
+
+
+    sortBtn.addEventListener(
+        "click",
+        toggleSort
+    );
+
+
+    clearAllBtn.addEventListener(
+        "click",
+        confirmClearAll
+    );
+
+
+    modalCancel.addEventListener(
+        "click",
+        closeConfirm
+    );
+
+
+    modalConfirm.addEventListener(
+        "click",
+        function(){
+
+            if(typeof pendingAction === "function"){
+
+                const action = pendingAction;
+
+                closeConfirm();
+
+                action();
+
+            }else{
+
+                closeConfirm();
+
+            }
+
+        }
+    );
+
+
+    /* 點背景也可以取消 */
+
+    modalMask.addEventListener(
+        "click",
+        function(event){
+
+            if(event.target === modalMask){
+
+                closeConfirm();
+
+            }
+
+        }
+    );
+
+
+    /* ESC 取消 */
+
+    document.addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Escape"){
+
+                closeConfirm();
+
+            }
+
+        }
+    );
+
+
+    /* 標題輸入時自動儲存 */
+
+    titleInput.addEventListener(
+        "input",
+        function(){
+
+            saveTitle();
+
+            renderStats();
+
+        }
+    );
+
+
+    titleInput.addEventListener(
+        "blur",
+        function(){
+
+            saveTitle();
+
+        }
+    );
+
+
+    /* Enter 不提交表單，直接儲存 */
+
+    titleInput.addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+
+                event.preventDefault();
+
+                titleInput.blur();
+
+            }
+
+        }
+    );
+
+
+    /* 日期改變 */
+
+    dateInput.addEventListener(
+        "change",
+        function(){
+
+            showSaved();
+
+        }
+    );
+
+
+    /* =====================================================
+       初始化
+    ===================================================== */
+
+    init();
+
+
+    /* =====================================================
+       讓標題直接更新網頁 Title
+    ===================================================== */
+
+    document.title =
+        titleInput.value.trim() +
+        "｜視頻直播時數統計";
+
+
+})();
+</script>
+
+</body>
+</html>
