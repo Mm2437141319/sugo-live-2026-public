@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>🌸 生理期記錄清單</title>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta
+    name="theme-color"
+    content="#ff6f91"
+>
+
+<title>🌸 生理期完整管理 V2</title>
 
 <style>
+
+/* =========================================================
+   基本
+========================================================= */
 
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -25,47 +43,85 @@ body{
         sans-serif;
 }
 
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
 .container{
     width:100%;
-    max-width:720px;
-    margin:auto;
+    max-width:760px;
+    margin:0 auto;
     padding:15px;
 }
 
-/* =========================
-   頂部
-========================= */
+/* =========================================================
+   Header
+========================================================= */
 
 .header{
-    background:linear-gradient(135deg,#ff8fab,#ff6f91);
-    color:white;
-    padding:24px 20px;
-    border-radius:24px;
+    background:linear-gradient(
+        135deg,
+        #ff8fab,
+        #ff6f91,
+        #ff5f87
+    );
+
+    color:#fff;
+
+    padding:25px 20px;
+
+    border-radius:25px;
+
     margin-bottom:15px;
-    box-shadow:0 8px 25px rgba(255,105,135,.20);
+
+    box-shadow:
+        0 10px 30px rgba(255,105,135,.20);
 }
 
 .header h1{
     margin:0 0 8px;
     font-size:28px;
+    font-weight:900;
 }
 
 .header p{
     margin:0;
     font-size:14px;
-    opacity:.92;
+    opacity:.94;
+    line-height:1.6;
 }
 
-/* =========================
-   卡片
-========================= */
+.save-status{
+    display:inline-flex;
+    margin-top:12px;
+    padding:6px 10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.20);
+    font-size:12px;
+}
+
+/* =========================================================
+   Card
+========================================================= */
 
 .card{
-    background:white;
+    background:#fff;
+
     border-radius:20px;
+
     padding:18px;
+
     margin-bottom:15px;
-    box-shadow:0 4px 16px rgba(0,0,0,.06);
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,.055);
 }
 
 .card-title{
@@ -74,15 +130,17 @@ body{
     margin-bottom:15px;
 }
 
-/* =========================
-   年月選擇
-========================= */
-
-.select-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+.card-subtitle{
+    font-size:13px;
+    color:#999;
+    line-height:1.6;
+    margin-top:-8px;
+    margin-bottom:14px;
 }
+
+/* =========================================================
+   Fields
+========================================================= */
 
 .field{
     display:flex;
@@ -93,611 +151,1596 @@ body{
 .field label{
     font-size:13px;
     color:#777;
-    font-weight:700;
+    font-weight:800;
 }
 
 input,
-select{
+select,
+textarea{
+
     width:100%;
-    border:1px solid #ddd;
-    background:white;
-    border-radius:12px;
+
+    border:1px solid #dedede;
+
+    background:#fff;
+
+    border-radius:13px;
+
     padding:12px;
+
     font-size:16px;
+
     outline:none;
+
+    color:#333;
+}
+
+textarea{
+    min-height:80px;
+    resize:vertical;
 }
 
 input:focus,
-select:focus{
+select:focus,
+textarea:focus{
+
     border-color:#ff7f9e;
-    box-shadow:0 0 0 3px rgba(255,127,158,.12);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,127,158,.12);
+
 }
 
-/* =========================
-   新增
-========================= */
+/* =========================================================
+   年月
+========================================================= */
 
-.date-grid{
+.select-grid{
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:10px;
 }
-
-.add-btn{
-    width:100%;
-    margin-top:14px;
-    border:0;
-    border-radius:14px;
-    padding:15px;
-    background:#ff6f91;
-    color:white;
-    font-size:17px;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.add-btn:active{
-    transform:scale(.98);
-}
-
-/* =========================
-   統計
-========================= */
-
-.summary{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.summary-box{
-    background:#fff5f7;
-    border-radius:15px;
-    padding:15px;
-}
-
-.summary-label{
-    color:#777;
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.summary-value{
-    font-size:24px;
-    font-weight:900;
-    color:#e84d73;
-}
-
-/* =========================
-   月份按鈕
-========================= */
 
 .month-list{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:8px;
+
     margin-top:15px;
 }
 
 .month-btn{
+
     border:1px solid #eee;
-    background:white;
-    border-radius:10px;
+
+    background:#fff;
+
+    color:#555;
+
+    border-radius:11px;
+
     padding:10px 4px;
+
     font-weight:800;
-    cursor:pointer;
+
+    font-size:14px;
 }
 
 .month-btn.active{
+
     background:#ff6f91;
-    color:white;
+
     border-color:#ff6f91;
+
+    color:#fff;
 }
 
 .month-btn.has-data{
+
     position:relative;
 }
 
 .month-btn.has-data::after{
+
     content:"";
+
     position:absolute;
+
     width:6px;
     height:6px;
+
     border-radius:50%;
+
     background:#ffb000;
+
     top:5px;
     right:5px;
 }
 
-/* =========================
-   紀錄
-========================= */
+/* =========================================================
+   日期
+========================================================= */
 
-.record{
-    border:1px solid #f0e4e7;
-    border-radius:16px;
-    padding:15px;
-    margin-bottom:10px;
-    background:#fff;
-}
+.date-grid{
 
-.record-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
     gap:10px;
 }
 
-.record-date{
-    font-size:18px;
+/* =========================================================
+   按鈕
+========================================================= */
+
+.primary-btn{
+
+    width:100%;
+
+    margin-top:14px;
+
+    border:0;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    background:#ff6f91;
+
+    color:#fff;
+
+    font-size:17px;
+
     font-weight:900;
-    color:#df496c;
+
+    box-shadow:
+        0 5px 14px
+        rgba(255,111,145,.18);
 }
 
-.record-end{
-    margin-top:5px;
-    font-size:14px;
-    color:#777;
+.primary-btn:active{
+
+    transform:scale(.98);
 }
 
-.record-days{
+.secondary-btn{
+
+    border:0;
+
+    border-radius:12px;
+
+    padding:12px;
+
+    font-size:15px;
+
+    font-weight:900;
+
     background:#fff0f3;
+
     color:#d94363;
-    padding:7px 10px;
-    border-radius:10px;
-    font-weight:900;
-    white-space:nowrap;
 }
 
-.record-cycle{
-    margin-top:10px;
-    padding:10px;
-    border-radius:10px;
-    background:#fafafa;
-    font-size:13px;
+.gray-btn{
+
+    border:0;
+
+    border-radius:12px;
+
+    padding:12px;
+
+    font-size:15px;
+
+    font-weight:900;
+
+    background:#f2f2f2;
+
     color:#666;
 }
 
-.record-note{
-    margin-top:9px;
-    font-size:14px;
-    color:#777;
-    line-height:1.5;
+/* =========================================================
+   選項按鈕
+========================================================= */
+
+.option-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:8px;
 }
 
-.record-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:12px;
-}
+.option-btn{
 
-.delete-btn{
-    border:0;
-    background:#fff0f2;
-    color:#d94363;
-    padding:8px 12px;
-    border-radius:9px;
+    border:1px solid #eee;
+
+    background:#fff;
+
+    border-radius:11px;
+
+    padding:11px 5px;
+
+    font-size:13px;
+
     font-weight:800;
+
+    color:#666;
 }
 
-.empty{
-    text-align:center;
-    padding:30px 10px;
-    color:#aaa;
+.option-btn.active{
+
+    background:#fff0f3;
+
+    border-color:#ff6f91;
+
+    color:#d94363;
 }
 
-/* =========================
-   年度統計
-========================= */
+/* =========================================================
+   Summary
+========================================================= */
+
+.summary{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+}
+
+.summary-box{
+
+    background:#fff5f7;
+
+    border-radius:16px;
+
+    padding:15px;
+}
+
+.summary-label{
+
+    color:#777;
+
+    font-size:13px;
+
+    margin-bottom:5px;
+}
+
+.summary-value{
+
+    font-size:23px;
+
+    font-weight:900;
+
+    color:#e84d73;
+}
+
+/* =========================================================
+   預測
+========================================================= */
+
+.prediction{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2f5,
+            #fff8fa
+        );
+
+    border:1px solid #ffe0e7;
+
+    border-radius:17px;
+
+    padding:17px;
+}
+
+.prediction-title{
+
+    font-weight:900;
+
+    font-size:17px;
+
+    color:#d94363;
+
+    margin-bottom:10px;
+}
+
+.prediction-date{
+
+    font-size:25px;
+
+    font-weight:900;
+
+    color:#e84d73;
+}
+
+.prediction-days{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:#777;
+
+    line-height:1.6;
+}
+
+.warning{
+
+    margin-top:10px;
+
+    padding:10px;
+
+    background:#fff8e8;
+
+    border-radius:10px;
+
+    color:#916b22;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+/* =========================================================
+   年度
+========================================================= */
 
 .year-row{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     padding:12px;
+
     background:#fafafa;
+
     border-radius:12px;
+
     margin-bottom:8px;
 }
 
 .year-row strong{
+
     color:#df496c;
 }
 
-/* =========================
-   搜尋
-========================= */
+/* =========================================================
+   月曆
+========================================================= */
 
-.search{
-    margin-bottom:10px;
+.calendar-head{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:5px;
+
+    margin-bottom:6px;
 }
 
-/* =========================
-   操作
-========================= */
+.calendar-week{
 
-.action-grid{
+    text-align:center;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    color:#999;
+
+    padding:5px 0;
+}
+
+.calendar{
+
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:5px;
+}
+
+.calendar-day{
+
+    min-height:54px;
+
+    border:1px solid #f0e5e8;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    padding:6px;
+
+    position:relative;
+}
+
+.calendar-day.empty-day{
+
+    background:transparent;
+
+    border:0;
+}
+
+.calendar-number{
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+.calendar-period{
+
+    margin-top:5px;
+
+    display:inline-block;
+
+    font-size:17px;
+}
+
+.calendar-today{
+
+    border:2px solid #ff6f91;
+}
+
+.calendar-period-day{
+
+    background:#fff0f3;
+
+    border-color:#ffc4d1;
+}
+
+/* =========================================================
+   紀錄
+========================================================= */
+
+.search{
+
+    margin-bottom:12px;
+}
+
+.record{
+
+    border:1px solid #f0e4e7;
+
+    border-radius:17px;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    background:#fff;
+}
+
+.record-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
     gap:10px;
 }
 
-.action-btn{
-    border:0;
-    border-radius:12px;
-    padding:13px;
-    font-size:15px;
+.record-date{
+
+    font-size:18px;
+
     font-weight:900;
-    cursor:pointer;
+
+    color:#df496c;
 }
 
-.export-btn{
+.record-end{
+
+    margin-top:5px;
+
+    font-size:14px;
+
+    color:#777;
+}
+
+.record-days{
+
     background:#fff0f3;
+
     color:#d94363;
+
+    padding:7px 10px;
+
+    border-radius:10px;
+
+    font-weight:900;
+
+    white-space:nowrap;
 }
 
-.clear-btn{
-    background:#f3f3f3;
+.record-info{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:10px;
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#f7f7f7;
+
+    color:#666;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.record-cycle{
+
+    margin-top:10px;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    background:#fafafa;
+
+    font-size:13px;
+
     color:#666;
 }
 
-/* =========================
-   小提醒
-========================= */
+.record-note{
 
-.notice{
-    font-size:12px;
-    color:#999;
+    margin-top:9px;
+
+    font-size:14px;
+
+    color:#777;
+
     line-height:1.6;
+}
+
+.record-actions{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:8px;
+
     margin-top:12px;
 }
 
-/* =========================
+.edit-btn{
+
+    border:0;
+
+    background:#fff0f3;
+
+    color:#d94363;
+
+    padding:9px;
+
+    border-radius:10px;
+
+    font-weight:800;
+}
+
+.delete-btn{
+
+    border:0;
+
+    background:#f3f3f3;
+
+    color:#666;
+
+    padding:9px;
+
+    border-radius:10px;
+
+    font-weight:800;
+}
+
+.empty{
+
+    text-align:center;
+
+    padding:32px 10px;
+
+    color:#aaa;
+
+    line-height:1.8;
+}
+
+/* =========================================================
+   操作
+========================================================= */
+
+.action-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+}
+
+.danger{
+
+    background:#fff0f2;
+
+    color:#d94363;
+}
+
+/* =========================================================
+   備份
+========================================================= */
+
+.backup-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+}
+
+.file-label{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    padding:13px;
+
+    background:#fff0f3;
+
+    color:#d94363;
+
+    font-weight:900;
+
+    font-size:15px;
+
+    cursor:pointer;
+}
+
+.file-label input{
+
+    display:none;
+}
+
+/* =========================================================
+   Modal
+========================================================= */
+
+.modal-bg{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.48);
+
+    z-index:9999;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal{
+
+    width:100%;
+
+    max-width:390px;
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:22px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.25);
+}
+
+.modal h3{
+
+    margin:0 0 10px;
+
+    font-size:21px;
+}
+
+.modal p{
+
+    margin:0;
+
+    color:#666;
+
+    line-height:1.7;
+
+    font-size:14px;
+}
+
+.modal-buttons{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:18px;
+}
+
+.modal button{
+
+    border:0;
+
+    border-radius:12px;
+
+    padding:13px;
+
+    font-size:15px;
+
+    font-weight:900;
+}
+
+.modal-cancel{
+
+    background:#eee;
+
+    color:#555;
+}
+
+.modal-confirm{
+
+    background:#d94363;
+
+    color:#fff;
+}
+
+/* =========================================================
+   Toast
+========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:
+        translateX(-50%)
+        translateY(100px);
+
+    background:#333;
+
+    color:#fff;
+
+    padding:11px 16px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    z-index:10000;
+
+    opacity:0;
+
+    transition:.25s;
+
+    max-width:90%;
+
+    text-align:center;
+}
+
+.toast.show{
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+    opacity:1;
+}
+
+/* =========================================================
+   Notice
+========================================================= */
+
+.notice{
+
+    font-size:12px;
+
+    color:#999;
+
+    line-height:1.7;
+
+    margin-top:12px;
+}
+
+/* =========================================================
+   編輯模式
+========================================================= */
+
+.editing-title{
+
+    color:#d94363 !important;
+}
+
+/* =========================================================
    手機
-========================= */
+========================================================= */
 
-@media(max-width:480px){
+@media(max-width:520px){
 
-    .select-grid{
-        grid-template-columns:1fr 1fr;
+    .container{
+        padding:12px;
     }
 
-    .date-grid{
-        grid-template-columns:1fr;
+    .header h1{
+        font-size:25px;
     }
 
     .month-list{
-        grid-template-columns:repeat(3,1fr);
+        grid-template-columns:
+            repeat(3,1fr);
     }
 
-    .summary{
-        grid-template-columns:1fr 1fr;
+    .option-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .calendar-day{
+        min-height:48px;
+        padding:5px;
+    }
+
+    .calendar-number{
+        font-size:12px;
+    }
+
+    .calendar-period{
+        font-size:15px;
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-    <!-- =========================
-         標題
-    ========================== -->
 
-    <div class="header">
+<!-- ======================================================
+     HEADER
+======================================================= -->
 
-        <h1>🌸 生理期記錄清單</h1>
+<div class="header">
 
-        <p>
-            記錄每次生理期，方便長期查看週期變化
-        </p>
+    <h1>🌸 生理期完整管理</h1>
+
+    <p>
+        記錄每次生理期，長期觀察自己的週期變化
+    </p>
+
+    <div
+        class="save-status"
+        id="saveStatus"
+    >
+        💾 已自動儲存
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     年份月份
+======================================================= -->
+
+<div class="card">
+
+    <div class="card-title">
+        📅 年份／月份
+    </div>
+
+    <div class="select-grid">
+
+        <div class="field">
+
+            <label>年份</label>
+
+            <select id="yearSelect"></select>
+
+        </div>
+
+        <div class="field">
+
+            <label>月份</label>
+
+            <select id="monthSelect">
+
+                <option value="1">1 月</option>
+                <option value="2">2 月</option>
+                <option value="3">3 月</option>
+                <option value="4">4 月</option>
+                <option value="5">5 月</option>
+                <option value="6">6 月</option>
+                <option value="7">7 月</option>
+                <option value="8">8 月</option>
+                <option value="9">9 月</option>
+                <option value="10">10 月</option>
+                <option value="11">11 月</option>
+                <option value="12">12 月</option>
+
+            </select>
+
+        </div>
 
     </div>
 
+    <div
+        class="month-list"
+        id="monthButtons"
+    ></div>
 
-    <!-- =========================
-         年份月份
-    ========================== -->
-
-    <div class="card">
-
-        <div class="card-title">
-            📅 選擇年份與月份
-        </div>
-
-        <div class="select-grid">
-
-            <div class="field">
-
-                <label>年份</label>
-
-                <select id="yearSelect"></select>
-
-            </div>
+</div>
 
 
-            <div class="field">
+<!-- ======================================================
+     新增／編輯
+======================================================= -->
 
-                <label>月份</label>
+<div class="card">
 
-                <select id="monthSelect">
+    <div
+        class="card-title"
+        id="formTitle"
+    >
+        🩸 新增生理期
+    </div>
 
-                    <option value="1">1 月</option>
-                    <option value="2">2 月</option>
-                    <option value="3">3 月</option>
-                    <option value="4">4 月</option>
-                    <option value="5">5 月</option>
-                    <option value="6">6 月</option>
-                    <option value="7">7 月</option>
-                    <option value="8">8 月</option>
-                    <option value="9">9 月</option>
-                    <option value="10">10 月</option>
-                    <option value="11">11 月</option>
-                    <option value="12">12 月</option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-
-        <div class="month-list" id="monthButtons"></div>
-
+    <div
+        class="card-subtitle"
+        id="formSubtitle"
+    >
+        選擇開始與結束日期，系統會自動計算經期天數。
     </div>
 
 
-    <!-- =========================
-         新增生理期
-    ========================== -->
+    <div class="date-grid">
 
-    <div class="card">
+        <div class="field">
 
-        <div class="card-title">
-            🩸 新增生理期
-        </div>
-
-
-        <div class="date-grid">
-
-            <div class="field">
-
-                <label>🩸 開始日期</label>
-
-                <input
-                    type="date"
-                    id="startDate"
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label>🌸 結束日期</label>
-
-                <input
-                    type="date"
-                    id="endDate"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="field" style="margin-top:10px;">
-
-            <label>📝 備註</label>
+            <label>
+                🩸 開始日期
+            </label>
 
             <input
-                type="text"
-                id="noteInput"
-                placeholder="例如：量較多、腹痛、正常..."
+                type="date"
+                id="startDate"
             >
 
         </div>
 
 
-        <button
-            class="add-btn"
-            onclick="addPeriod()"
+        <div class="field">
+
+            <label>
+                🌸 結束日期
+            </label>
+
+            <input
+                type="date"
+                id="endDate"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="field"
+        style="margin-top:14px;"
+    >
+
+        <label>
+            🩸 經血量
+        </label>
+
+        <div
+            class="option-grid"
+            id="flowOptions"
         >
-            ＋ 新增這次生理期
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="少"
+            >
+                少
+            </button>
+
+            <button
+                type="button"
+                class="option-btn active"
+                data-value="正常"
+            >
+                正常
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="多"
+            >
+                多
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="非常多"
+            >
+                非常多
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="field"
+        style="margin-top:14px;"
+    >
+
+        <label>
+            😣 身體狀況
+        </label>
+
+        <div
+            class="option-grid"
+            id="symptomOptions"
+        >
+
+            <button
+                type="button"
+                class="option-btn active"
+                data-value="無不適"
+            >
+                😊 無不適
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="輕微腹痛"
+            >
+                🌸 輕微腹痛
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="腹痛"
+            >
+                😣 腹痛
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="腰痠"
+            >
+                😖 腰痠
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="頭痛"
+            >
+                🤕 頭痛
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="胸部脹痛"
+            >
+                🌸 胸部脹痛
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="情緒變化"
+            >
+                💭 情緒變化
+            </button>
+
+            <button
+                type="button"
+                class="option-btn"
+                data-value="其他"
+            >
+                📝 其他
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="field"
+        style="margin-top:14px;"
+    >
+
+        <label>
+            📝 備註
+        </label>
+
+        <textarea
+            id="noteInput"
+            placeholder="例如：第一天量較多、今天比較疲倦……"
+        ></textarea>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="primary-btn"
+        id="addBtn"
+    >
+        ＋ 新增這次生理期
+    </button>
+
+
+    <button
+        type="button"
+        class="gray-btn"
+        id="cancelEditBtn"
+        style="display:none;width:100%;margin-top:8px;"
+    >
+        取消編輯
+    </button>
+
+
+    <div class="notice">
+
+        💾 新增、修改、刪除後都會自動儲存。
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     預估
+======================================================= -->
+
+<div class="card">
+
+    <div class="card-title">
+        🔮 下一次預估
+    </div>
+
+    <div
+        class="prediction"
+        id="predictionBox"
+    >
+
+        <div class="prediction-title">
+            🌸 預估下一次生理期
+        </div>
+
+        <div
+            class="prediction-date"
+            id="predictionDate"
+        >
+            -
+        </div>
+
+        <div
+            class="prediction-days"
+            id="predictionDays"
+        >
+            累積至少 2 次紀錄後，才會開始計算平均週期。
+        </div>
+
+        <div class="warning">
+
+            ⚠️ 這只是依照過去紀錄計算的「估算日期」，
+            不代表醫療上的預測，也可能因個人週期變化而不同。
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     月統計
+======================================================= -->
+
+<div class="card">
+
+    <div
+        class="card-title"
+        id="monthTitle"
+    >
+        2026 年 9 月
+    </div>
+
+
+    <div class="summary">
+
+        <div class="summary-box">
+
+            <div class="summary-label">
+                🩸 本月紀錄
+            </div>
+
+            <div
+                class="summary-value"
+                id="monthCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <div class="summary-label">
+                🌸 最近經期
+            </div>
+
+            <div
+                class="summary-value"
+                id="monthLatestDays"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <div class="summary-label">
+                🔄 平均週期
+            </div>
+
+            <div
+                class="summary-value"
+                id="averageCycle"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <div class="summary-label">
+                🌸 平均經期
+            </div>
+
+            <div
+                class="summary-value"
+                id="averageDays"
+            >
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     年度統計
+======================================================= -->
+
+<div class="card">
+
+    <div class="card-title">
+
+        📊
+        <span id="yearTitle">
+            2026
+        </span>
+        年度統計
+
+    </div>
+
+
+    <div class="year-row">
+
+        <span>
+            🩸 生理期次數
+        </span>
+
+        <strong id="yearCount">
+            0 次
+        </strong>
+
+    </div>
+
+
+    <div class="year-row">
+
+        <span>
+            🌸 平均經期
+        </span>
+
+        <strong id="yearAverageDays">
+            -
+        </strong>
+
+    </div>
+
+
+    <div class="year-row">
+
+        <span>
+            🔄 平均週期
+        </span>
+
+        <strong id="yearAverageCycle">
+            -
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     月曆
+======================================================= -->
+
+<div class="card">
+
+    <div class="card-title">
+        🗓️ 本月月曆
+    </div>
+
+    <div class="calendar-head">
+
+        <div class="calendar-week">日</div>
+        <div class="calendar-week">一</div>
+        <div class="calendar-week">二</div>
+        <div class="calendar-week">三</div>
+        <div class="calendar-week">四</div>
+        <div class="calendar-week">五</div>
+        <div class="calendar-week">六</div>
+
+    </div>
+
+    <div
+        class="calendar"
+        id="calendar"
+    ></div>
+
+</div>
+
+
+<!-- ======================================================
+     紀錄
+======================================================= -->
+
+<div class="card">
+
+    <div class="card-title">
+
+        📋
+        <span id="recordTitle">
+            2026 年 9 月
+        </span>
+        生理期紀錄
+
+    </div>
+
+
+    <input
+        class="search"
+        type="search"
+        id="searchInput"
+        placeholder="🔎 搜尋日期、經血量、症狀、備註..."
+    >
+
+
+    <div id="records"></div>
+
+</div>
+
+
+<!-- ======================================================
+     備份
+======================================================= -->
+
+<div class="card">
+
+    <div class="card-title">
+        💾 資料備份
+    </div>
+
+    <div class="card-subtitle">
+        建議偶爾備份一次，換手機或清除瀏覽器資料時可以還原。
+    </div>
+
+
+    <div class="backup-grid">
+
+        <button
+            type="button"
+            class="secondary-btn"
+            id="backupBtn"
+        >
+            📤 備份全部資料
         </button>
 
 
-        <div class="notice">
-            ※ 日期資料會儲存在目前瀏覽器中。
-            清除瀏覽器資料後可能會消失。
-        </div>
+        <label class="file-label">
+
+            📥 還原資料
+
+            <input
+                type="file"
+                id="restoreFile"
+                accept=".json,application/json"
+            >
+
+        </label>
 
     </div>
 
-
-    <!-- =========================
-         當月統計
-    ========================== -->
-
-    <div class="card">
-
-        <div class="card-title" id="monthTitle">
-            2026 年 9 月
-        </div>
+</div>
 
 
-        <div class="summary">
+<!-- ======================================================
+     清除
+======================================================= -->
 
-            <div class="summary-box">
+<div class="card">
 
-                <div class="summary-label">
-                    🩸 本月紀錄
-                </div>
-
-                <div
-                    class="summary-value"
-                    id="monthCount"
-                >
-                    0
-                </div>
-
-            </div>
-
-
-            <div class="summary-box">
-
-                <div class="summary-label">
-                    📅 最近一次經期
-                </div>
-
-                <div
-                    class="summary-value"
-                    id="lastPeriodDays"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="summary-box">
-
-                <div class="summary-label">
-                    🔄 平均週期
-                </div>
-
-                <div
-                    class="summary-value"
-                    id="averageCycle"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="summary-box">
-
-                <div class="summary-label">
-                    🌸 平均經期
-                </div>
-
-                <div
-                    class="summary-value"
-                    id="averageDays"
-                >
-                    -
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="card-title">
+        🗑️ 資料管理
     </div>
 
 
-    <!-- =========================
-         年度統計
-    ========================== -->
+    <div class="action-grid">
 
-    <div class="card">
-
-        <div class="card-title">
-            📊 <span id="yearTitle">2026</span> 年度統計
-        </div>
-
-
-        <div class="year-row">
-
-            <span>🩸 生理期次數</span>
-
-            <strong id="yearCount">
-                0 次
-            </strong>
-
-        </div>
-
-
-        <div class="year-row">
-
-            <span>🌸 平均經期</span>
-
-            <strong id="yearAverageDays">
-                -
-            </strong>
-
-        </div>
-
-
-        <div class="year-row">
-
-            <span>🔄 平均週期</span>
-
-            <strong id="yearAverageCycle">
-                -
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         紀錄
-    ========================== -->
-
-    <div class="card">
-
-        <div class="card-title">
-
-            📋
-            <span id="recordTitle">
-                2026 年 9 月
-            </span>
-            紀錄
-
-        </div>
-
-
-        <input
-            class="search"
-            type="search"
-            id="searchInput"
-            placeholder="🔎 搜尋日期或備註..."
-            oninput="renderRecords()"
+        <button
+            type="button"
+            class="gray-btn"
+            id="clearMonthBtn"
         >
+            🗑️ 清除本月
+        </button>
 
 
-        <div id="records"></div>
+        <button
+            type="button"
+            class="secondary-btn danger"
+            id="clearAllBtn"
+        >
+            ⚠️ 清除全部
+        </button>
 
     </div>
 
 
-    <!-- =========================
-         操作
-    ========================== -->
+    <div class="notice">
 
-    <div class="card">
+        ⚠️ 清除資料前會再次確認。
+        清除全部後，目前瀏覽器內的所有生理期紀錄都會刪除。
 
-        <div class="action-grid">
+    </div>
+
+</div>
+
+
+</div>
+
+
+<!-- ======================================================
+     Modal
+======================================================= -->
+
+<div
+    class="modal-bg"
+    id="modalBg"
+>
+
+    <div class="modal">
+
+        <h3 id="modalTitle">
+            ⚠️ 確定要刪除嗎？
+        </h3>
+
+        <p id="modalText">
+            此操作無法復原。
+        </p>
+
+        <div class="modal-buttons">
 
             <button
-                class="action-btn export-btn"
-                onclick="exportData()"
+                type="button"
+                class="modal-cancel"
+                id="modalCancel"
             >
-                📤 匯出紀錄
+                取消
             </button>
 
-
             <button
-                class="action-btn clear-btn"
-                onclick="clearCurrentMonth()"
+                type="button"
+                class="modal-confirm"
+                id="modalConfirm"
             >
-                🗑️ 清除本月
+                確定刪除
             </button>
 
         </div>
@@ -707,21 +1750,125 @@ select:focus{
 </div>
 
 
+<!-- ======================================================
+     Toast
+======================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
 <script>
 
-/* =====================================================
-   儲存設定
-===================================================== */
+/* =========================================================
+   V2 儲存
+========================================================= */
 
 const STORAGE_KEY =
     "my_period_records_v1";
 
 
-let records =
-    JSON.parse(
-        localStorage.getItem(STORAGE_KEY) || "[]"
-    );
+let records = [];
 
+
+/* =========================================================
+   安全讀取 LocalStorage
+========================================================= */
+
+function loadData(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+        if(!raw){
+
+            records = [];
+
+            return;
+
+        }
+
+        const parsed =
+            JSON.parse(raw);
+
+        if(Array.isArray(parsed)){
+
+            records = parsed;
+
+        }else{
+
+            records = [];
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "讀取資料失敗：",
+            error
+        );
+
+        records = [];
+
+        showToast(
+            "⚠️ 舊資料讀取異常，已安全啟動網頁"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   儲存
+========================================================= */
+
+function saveData(){
+
+    try{
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(records)
+        );
+
+        document
+            .getElementById("saveStatus")
+            .textContent =
+            "💾 已自動儲存 " +
+            new Date().toLocaleTimeString(
+                "zh-TW",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            );
+
+    }catch(error){
+
+        console.error(
+            "儲存失敗：",
+            error
+        );
+
+        showToast(
+            "⚠️ 自動儲存失敗，請記得備份"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   今天
+========================================================= */
 
 const today =
     new Date();
@@ -735,82 +1882,350 @@ let currentMonth =
     today.getMonth() + 1;
 
 
-/* =====================================================
+let editingId =
+    null;
+
+
+let selectedFlow =
+    "正常";
+
+
+let selectedSymptoms =
+    ["無不適"];
+
+
+let modalAction =
+    null;
+
+
+/* =========================================================
    初始化
-===================================================== */
+========================================================= */
 
 function init(){
 
+    loadData();
+
     createYears();
-
-    document.getElementById("yearSelect").value =
-        currentYear;
-
-    document.getElementById("monthSelect").value =
-        currentMonth;
-
 
     document
         .getElementById("yearSelect")
-        .addEventListener("change",function(){
-
-            currentYear =
-                Number(this.value);
-
-            renderAll();
-
-        });
-
+        .value =
+        currentYear;
 
     document
         .getElementById("monthSelect")
-        .addEventListener("change",function(){
-
-            currentMonth =
-                Number(this.value);
-
-            setDefaultDate();
-
-            renderAll();
-
-        });
+        .value =
+        currentMonth;
 
 
-    setDefaultDate();
+    bindEvents();
+
+    setDefaultDates();
 
     renderAll();
 
 }
 
 
-/* =====================================================
-   建立年份
-===================================================== */
+/* =========================================================
+   綁定事件
+========================================================= */
+
+function bindEvents(){
+
+    document
+        .getElementById("yearSelect")
+        .addEventListener(
+            "change",
+            function(){
+
+                currentYear =
+                    Number(this.value);
+
+                setDefaultDates();
+
+                renderAll();
+
+            }
+        );
+
+
+    document
+        .getElementById("monthSelect")
+        .addEventListener(
+            "change",
+            function(){
+
+                currentMonth =
+                    Number(this.value);
+
+                setDefaultDates();
+
+                renderAll();
+
+            }
+        );
+
+
+    document
+        .getElementById("addBtn")
+        .addEventListener(
+            "click",
+            addOrUpdatePeriod
+        );
+
+
+    document
+        .getElementById("cancelEditBtn")
+        .addEventListener(
+            "click",
+            cancelEdit
+        );
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener(
+            "input",
+            renderRecords
+        );
+
+
+    document
+        .getElementById("clearMonthBtn")
+        .addEventListener(
+            "click",
+            askClearMonth
+        );
+
+
+    document
+        .getElementById("clearAllBtn")
+        .addEventListener(
+            "click",
+            askClearAll
+        );
+
+
+    document
+        .getElementById("backupBtn")
+        .addEventListener(
+            "click",
+            backupData
+        );
+
+
+    document
+        .getElementById("restoreFile")
+        .addEventListener(
+            "change",
+            restoreData
+        );
+
+
+    document
+        .getElementById("modalCancel")
+        .addEventListener(
+            "click",
+            closeModal
+        );
+
+
+    document
+        .getElementById("modalConfirm")
+        .addEventListener(
+            "click",
+            executeModalAction
+        );
+
+
+    bindOptionButtons(
+        "flowOptions",
+        function(value){
+
+            selectedFlow = value;
+
+        },
+        false
+    );
+
+
+    bindOptionButtons(
+        "symptomOptions",
+        function(value){
+
+            if(value === "無不適"){
+
+                selectedSymptoms =
+                    ["無不適"];
+
+                updateSymptomButtons();
+
+                return;
+
+            }
+
+
+            selectedSymptoms =
+                selectedSymptoms.filter(
+                    x => x !== "無不適"
+                );
+
+
+            if(
+                selectedSymptoms.includes(value)
+            ){
+
+                selectedSymptoms =
+                    selectedSymptoms.filter(
+                        x => x !== value
+                    );
+
+            }else{
+
+                selectedSymptoms.push(value);
+
+            }
+
+
+            if(
+                selectedSymptoms.length === 0
+            ){
+
+                selectedSymptoms =
+                    ["無不適"];
+
+            }
+
+
+            updateSymptomButtons();
+
+        },
+        true
+    );
+
+}
+
+
+/* =========================================================
+   選項按鈕
+========================================================= */
+
+function bindOptionButtons(
+    containerId,
+    callback,
+    multi
+){
+
+    const container =
+        document.getElementById(
+            containerId
+        );
+
+
+    const buttons =
+        container.querySelectorAll(
+            ".option-btn"
+        );
+
+
+    buttons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const value =
+                    this.dataset.value;
+
+
+                if(!multi){
+
+                    buttons.forEach(
+                        b =>
+                        b.classList.remove(
+                            "active"
+                        )
+                    );
+
+                    this.classList.add(
+                        "active"
+                    );
+
+                }
+
+
+                callback(value);
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   症狀按鈕更新
+========================================================= */
+
+function updateSymptomButtons(){
+
+    const buttons =
+        document.querySelectorAll(
+            "#symptomOptions .option-btn"
+        );
+
+
+    buttons.forEach(button => {
+
+        const value =
+            button.dataset.value;
+
+
+        button.classList.toggle(
+            "active",
+            selectedSymptoms.includes(value)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   年份
+========================================================= */
 
 function createYears(){
 
     const select =
-        document.getElementById("yearSelect");
+        document.getElementById(
+            "yearSelect"
+        );
 
 
     select.innerHTML = "";
 
 
-    const startYear =
+    const start =
         2020;
 
-    const endYear =
-        2035;
+    const end =
+        2040;
 
 
     for(
-        let year=startYear;
-        year<=endYear;
+        let year=start;
+        year<=end;
         year++
     ){
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
 
         option.value =
@@ -820,80 +2235,224 @@ function createYears(){
             year + " 年";
 
 
-        select.appendChild(option);
+        select.appendChild(
+            option
+        );
 
     }
 
 }
 
 
-/* =====================================================
-   設定預設日期
-===================================================== */
+/* =========================================================
+   預設日期
+========================================================= */
 
-function setDefaultDate(){
+function setDefaultDates(){
+
+    if(editingId){
+
+        return;
+
+    }
+
 
     const yyyy =
         currentYear;
+
 
     const mm =
         String(currentMonth)
         .padStart(2,"0");
 
-    const dd =
-        "01";
+
+    const date =
+        `${yyyy}-${mm}-01`;
 
 
-    document.getElementById("startDate").value =
-        `${yyyy}-${mm}-${dd}`;
+    document
+        .getElementById("startDate")
+        .value =
+        date;
 
 
-    document.getElementById("endDate").value =
+    document
+        .getElementById("endDate")
+        .value =
         "";
+
+
+    selectedFlow =
+        "正常";
+
+
+    selectedSymptoms =
+        ["無不適"];
+
+
+    updateFlowButtons();
+
+    updateSymptomButtons();
+
 }
 
 
-/* =====================================================
-   計算日期差
-===================================================== */
+/* =========================================================
+   Flow buttons
+========================================================= */
 
-function daysBetween(start,end){
+function updateFlowButtons(){
+
+    const buttons =
+        document.querySelectorAll(
+            "#flowOptions .option-btn"
+        );
+
+
+    buttons.forEach(button => {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.value ===
+            selectedFlow
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   日期差
+========================================================= */
+
+function daysBetween(
+    start,
+    end
+){
 
     const a =
-        new Date(start);
+        parseDate(start);
 
     const b =
-        new Date(end);
+        parseDate(end);
 
 
-    const diff =
-        b.getTime() -
-        a.getTime();
+    if(!a || !b){
+
+        return 0;
+
+    }
 
 
-    return Math.floor(
-        diff / (1000*60*60*24)
+    return Math.round(
+        (
+            b.getTime() -
+            a.getTime()
+        )
+        /
+        (1000*60*60*24)
     );
 
 }
 
 
-/* =====================================================
-   計算經期天數
-===================================================== */
+/* =========================================================
+   經期天數
+========================================================= */
 
-function periodDays(start,end){
+function periodDays(
+    start,
+    end
+){
 
-    return daysBetween(start,end) + 1;
+    return daysBetween(
+        start,
+        end
+    ) + 1;
 
 }
 
 
-/* =====================================================
-   新增
-===================================================== */
+/* =========================================================
+   解析日期
+========================================================= */
 
-function addPeriod(){
+function parseDate(value){
+
+    if(!value){
+
+        return null;
+
+    }
+
+
+    const parts =
+        value.split("-")
+        .map(Number);
+
+
+    if(parts.length !== 3){
+
+        return null;
+
+    }
+
+
+    const date =
+        new Date(
+            parts[0],
+            parts[1]-1,
+            parts[2]
+        );
+
+
+    date.setHours(
+        0,0,0,0
+    );
+
+
+    return date;
+
+}
+
+
+/* =========================================================
+   日期格式
+========================================================= */
+
+function formatDateChinese(
+    dateString
+){
+
+    const date =
+        parseDate(dateString);
+
+
+    if(!date){
+
+        return "-";
+
+    }
+
+
+    return (
+        date.getFullYear() +
+        "年" +
+        (date.getMonth()+1) +
+        "月" +
+        date.getDate() +
+        "日"
+    );
+
+}
+
+
+/* =========================================================
+   新增／更新
+========================================================= */
+
+function addOrUpdatePeriod(){
 
     const start =
         document
@@ -916,7 +2475,9 @@ function addPeriod(){
 
     if(!start){
 
-        alert("請選擇生理期開始日期");
+        showToast(
+            "🩸 請選擇開始日期"
+        );
 
         return;
 
@@ -925,7 +2486,9 @@ function addPeriod(){
 
     if(!end){
 
-        alert("請選擇生理期結束日期");
+        showToast(
+            "🌸 請選擇結束日期"
+        );
 
         return;
 
@@ -934,40 +2497,145 @@ function addPeriod(){
 
     if(end < start){
 
-        alert("結束日期不能早於開始日期");
+        showToast(
+            "⚠️ 結束日期不能早於開始日期"
+        );
 
         return;
 
     }
 
 
-    const startObj =
-        new Date(start);
+    const startDate =
+        parseDate(start);
 
 
-    const record = {
+    if(!startDate){
 
-        id:Date.now(),
+        showToast(
+            "⚠️ 日期格式錯誤"
+        );
 
-        start:start,
+        return;
 
-        end:end,
-
-        year:startObj.getFullYear(),
-
-        month:startObj.getMonth()+1,
-
-        note:note
-
-    };
+    }
 
 
-    records.push(record);
+    const year =
+        startDate.getFullYear();
+
+
+    const month =
+        startDate.getMonth()+1;
+
+
+    if(editingId){
+
+        const index =
+            records.findIndex(
+                r =>
+                String(r.id) ===
+                String(editingId)
+            );
+
+
+        if(index === -1){
+
+            cancelEdit();
+
+            return;
+
+        }
+
+
+        records[index] = {
+
+            ...records[index],
+
+            start:start,
+
+            end:end,
+
+            year:year,
+
+            month:month,
+
+            flow:selectedFlow,
+
+            symptoms:[
+                ...selectedSymptoms
+            ],
+
+            note:note
+
+        };
+
+
+        showToast(
+            "✅ 生理期紀錄已更新"
+        );
+
+    }else{
+
+        const duplicate =
+            records.some(
+                r =>
+                r.start === start &&
+                r.end === end
+            );
+
+
+        if(duplicate){
+
+            showToast(
+                "⚠️ 這段日期已經記錄過了"
+            );
+
+            return;
+
+        }
+
+
+        records.push({
+
+            id:
+                Date.now().toString()
+                +
+                Math.random()
+                .toString(16)
+                .slice(2),
+
+            start:start,
+
+            end:end,
+
+            year:year,
+
+            month:month,
+
+            flow:selectedFlow,
+
+            symptoms:[
+                ...selectedSymptoms
+            ],
+
+            note:note
+
+        });
+
+
+        showToast(
+            "🌸 生理期已新增並自動儲存"
+        );
+
+    }
 
 
     records.sort(
         (a,b)=>
-            a.start.localeCompare(b.start)
+        a.start.localeCompare(
+            b.start
+        )
     );
 
 
@@ -975,196 +2643,321 @@ function addPeriod(){
 
 
     currentYear =
+        year;
+
+    currentMonth =
+        month;
+
+
+    document
+        .getElementById("yearSelect")
+        .value =
+        currentYear;
+
+
+    document
+        .getElementById("monthSelect")
+        .value =
+        currentMonth;
+
+
+    resetForm();
+
+    renderAll();
+
+}
+
+
+/* =========================================================
+   重設表單
+========================================================= */
+
+function resetForm(){
+
+    editingId =
+        null;
+
+
+    document
+        .getElementById("formTitle")
+        .textContent =
+        "🩸 新增生理期";
+
+
+    document
+        .getElementById("formTitle")
+        .classList.remove(
+            "editing-title"
+        );
+
+
+    document
+        .getElementById("formSubtitle")
+        .textContent =
+        "選擇開始與結束日期，系統會自動計算經期天數。";
+
+
+    document
+        .getElementById("addBtn")
+        .textContent =
+        "＋ 新增這次生理期";
+
+
+    document
+        .getElementById("cancelEditBtn")
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById("noteInput")
+        .value =
+        "";
+
+
+    setDefaultDates();
+
+}
+
+
+/* =========================================================
+   編輯
+========================================================= */
+
+function editRecord(id){
+
+    const record =
+        records.find(
+            r =>
+            String(r.id) ===
+            String(id)
+        );
+
+
+    if(!record){
+
+        return;
+
+    }
+
+
+    editingId =
+        record.id;
+
+
+    currentYear =
         record.year;
+
 
     currentMonth =
         record.month;
 
 
-    document.getElementById("yearSelect").value =
+    document
+        .getElementById("yearSelect")
+        .value =
         currentYear;
 
-    document.getElementById("monthSelect").value =
+
+    document
+        .getElementById("monthSelect")
+        .value =
         currentMonth;
 
 
-    document.getElementById("noteInput").value =
-        "";
+    document
+        .getElementById("startDate")
+        .value =
+        record.start;
 
 
-    renderAll();
+    document
+        .getElementById("endDate")
+        .value =
+        record.end;
 
 
-    alert("🌸 生理期紀錄已新增");
+    document
+        .getElementById("noteInput")
+        .value =
+        record.note || "";
+
+
+    selectedFlow =
+        record.flow || "正常";
+
+
+    selectedSymptoms =
+        Array.isArray(
+            record.symptoms
+        )
+        ?
+        [...record.symptoms]
+        :
+        ["無不適"];
+
+
+    updateFlowButtons();
+
+    updateSymptomButtons();
+
+
+    document
+        .getElementById("formTitle")
+        .textContent =
+        "✏️ 編輯生理期";
+
+
+    document
+        .getElementById("formTitle")
+        .classList.add(
+            "editing-title"
+        );
+
+
+    document
+        .getElementById("formSubtitle")
+        .textContent =
+        "修改完成後按下「儲存修改」。";
+
+
+    document
+        .getElementById("addBtn")
+        .textContent =
+        "💾 儲存修改";
+
+
+    document
+        .getElementById("cancelEditBtn")
+        .style.display =
+        "block";
+
+
+    window.scrollTo({
+        top:
+            document
+            .querySelector(".card:nth-of-type(3)")
+            .offsetTop - 10,
+        behavior:"smooth"
+    });
 
 }
 
 
-/* =====================================================
-   儲存
-===================================================== */
+/* =========================================================
+   取消編輯
+========================================================= */
 
-function saveData(){
+function cancelEdit(){
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(records)
+    resetForm();
+
+    showToast(
+        "已取消編輯"
     );
 
 }
 
 
-/* =====================================================
-   目前月份
-===================================================== */
+/* =========================================================
+   月份資料
+========================================================= */
 
 function getMonthRecords(){
 
-    return records.filter(r =>
-        r.year === currentYear &&
-        r.month === currentMonth
+    return records.filter(
+        r =>
+        Number(r.year) ===
+        Number(currentYear)
+        &&
+        Number(r.month) ===
+        Number(currentMonth)
     );
 
 }
 
 
-/* =====================================================
-   目前年份
-===================================================== */
+/* =========================================================
+   年度資料
+========================================================= */
 
 function getYearRecords(){
 
-    return records.filter(r =>
-        r.year === currentYear
+    return records.filter(
+        r =>
+        Number(r.year) ===
+        Number(currentYear)
     );
 
 }
 
 
-/* =====================================================
-   月份按鈕
-===================================================== */
+/* =========================================================
+   排序
+========================================================= */
 
-function renderMonthButtons(){
+function sortRecords(list){
 
-    const box =
-        document.getElementById("monthButtons");
-
-
-    box.innerHTML = "";
-
-
-    for(
-        let month=1;
-        month<=12;
-        month++
-    ){
-
-        const btn =
-            document.createElement("button");
-
-
-        btn.className =
-            "month-btn";
-
-
-        if(month === currentMonth){
-
-            btn.classList.add("active");
-
-        }
-
-
-        const hasData =
-            records.some(r =>
-                r.year === currentYear &&
-                r.month === month
-            );
-
-
-        if(hasData){
-
-            btn.classList.add("has-data");
-
-        }
-
-
-        btn.textContent =
-            month + " 月";
-
-
-        btn.onclick =
-            function(){
-
-                currentMonth =
-                    month;
-
-
-                document
-                    .getElementById("monthSelect")
-                    .value =
-                    month;
-
-
-                setDefaultDate();
-
-                renderAll();
-
-            };
-
-
-        box.appendChild(btn);
-
-    }
+    return [...list].sort(
+        (a,b)=>
+        a.start.localeCompare(
+            b.start
+        )
+    );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    找上一筆
-===================================================== */
+========================================================= */
 
-function getPreviousRecord(record){
+function getPreviousRecord(
+    record
+){
 
-    const previous =
+    const list =
         records
-        .filter(r =>
+        .filter(
+            r =>
             r.start < record.start
         )
         .sort(
             (a,b)=>
-                b.start.localeCompare(a.start)
+            b.start.localeCompare(
+                a.start
+            )
         );
 
 
-    return previous.length
-        ? previous[0]
+    return list.length
+        ? list[0]
         : null;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    平均週期
-===================================================== */
+========================================================= */
 
-function calculateAverageCycle(list){
+function calculateAverageCycle(
+    list
+){
 
-    if(list.length < 2){
+    const sorted =
+        sortRecords(list);
+
+
+    if(sorted.length < 2){
 
         return null;
 
     }
 
 
-    const sorted =
-        [...list].sort(
-            (a,b)=>
-                a.start.localeCompare(b.start)
-        );
-
-
     let total = 0;
+
     let count = 0;
 
 
@@ -1181,7 +2974,10 @@ function calculateAverageCycle(list){
             );
 
 
-        if(gap > 0){
+        if(
+            gap > 0 &&
+            gap < 100
+        ){
 
             total += gap;
 
@@ -1192,7 +2988,7 @@ function calculateAverageCycle(list){
     }
 
 
-    if(count === 0){
+    if(!count){
 
         return null;
 
@@ -1206,13 +3002,15 @@ function calculateAverageCycle(list){
 }
 
 
-/* =====================================================
+/* =========================================================
    平均經期
-===================================================== */
+========================================================= */
 
-function calculateAverageDays(list){
+function calculateAverageDays(
+    list
+){
 
-    if(list.length === 0){
+    if(!list.length){
 
         return null;
 
@@ -1222,15 +3020,14 @@ function calculateAverageDays(list){
     let total = 0;
 
 
-    list.forEach(r => {
-
+    list.forEach(
+        r =>
         total +=
-            periodDays(
-                r.start,
-                r.end
-            );
-
-    });
+        periodDays(
+            r.start,
+            r.end
+        )
+    );
 
 
     return Math.round(
@@ -1240,9 +3037,234 @@ function calculateAverageDays(list){
 }
 
 
-/* =====================================================
-   當月統計
-===================================================== */
+/* =========================================================
+   下一次預估
+========================================================= */
+
+function calculatePrediction(){
+
+    const sorted =
+        sortRecords(records);
+
+
+    if(sorted.length < 2){
+
+        return null;
+
+    }
+
+
+    const avgCycle =
+        calculateAverageCycle(
+            sorted
+        );
+
+
+    if(!avgCycle){
+
+        return null;
+
+    }
+
+
+    const latest =
+        sorted[sorted.length-1];
+
+
+    const latestDate =
+        parseDate(
+            latest.start
+        );
+
+
+    if(!latestDate){
+
+        return null;
+
+    }
+
+
+    const prediction =
+        new Date(
+            latestDate
+        );
+
+
+    prediction.setDate(
+        prediction.getDate()
+        +
+        avgCycle
+    );
+
+
+    return {
+
+        date:prediction,
+
+        avgCycle:avgCycle,
+
+        latest:latest.start
+
+    };
+
+}
+
+
+/* =========================================================
+   格式化預估
+========================================================= */
+
+function formatDateObject(
+    date
+){
+
+    if(!date){
+
+        return "-";
+
+    }
+
+
+    return (
+        date.getFullYear() +
+        " 年 " +
+        (date.getMonth()+1) +
+        " 月 " +
+        date.getDate() +
+        " 日"
+    );
+
+}
+
+
+/* =========================================================
+   Render All
+========================================================= */
+
+function renderAll(){
+
+    renderMonthButtons();
+
+    renderMonthSummary();
+
+    renderYearSummary();
+
+    renderPrediction();
+
+    renderCalendar();
+
+    renderRecords();
+
+}
+
+
+/* =========================================================
+   月份按鈕
+========================================================= */
+
+function renderMonthButtons(){
+
+    const box =
+        document.getElementById(
+            "monthButtons"
+        );
+
+
+    box.innerHTML = "";
+
+
+    for(
+        let month=1;
+        month<=12;
+        month++
+    ){
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.type =
+            "button";
+
+
+        button.className =
+            "month-btn";
+
+
+        if(
+            month ===
+            currentMonth
+        ){
+
+            button.classList.add(
+                "active"
+            );
+
+        }
+
+
+        const hasData =
+            records.some(
+                r =>
+                Number(r.year) ===
+                Number(currentYear)
+                &&
+                Number(r.month) ===
+                Number(month)
+            );
+
+
+        if(hasData){
+
+            button.classList.add(
+                "has-data"
+            );
+
+        }
+
+
+        button.textContent =
+            month + " 月";
+
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                currentMonth =
+                    month;
+
+
+                document
+                    .getElementById(
+                        "monthSelect"
+                    )
+                    .value =
+                    month;
+
+
+                setDefaultDates();
+
+                renderAll();
+
+            }
+        );
+
+
+        box.appendChild(
+            button
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   月統計
+========================================================= */
 
 function renderMonthSummary(){
 
@@ -1250,39 +3272,47 @@ function renderMonthSummary(){
         getMonthRecords();
 
 
-    document.getElementById("monthCount")
-        .textContent =
-        list.length;
-
-
-    document.getElementById("monthTitle")
+    document
+        .getElementById("monthTitle")
         .textContent =
         `${currentYear} 年 ${currentMonth} 月`;
 
 
+    document
+        .getElementById("recordTitle")
+        .textContent =
+        `${currentYear} 年 ${currentMonth} 月`;
+
+
+    document
+        .getElementById("monthCount")
+        .textContent =
+        list.length;
+
+
+    const sorted =
+        sortRecords(list);
+
+
     const latest =
-        [...list].sort(
-            (a,b)=>
-                b.start.localeCompare(a.start)
-        )[0];
+        sorted.length
+        ?
+        sorted[sorted.length-1]
+        :
+        null;
 
 
-    if(latest){
-
-        document.getElementById("lastPeriodDays")
-            .textContent =
-            periodDays(
-                latest.start,
-                latest.end
-            ) + " 天";
-
-    }else{
-
-        document.getElementById("lastPeriodDays")
-            .textContent =
-            "-";
-
-    }
+    document
+        .getElementById("monthLatestDays")
+        .textContent =
+        latest
+        ?
+        periodDays(
+            latest.start,
+            latest.end
+        ) + " 天"
+        :
+        "-";
 
 
     const avgCycle =
@@ -1297,25 +3327,31 @@ function renderMonthSummary(){
         );
 
 
-    document.getElementById("averageCycle")
+    document
+        .getElementById("averageCycle")
         .textContent =
         avgCycle
-        ? avgCycle + " 天"
-        : "-";
+        ?
+        avgCycle + " 天"
+        :
+        "-";
 
 
-    document.getElementById("averageDays")
+    document
+        .getElementById("averageDays")
         .textContent =
         avgDays
-        ? avgDays + " 天"
-        : "-";
+        ?
+        avgDays + " 天"
+        :
+        "-";
 
 }
 
 
-/* =====================================================
-   年度統計
-===================================================== */
+/* =========================================================
+   年統計
+========================================================= */
 
 function renderYearSummary(){
 
@@ -1323,53 +3359,300 @@ function renderYearSummary(){
         getYearRecords();
 
 
-    document.getElementById("yearTitle")
+    document
+        .getElementById("yearTitle")
         .textContent =
         currentYear;
 
 
-    document.getElementById("yearCount")
+    document
+        .getElementById("yearCount")
         .textContent =
         list.length + " 次";
 
 
     const avgDays =
-        calculateAverageDays(list);
+        calculateAverageDays(
+            list
+        );
 
 
     const avgCycle =
-        calculateAverageCycle(list);
+        calculateAverageCycle(
+            list
+        );
 
 
-    document.getElementById("yearAverageDays")
+    document
+        .getElementById("yearAverageDays")
         .textContent =
         avgDays
-        ? avgDays + " 天"
-        : "-";
+        ?
+        avgDays + " 天"
+        :
+        "-";
 
 
-    document.getElementById("yearAverageCycle")
+    document
+        .getElementById("yearAverageCycle")
         .textContent =
         avgCycle
-        ? avgCycle + " 天"
-        : "-";
+        ?
+        avgCycle + " 天"
+        :
+        "-";
 
 }
 
 
-/* =====================================================
-   顯示紀錄
-===================================================== */
+/* =========================================================
+   預估
+========================================================= */
+
+function renderPrediction(){
+
+    const dateBox =
+        document
+        .getElementById(
+            "predictionDate"
+        );
+
+
+    const daysBox =
+        document
+        .getElementById(
+            "predictionDays"
+        );
+
+
+    const result =
+        calculatePrediction();
+
+
+    if(!result){
+
+        dateBox.textContent =
+            "-";
+
+
+        daysBox.textContent =
+            "累積至少 2 次生理期開始日期後，才會開始計算平均週期。";
+
+
+        return;
+
+    }
+
+
+    dateBox.textContent =
+        formatDateObject(
+            result.date
+        );
+
+
+    const now =
+        new Date();
+
+
+    now.setHours(
+        0,0,0,0
+    );
+
+
+    const diff =
+        Math.round(
+            (
+                result.date.getTime()
+                -
+                now.getTime()
+            )
+            /
+            (1000*60*60*24)
+        );
+
+
+    if(diff > 0){
+
+        daysBox.textContent =
+            `⏳ 依平均週期 ${result.avgCycle} 天計算，約還有 ${diff} 天。`;
+
+    }else if(diff === 0){
+
+        daysBox.textContent =
+            `🌸 今天是依平均週期估算的日期。`;
+
+    }else{
+
+        daysBox.textContent =
+            `📅 預估日期已過 ${Math.abs(diff)} 天。`;
+
+    }
+
+}
+
+
+/* =========================================================
+   月曆
+========================================================= */
+
+function renderCalendar(){
+
+    const box =
+        document.getElementById(
+            "calendar"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const firstDay =
+        new Date(
+            currentYear,
+            currentMonth-1,
+            1
+        );
+
+
+    const lastDay =
+        new Date(
+            currentYear,
+            currentMonth,
+            0
+        );
+
+
+    const startWeek =
+        firstDay.getDay();
+
+
+    const daysInMonth =
+        lastDay.getDate();
+
+
+    for(
+        let i=0;
+        i<startWeek;
+        i++
+    ){
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+
+        empty.className =
+            "calendar-day empty-day";
+
+
+        box.appendChild(
+            empty
+        );
+
+    }
+
+
+    const monthRecords =
+        getMonthRecords();
+
+
+    for(
+        let day=1;
+        day<=daysInMonth;
+        day++
+    ){
+
+        const cell =
+            document.createElement(
+                "div"
+            );
+
+
+        cell.className =
+            "calendar-day";
+
+
+        const dateString =
+            `${currentYear}-${String(currentMonth).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+
+
+        const todayString =
+            `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+
+
+        if(
+            dateString ===
+            todayString
+        ){
+
+            cell.classList.add(
+                "calendar-today"
+            );
+
+        }
+
+
+        const inPeriod =
+            monthRecords.some(
+                r =>
+                dateString >= r.start &&
+                dateString <= r.end
+            );
+
+
+        if(inPeriod){
+
+            cell.classList.add(
+                "calendar-period-day"
+            );
+
+        }
+
+
+        cell.innerHTML = `
+
+            <div class="calendar-number">
+                ${day}
+            </div>
+
+            ${
+                inPeriod
+                ?
+                `<div class="calendar-period">🩸</div>`
+                :
+                ""
+            }
+
+        `;
+
+
+        box.appendChild(
+            cell
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   紀錄
+========================================================= */
 
 function renderRecords(){
 
     const box =
-        document.getElementById("records");
+        document.getElementById(
+            "records"
+        );
 
 
     const search =
         document
-        .getElementById("searchInput")
+        .getElementById(
+            "searchInput"
+        )
         .value
         .trim()
         .toLowerCase();
@@ -1382,45 +3665,59 @@ function renderRecords(){
     if(search){
 
         list =
-            list.filter(r => {
+            list.filter(
+                r => {
 
-                const text =
-                    `${r.start}
-                     ${r.end}
-                     ${r.note}`
-                    .toLowerCase();
+                    const symptoms =
+                        Array.isArray(
+                            r.symptoms
+                        )
+                        ?
+                        r.symptoms.join(" ")
+                        :
+                        "";
 
 
-                return text.includes(search);
+                    const text =
+                        `
+                        ${r.start}
+                        ${r.end}
+                        ${r.flow || ""}
+                        ${symptoms}
+                        ${r.note || ""}
+                        `
+                        .toLowerCase();
 
-            });
+
+                    return text.includes(
+                        search
+                    );
+
+                }
+            );
 
     }
 
 
-    list.sort(
-        (a,b)=>
-            b.start.localeCompare(a.start)
-    );
+    list =
+        sortRecords(list)
+        .reverse();
 
 
     box.innerHTML = "";
 
 
-    document.getElementById("recordTitle")
-        .textContent =
-        `${currentYear} 年 ${currentMonth} 月`;
-
-
-    if(list.length === 0){
+    if(!list.length){
 
         box.innerHTML = `
 
             <div class="empty">
 
-                🌸<br><br>
+                🌸<br>
 
-                目前沒有生理期紀錄
+                目前 ${currentYear} 年
+                ${currentMonth} 月
+                沒有生理期紀錄
 
             </div>
 
@@ -1431,133 +3728,227 @@ function renderRecords(){
     }
 
 
-    list.forEach(r => {
+    list.forEach(
+        record => {
 
-        const div =
-            document.createElement("div");
-
-
-        div.className =
-            "record";
-
-
-        const days =
-            periodDays(
-                r.start,
-                r.end
-            );
-
-
-        const previous =
-            getPreviousRecord(r);
-
-
-        let cycleText =
-            "🔄 第一次記錄";
-
-
-        if(previous){
-
-            const cycle =
-                daysBetween(
-                    previous.start,
-                    r.start
+            const div =
+                document.createElement(
+                    "div"
                 );
 
 
-            cycleText =
-                `🔄 與上一次開始日相隔 ${cycle} 天`;
-
-        }
+            div.className =
+                "record";
 
 
-        div.innerHTML = `
-
-            <div class="record-top">
-
-                <div>
-
-                    <div class="record-date">
-
-                        🩸 ${r.start}
-
-                    </div>
-
-                    <div class="record-end">
-
-                        🌸 結束：${r.end}
-
-                    </div>
-
-                </div>
+            const days =
+                periodDays(
+                    record.start,
+                    record.end
+                );
 
 
-                <div class="record-days">
-
-                    ${days} 天
-
-                </div>
-
-            </div>
+            const previous =
+                getPreviousRecord(
+                    record
+                );
 
 
-            <div class="record-cycle">
-
-                ${cycleText}
-
-            </div>
+            let cycleText =
+                "🔄 第一次記錄";
 
 
-            ${
-                r.note
-                ?
-                `
-                <div class="record-note">
+            if(previous){
 
-                    📝 ${escapeHtml(r.note)}
+                const cycle =
+                    daysBetween(
+                        previous.start,
+                        record.start
+                    );
 
-                </div>
-                `
-                :
-                ""
+
+                cycleText =
+                    `🔄 與上一次開始日相隔 ${cycle} 天`;
+
             }
 
 
-            <div class="record-bottom">
-
-                <span>
-                    🌸 生理期
-                </span>
-
-
-                <button
-                    class="delete-btn"
-                    onclick="deleteRecord(${r.id})"
-                >
-                    🗑️ 刪除
-                </button>
-
-            </div>
-
-        `;
+            const symptoms =
+                Array.isArray(
+                    record.symptoms
+                )
+                ?
+                record.symptoms
+                :
+                [];
 
 
-        box.appendChild(div);
+            const symptomBadges =
+                symptoms
+                .map(
+                    s =>
+                    `<span class="badge">${escapeHtml(s)}</span>`
+                )
+                .join("");
 
-    });
+
+            div.innerHTML = `
+
+                <div class="record-top">
+
+                    <div>
+
+                        <div class="record-date">
+
+                            🩸
+                            ${formatDateChinese(
+                                record.start
+                            )}
+
+                        </div>
+
+                        <div class="record-end">
+
+                            🌸 結束：
+                            ${formatDateChinese(
+                                record.end
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-days">
+
+                        ${days} 天
+
+                    </div>
+
+                </div>
+
+
+                <div class="record-info">
+
+                    <span class="badge">
+
+                        🩸 經血量：
+                        ${escapeHtml(
+                            record.flow || "正常"
+                        )}
+
+                    </span>
+
+                    ${symptomBadges}
+
+                </div>
+
+
+                <div class="record-cycle">
+
+                    ${cycleText}
+
+                </div>
+
+
+                ${
+                    record.note
+                    ?
+                    `
+                    <div class="record-note">
+
+                        📝
+                        ${escapeHtml(
+                            record.note
+                        )}
+
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                <div class="record-actions">
+
+                    <button
+                        type="button"
+                        class="edit-btn"
+                        data-edit-id="${escapeHtml(String(record.id))}"
+                    >
+                        ✏️ 編輯
+                    </button>
+
+                    <button
+                        type="button"
+                        class="delete-btn"
+                        data-delete-id="${escapeHtml(String(record.id))}"
+                    >
+                        🗑️ 刪除
+                    </button>
+
+                </div>
+
+            `;
+
+
+            const editButton =
+                div.querySelector(
+                    "[data-edit-id]"
+                );
+
+
+            const deleteButton =
+                div.querySelector(
+                    "[data-delete-id]"
+                );
+
+
+            editButton.addEventListener(
+                "click",
+                function(){
+
+                    editRecord(
+                        record.id
+                    );
+
+                }
+            );
+
+
+            deleteButton.addEventListener(
+                "click",
+                function(){
+
+                    deleteRecord(
+                        record.id
+                    );
+
+                }
+            );
+
+
+            box.appendChild(
+                div
+            );
+
+        }
+    );
 
 }
 
 
-/* =====================================================
-   刪除
-===================================================== */
+/* =========================================================
+   刪除單筆
+========================================================= */
 
 function deleteRecord(id){
 
     const target =
         records.find(
-            r => r.id === id
+            r =>
+            String(r.id) ===
+            String(id)
         );
 
 
@@ -1568,207 +3959,613 @@ function deleteRecord(id){
     }
 
 
-    const ok =
-        confirm(
-            `確定要刪除 ${target.start} 這筆紀錄嗎？`
-        );
+    openModal(
+        "🗑️ 刪除這筆紀錄？",
+        `確定要刪除 ${formatDateChinese(target.start)} 的生理期紀錄嗎？`,
+        function(){
+
+            records =
+                records.filter(
+                    r =>
+                    String(r.id) !==
+                    String(id)
+                );
 
 
-    if(!ok){
+            saveData();
 
-        return;
+            renderAll();
 
-    }
+            showToast(
+                "🗑️ 紀錄已刪除"
+            );
 
-
-    records =
-        records.filter(
-            r => r.id !== id
-        );
-
-
-    saveData();
-
-    renderAll();
+        }
+    );
 
 }
 
 
-/* =====================================================
-   清除目前月份
-===================================================== */
+/* =========================================================
+   清除本月
+========================================================= */
 
-function clearCurrentMonth(){
+function askClearMonth(){
 
     const list =
         getMonthRecords();
 
 
-    if(list.length === 0){
+    if(!list.length){
 
-        alert("目前月份沒有資料");
+        showToast(
+            "目前月份沒有資料"
+        );
 
         return;
 
     }
 
 
-    const ok =
-        confirm(
-            `確定要刪除 ${currentYear} 年 ${currentMonth} 月的 ${list.length} 筆紀錄嗎？`
-        );
+    openModal(
+        "⚠️ 清除本月資料？",
+        `確定要刪除 ${currentYear} 年 ${currentMonth} 月的 ${list.length} 筆紀錄嗎？`,
+        function(){
+
+            records =
+                records.filter(
+                    r =>
+                    !(
+                        Number(r.year) ===
+                        Number(currentYear)
+                        &&
+                        Number(r.month) ===
+                        Number(currentMonth)
+                    )
+                );
 
 
-    if(!ok){
+            saveData();
 
-        return;
+            renderAll();
 
-    }
+            showToast(
+                `🗑️ ${currentYear} 年 ${currentMonth} 月已清除`
+            );
 
-
-    records =
-        records.filter(r =>
-            !(
-                r.year === currentYear &&
-                r.month === currentMonth
-            )
-        );
-
-
-    saveData();
-
-    renderAll();
+        }
+    );
 
 }
 
 
-/* =====================================================
-   匯出
-===================================================== */
+/* =========================================================
+   清除全部
+========================================================= */
 
-function exportData(){
+function askClearAll(){
 
-    const list =
-        getYearRecords()
-        .sort(
-            (a,b)=>
-                a.start.localeCompare(b.start)
+    if(!records.length){
+
+        showToast(
+            "目前沒有任何資料"
         );
-
-
-    if(list.length === 0){
-
-        alert("目前年度沒有紀錄");
 
         return;
 
     }
 
 
-    let text =
-        `${currentYear} 年生理期記錄\n\n`;
+    openModal(
+        "🚨 清除全部資料？",
+        `這會刪除全部 ${records.length} 筆生理期紀錄。此操作無法復原，確定要繼續嗎？`,
+        function(){
 
+            records = [];
 
-    list.forEach(r => {
+            saveData();
 
-        const days =
-            periodDays(
-                r.start,
-                r.end
+            resetForm();
+
+            renderAll();
+
+            showToast(
+                "🗑️ 全部生理期資料已清除"
             );
 
-
-        const previous =
-            getPreviousRecord(r);
-
-
-        let cycle =
-            "";
-
-
-        if(previous){
-
-            cycle =
-                `｜週期 ${daysBetween(
-                    previous.start,
-                    r.start
-                )} 天`;
-
         }
+    );
+
+}
 
 
-        text +=
-            `開始：${r.start}｜結束：${r.end}｜經期：${days} 天${cycle}`;
+/* =========================================================
+   Modal
+========================================================= */
+
+function openModal(
+    title,
+    text,
+    action
+){
+
+    modalAction =
+        action;
 
 
-        if(r.note){
+    document
+        .getElementById(
+            "modalTitle"
+        )
+        .textContent =
+        title;
 
-            text +=
-                `｜備註：${r.note}`;
 
-        }
+    document
+        .getElementById(
+            "modalText"
+        )
+        .textContent =
+        text;
 
 
-        text += "\n";
+    document
+        .getElementById(
+            "modalBg"
+        )
+        .style.display =
+        "flex";
 
-    });
+}
+
+
+function closeModal(){
+
+    modalAction =
+        null;
+
+
+    document
+        .getElementById(
+            "modalBg"
+        )
+        .style.display =
+        "none";
+
+}
+
+
+function executeModalAction(){
+
+    const action =
+        modalAction;
+
+
+    closeModal();
+
+
+    if(typeof action === "function"){
+
+        action();
+
+    }
+
+}
+
+
+/* =========================================================
+   備份
+========================================================= */
+
+function backupData(){
+
+    if(!records.length){
+
+        showToast(
+            "目前沒有資料可以備份"
+        );
+
+        return;
+
+    }
+
+
+    const backup = {
+
+        app:
+            "生理期完整管理 V2",
+
+        version:
+            2,
+
+        exportedAt:
+            new Date().toISOString(),
+
+        records:
+            records
+
+    };
+
+
+    const json =
+        JSON.stringify(
+            backup,
+            null,
+            2
+        );
 
 
     const blob =
         new Blob(
-            [text],
+            [json],
             {
                 type:
-                "text/plain;charset=utf-8"
+                "application/json;charset=utf-8"
             }
         );
 
 
     const url =
-        URL.createObjectURL(blob);
+        URL.createObjectURL(
+            blob
+        );
 
 
-    const a =
-        document.createElement("a");
+    const link =
+        document.createElement(
+            "a"
+        );
 
 
-    a.href =
+    link.href =
         url;
 
 
-    a.download =
-        `${currentYear}-生理期記錄.txt`;
+    link.download =
+        `生理期備份_${currentYear}.json`;
 
 
-    a.click();
+    document
+        .body
+        .appendChild(link);
 
 
-    URL.revokeObjectURL(url);
+    link.click();
+
+
+    link.remove();
+
+
+    setTimeout(
+        function(){
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },
+        1000
+    );
+
+
+    showToast(
+        "📤 全部資料備份完成"
+    );
 
 }
 
 
-/* =====================================================
-   防止 HTML 注入
-===================================================== */
+/* =========================================================
+   還原
+========================================================= */
+
+function restoreData(event){
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file){
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(){
+
+            try{
+
+                const data =
+                    JSON.parse(
+                        reader.result
+                    );
+
+
+                let importedRecords = null;
+
+
+                if(
+                    Array.isArray(data)
+                ){
+
+                    importedRecords =
+                        data;
+
+                }else if(
+                    data &&
+                    Array.isArray(
+                        data.records
+                    )
+                ){
+
+                    importedRecords =
+                        data.records;
+
+                }
+
+
+                if(
+                    !Array.isArray(
+                        importedRecords
+                    )
+                ){
+
+                    throw new Error(
+                        "格式錯誤"
+                    );
+
+                }
+
+
+                const clean =
+                    importedRecords
+                    .filter(
+                        r =>
+                        r &&
+                        r.start &&
+                        r.end
+                    )
+                    .map(
+                        r => {
+
+                            const startDate =
+                                parseDate(
+                                    r.start
+                                );
+
+
+                            return {
+
+                                id:
+                                    r.id ||
+                                    (
+                                        Date.now()
+                                        +
+                                        Math.random()
+                                    ),
+
+                                start:
+                                    r.start,
+
+                                end:
+                                    r.end,
+
+                                year:
+                                    r.year ||
+                                    (
+                                        startDate
+                                        ?
+                                        startDate.getFullYear()
+                                        :
+                                        0
+                                    ),
+
+                                month:
+                                    r.month ||
+                                    (
+                                        startDate
+                                        ?
+                                        startDate.getMonth()+1
+                                        :
+                                        0
+                                    ),
+
+                                flow:
+                                    r.flow ||
+                                    "正常",
+
+                                symptoms:
+                                    Array.isArray(
+                                        r.symptoms
+                                    )
+                                    ?
+                                    r.symptoms
+                                    :
+                                    ["無不適"],
+
+                                note:
+                                    r.note || ""
+
+                            };
+
+                        }
+                    );
+
+
+                if(!clean.length){
+
+                    throw new Error(
+                        "沒有有效紀錄"
+                    );
+
+                }
+
+
+                openModal(
+                    "📥 確定還原資料？",
+                    `備份檔共有 ${clean.length} 筆紀錄。還原後會「取代目前資料」，是否繼續？`,
+                    function(){
+
+                        records =
+                            clean;
+
+                        records.sort(
+                            (a,b)=>
+                            a.start.localeCompare(
+                                b.start
+                            )
+                        );
+
+
+                        saveData();
+
+                        renderAll();
+
+                        showToast(
+                            `📥 已還原 ${clean.length} 筆資料`
+                        );
+
+                    }
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    error
+                );
+
+
+                showToast(
+                    "❌ 備份檔格式不正確"
+                );
+
+            }
+
+
+            event.target.value =
+                "";
+
+        };
+
+
+    reader.readAsText(
+        file,
+        "UTF-8"
+    );
+
+}
+
+
+/* =========================================================
+   Toast
+========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================================================
+   Escape HTML
+========================================================= */
 
 function escapeHtml(text){
 
     return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    啟動
-===================================================== */
+========================================================= */
 
-init();
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        try{
+
+            init();
+
+        }catch(error){
+
+            console.error(
+                "初始化錯誤：",
+                error
+            );
+
+
+            showToast(
+                "⚠️ 網頁初始化發生問題"
+            );
+
+        }
+
+    }
+);
 
 </script>
 
