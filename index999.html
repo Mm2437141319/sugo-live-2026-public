@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>🌸 生理期記錄清單</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    margin:0;
+    background:#fff5f7;
+    color:#333;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+}
+
+.container{
+    width:100%;
+    max-width:720px;
+    margin:auto;
+    padding:15px;
+}
+
+/* =========================
+   頂部
+========================= */
+
+.header{
+    background:linear-gradient(135deg,#ff8fab,#ff6f91);
+    color:white;
+    padding:24px 20px;
+    border-radius:24px;
+    margin-bottom:15px;
+    box-shadow:0 8px 25px rgba(255,105,135,.20);
+}
+
+.header h1{
+    margin:0 0 8px;
+    font-size:28px;
+}
+
+.header p{
+    margin:0;
+    font-size:14px;
+    opacity:.92;
+}
+
+/* =========================
+   卡片
+========================= */
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.card-title{
+    font-size:19px;
+    font-weight:900;
+    margin-bottom:15px;
+}
+
+/* =========================
+   年月選擇
+========================= */
+
+.select-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field label{
+    font-size:13px;
+    color:#777;
+    font-weight:700;
+}
+
+input,
+select{
+    width:100%;
+    border:1px solid #ddd;
+    background:white;
+    border-radius:12px;
+    padding:12px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#ff7f9e;
+    box-shadow:0 0 0 3px rgba(255,127,158,.12);
+}
+
+/* =========================
+   新增
+========================= */
+
+.date-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.add-btn{
+    width:100%;
+    margin-top:14px;
+    border:0;
+    border-radius:14px;
+    padding:15px;
+    background:#ff6f91;
+    color:white;
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.add-btn:active{
+    transform:scale(.98);
+}
+
+/* =========================
+   統計
+========================= */
+
+.summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.summary-box{
+    background:#fff5f7;
+    border-radius:15px;
+    padding:15px;
+}
+
+.summary-label{
+    color:#777;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.summary-value{
+    font-size:24px;
+    font-weight:900;
+    color:#e84d73;
+}
+
+/* =========================
+   月份按鈕
+========================= */
+
+.month-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-top:15px;
+}
+
+.month-btn{
+    border:1px solid #eee;
+    background:white;
+    border-radius:10px;
+    padding:10px 4px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.month-btn.active{
+    background:#ff6f91;
+    color:white;
+    border-color:#ff6f91;
+}
+
+.month-btn.has-data{
+    position:relative;
+}
+
+.month-btn.has-data::after{
+    content:"";
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#ffb000;
+    top:5px;
+    right:5px;
+}
+
+/* =========================
+   紀錄
+========================= */
+
+.record{
+    border:1px solid #f0e4e7;
+    border-radius:16px;
+    padding:15px;
+    margin-bottom:10px;
+    background:#fff;
+}
+
+.record-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.record-date{
+    font-size:18px;
+    font-weight:900;
+    color:#df496c;
+}
+
+.record-end{
+    margin-top:5px;
+    font-size:14px;
+    color:#777;
+}
+
+.record-days{
+    background:#fff0f3;
+    color:#d94363;
+    padding:7px 10px;
+    border-radius:10px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.record-cycle{
+    margin-top:10px;
+    padding:10px;
+    border-radius:10px;
+    background:#fafafa;
+    font-size:13px;
+    color:#666;
+}
+
+.record-note{
+    margin-top:9px;
+    font-size:14px;
+    color:#777;
+    line-height:1.5;
+}
+
+.record-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+}
+
+.delete-btn{
+    border:0;
+    background:#fff0f2;
+    color:#d94363;
+    padding:8px 12px;
+    border-radius:9px;
+    font-weight:800;
+}
+
+.empty{
+    text-align:center;
+    padding:30px 10px;
+    color:#aaa;
+}
+
+/* =========================
+   年度統計
+========================= */
+
+.year-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    background:#fafafa;
+    border-radius:12px;
+    margin-bottom:8px;
+}
+
+.year-row strong{
+    color:#df496c;
+}
+
+/* =========================
+   搜尋
+========================= */
+
+.search{
+    margin-bottom:10px;
+}
+
+/* =========================
+   操作
+========================= */
+
+.action-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.action-btn{
+    border:0;
+    border-radius:12px;
+    padding:13px;
+    font-size:15px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.export-btn{
+    background:#fff0f3;
+    color:#d94363;
+}
+
+.clear-btn{
+    background:#f3f3f3;
+    color:#666;
+}
+
+/* =========================
+   小提醒
+========================= */
+
+.notice{
+    font-size:12px;
+    color:#999;
+    line-height:1.6;
+    margin-top:12px;
+}
+
+/* =========================
+   手機
+========================= */
+
+@media(max-width:480px){
+
+    .select-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .date-grid{
+        grid-template-columns:1fr;
+    }
+
+    .month-list{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         標題
+    ========================== -->
+
+    <div class="header">
+
+        <h1>🌸 生理期記錄清單</h1>
+
+        <p>
+            記錄每次生理期，方便長期查看週期變化
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         年份月份
+    ========================== -->
+
+    <div class="card">
+
+        <div class="card-title">
+            📅 選擇年份與月份
+        </div>
+
+        <div class="select-grid">
+
+            <div class="field">
+
+                <label>年份</label>
+
+                <select id="yearSelect"></select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>月份</label>
+
+                <select id="monthSelect">
+
+                    <option value="1">1 月</option>
+                    <option value="2">2 月</option>
+                    <option value="3">3 月</option>
+                    <option value="4">4 月</option>
+                    <option value="5">5 月</option>
+                    <option value="6">6 月</option>
+                    <option value="7">7 月</option>
+                    <option value="8">8 月</option>
+                    <option value="9">9 月</option>
+                    <option value="10">10 月</option>
+                    <option value="11">11 月</option>
+                    <option value="12">12 月</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="month-list" id="monthButtons"></div>
+
+    </div>
+
+
+    <!-- =========================
+         新增生理期
+    ========================== -->
+
+    <div class="card">
+
+        <div class="card-title">
+            🩸 新增生理期
+        </div>
+
+
+        <div class="date-grid">
+
+            <div class="field">
+
+                <label>🩸 開始日期</label>
+
+                <input
+                    type="date"
+                    id="startDate"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>🌸 結束日期</label>
+
+                <input
+                    type="date"
+                    id="endDate"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field" style="margin-top:10px;">
+
+            <label>📝 備註</label>
+
+            <input
+                type="text"
+                id="noteInput"
+                placeholder="例如：量較多、腹痛、正常..."
+            >
+
+        </div>
+
+
+        <button
+            class="add-btn"
+            onclick="addPeriod()"
+        >
+            ＋ 新增這次生理期
+        </button>
+
+
+        <div class="notice">
+            ※ 日期資料會儲存在目前瀏覽器中。
+            清除瀏覽器資料後可能會消失。
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         當月統計
+    ========================== -->
+
+    <div class="card">
+
+        <div class="card-title" id="monthTitle">
+            2026 年 9 月
+        </div>
+
+
+        <div class="summary">
+
+            <div class="summary-box">
+
+                <div class="summary-label">
+                    🩸 本月紀錄
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="monthCount"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-label">
+                    📅 最近一次經期
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="lastPeriodDays"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-label">
+                    🔄 平均週期
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="averageCycle"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-label">
+                    🌸 平均經期
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="averageDays"
+                >
+                    -
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         年度統計
+    ========================== -->
+
+    <div class="card">
+
+        <div class="card-title">
+            📊 <span id="yearTitle">2026</span> 年度統計
+        </div>
+
+
+        <div class="year-row">
+
+            <span>🩸 生理期次數</span>
+
+            <strong id="yearCount">
+                0 次
+            </strong>
+
+        </div>
+
+
+        <div class="year-row">
+
+            <span>🌸 平均經期</span>
+
+            <strong id="yearAverageDays">
+                -
+            </strong>
+
+        </div>
+
+
+        <div class="year-row">
+
+            <span>🔄 平均週期</span>
+
+            <strong id="yearAverageCycle">
+                -
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         紀錄
+    ========================== -->
+
+    <div class="card">
+
+        <div class="card-title">
+
+            📋
+            <span id="recordTitle">
+                2026 年 9 月
+            </span>
+            紀錄
+
+        </div>
+
+
+        <input
+            class="search"
+            type="search"
+            id="searchInput"
+            placeholder="🔎 搜尋日期或備註..."
+            oninput="renderRecords()"
+        >
+
+
+        <div id="records"></div>
+
+    </div>
+
+
+    <!-- =========================
+         操作
+    ========================== -->
+
+    <div class="card">
+
+        <div class="action-grid">
+
+            <button
+                class="action-btn export-btn"
+                onclick="exportData()"
+            >
+                📤 匯出紀錄
+            </button>
+
+
+            <button
+                class="action-btn clear-btn"
+                onclick="clearCurrentMonth()"
+            >
+                🗑️ 清除本月
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   儲存設定
+===================================================== */
+
+const STORAGE_KEY =
+    "my_period_records_v1";
+
+
+let records =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+
+const today =
+    new Date();
+
+
+let currentYear =
+    today.getFullYear();
+
+
+let currentMonth =
+    today.getMonth() + 1;
+
+
+/* =====================================================
+   初始化
+===================================================== */
+
+function init(){
+
+    createYears();
+
+    document.getElementById("yearSelect").value =
+        currentYear;
+
+    document.getElementById("monthSelect").value =
+        currentMonth;
+
+
+    document
+        .getElementById("yearSelect")
+        .addEventListener("change",function(){
+
+            currentYear =
+                Number(this.value);
+
+            renderAll();
+
+        });
+
+
+    document
+        .getElementById("monthSelect")
+        .addEventListener("change",function(){
+
+            currentMonth =
+                Number(this.value);
+
+            setDefaultDate();
+
+            renderAll();
+
+        });
+
+
+    setDefaultDate();
+
+    renderAll();
+
+}
+
+
+/* =====================================================
+   建立年份
+===================================================== */
+
+function createYears(){
+
+    const select =
+        document.getElementById("yearSelect");
+
+
+    select.innerHTML = "";
+
+
+    const startYear =
+        2020;
+
+    const endYear =
+        2035;
+
+
+    for(
+        let year=startYear;
+        year<=endYear;
+        year++
+    ){
+
+        const option =
+            document.createElement("option");
+
+
+        option.value =
+            year;
+
+        option.textContent =
+            year + " 年";
+
+
+        select.appendChild(option);
+
+    }
+
+}
+
+
+/* =====================================================
+   設定預設日期
+===================================================== */
+
+function setDefaultDate(){
+
+    const yyyy =
+        currentYear;
+
+    const mm =
+        String(currentMonth)
+        .padStart(2,"0");
+
+    const dd =
+        "01";
+
+
+    document.getElementById("startDate").value =
+        `${yyyy}-${mm}-${dd}`;
+
+
+    document.getElementById("endDate").value =
+        "";
+}
+
+
+/* =====================================================
+   計算日期差
+===================================================== */
+
+function daysBetween(start,end){
+
+    const a =
+        new Date(start);
+
+    const b =
+        new Date(end);
+
+
+    const diff =
+        b.getTime() -
+        a.getTime();
+
+
+    return Math.floor(
+        diff / (1000*60*60*24)
+    );
+
+}
+
+
+/* =====================================================
+   計算經期天數
+===================================================== */
+
+function periodDays(start,end){
+
+    return daysBetween(start,end) + 1;
+
+}
+
+
+/* =====================================================
+   新增
+===================================================== */
+
+function addPeriod(){
+
+    const start =
+        document
+        .getElementById("startDate")
+        .value;
+
+
+    const end =
+        document
+        .getElementById("endDate")
+        .value;
+
+
+    const note =
+        document
+        .getElementById("noteInput")
+        .value
+        .trim();
+
+
+    if(!start){
+
+        alert("請選擇生理期開始日期");
+
+        return;
+
+    }
+
+
+    if(!end){
+
+        alert("請選擇生理期結束日期");
+
+        return;
+
+    }
+
+
+    if(end < start){
+
+        alert("結束日期不能早於開始日期");
+
+        return;
+
+    }
+
+
+    const startObj =
+        new Date(start);
+
+
+    const record = {
+
+        id:Date.now(),
+
+        start:start,
+
+        end:end,
+
+        year:startObj.getFullYear(),
+
+        month:startObj.getMonth()+1,
+
+        note:note
+
+    };
+
+
+    records.push(record);
+
+
+    records.sort(
+        (a,b)=>
+            a.start.localeCompare(b.start)
+    );
+
+
+    saveData();
+
+
+    currentYear =
+        record.year;
+
+    currentMonth =
+        record.month;
+
+
+    document.getElementById("yearSelect").value =
+        currentYear;
+
+    document.getElementById("monthSelect").value =
+        currentMonth;
+
+
+    document.getElementById("noteInput").value =
+        "";
+
+
+    renderAll();
+
+
+    alert("🌸 生理期紀錄已新增");
+
+}
+
+
+/* =====================================================
+   儲存
+===================================================== */
+
+function saveData(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+    );
+
+}
+
+
+/* =====================================================
+   目前月份
+===================================================== */
+
+function getMonthRecords(){
+
+    return records.filter(r =>
+        r.year === currentYear &&
+        r.month === currentMonth
+    );
+
+}
+
+
+/* =====================================================
+   目前年份
+===================================================== */
+
+function getYearRecords(){
+
+    return records.filter(r =>
+        r.year === currentYear
+    );
+
+}
+
+
+/* =====================================================
+   月份按鈕
+===================================================== */
+
+function renderMonthButtons(){
+
+    const box =
+        document.getElementById("monthButtons");
+
+
+    box.innerHTML = "";
+
+
+    for(
+        let month=1;
+        month<=12;
+        month++
+    ){
+
+        const btn =
+            document.createElement("button");
+
+
+        btn.className =
+            "month-btn";
+
+
+        if(month === currentMonth){
+
+            btn.classList.add("active");
+
+        }
+
+
+        const hasData =
+            records.some(r =>
+                r.year === currentYear &&
+                r.month === month
+            );
+
+
+        if(hasData){
+
+            btn.classList.add("has-data");
+
+        }
+
+
+        btn.textContent =
+            month + " 月";
+
+
+        btn.onclick =
+            function(){
+
+                currentMonth =
+                    month;
+
+
+                document
+                    .getElementById("monthSelect")
+                    .value =
+                    month;
+
+
+                setDefaultDate();
+
+                renderAll();
+
+            };
+
+
+        box.appendChild(btn);
+
+    }
+
+}
+
+
+/* =====================================================
+   找上一筆
+===================================================== */
+
+function getPreviousRecord(record){
+
+    const previous =
+        records
+        .filter(r =>
+            r.start < record.start
+        )
+        .sort(
+            (a,b)=>
+                b.start.localeCompare(a.start)
+        );
+
+
+    return previous.length
+        ? previous[0]
+        : null;
+
+}
+
+
+/* =====================================================
+   平均週期
+===================================================== */
+
+function calculateAverageCycle(list){
+
+    if(list.length < 2){
+
+        return null;
+
+    }
+
+
+    const sorted =
+        [...list].sort(
+            (a,b)=>
+                a.start.localeCompare(b.start)
+        );
+
+
+    let total = 0;
+    let count = 0;
+
+
+    for(
+        let i=1;
+        i<sorted.length;
+        i++
+    ){
+
+        const gap =
+            daysBetween(
+                sorted[i-1].start,
+                sorted[i].start
+            );
+
+
+        if(gap > 0){
+
+            total += gap;
+
+            count++;
+
+        }
+
+    }
+
+
+    if(count === 0){
+
+        return null;
+
+    }
+
+
+    return Math.round(
+        total / count
+    );
+
+}
+
+
+/* =====================================================
+   平均經期
+===================================================== */
+
+function calculateAverageDays(list){
+
+    if(list.length === 0){
+
+        return null;
+
+    }
+
+
+    let total = 0;
+
+
+    list.forEach(r => {
+
+        total +=
+            periodDays(
+                r.start,
+                r.end
+            );
+
+    });
+
+
+    return Math.round(
+        total / list.length
+    );
+
+}
+
+
+/* =====================================================
+   當月統計
+===================================================== */
+
+function renderMonthSummary(){
+
+    const list =
+        getMonthRecords();
+
+
+    document.getElementById("monthCount")
+        .textContent =
+        list.length;
+
+
+    document.getElementById("monthTitle")
+        .textContent =
+        `${currentYear} 年 ${currentMonth} 月`;
+
+
+    const latest =
+        [...list].sort(
+            (a,b)=>
+                b.start.localeCompare(a.start)
+        )[0];
+
+
+    if(latest){
+
+        document.getElementById("lastPeriodDays")
+            .textContent =
+            periodDays(
+                latest.start,
+                latest.end
+            ) + " 天";
+
+    }else{
+
+        document.getElementById("lastPeriodDays")
+            .textContent =
+            "-";
+
+    }
+
+
+    const avgCycle =
+        calculateAverageCycle(
+            getYearRecords()
+        );
+
+
+    const avgDays =
+        calculateAverageDays(
+            getYearRecords()
+        );
+
+
+    document.getElementById("averageCycle")
+        .textContent =
+        avgCycle
+        ? avgCycle + " 天"
+        : "-";
+
+
+    document.getElementById("averageDays")
+        .textContent =
+        avgDays
+        ? avgDays + " 天"
+        : "-";
+
+}
+
+
+/* =====================================================
+   年度統計
+===================================================== */
+
+function renderYearSummary(){
+
+    const list =
+        getYearRecords();
+
+
+    document.getElementById("yearTitle")
+        .textContent =
+        currentYear;
+
+
+    document.getElementById("yearCount")
+        .textContent =
+        list.length + " 次";
+
+
+    const avgDays =
+        calculateAverageDays(list);
+
+
+    const avgCycle =
+        calculateAverageCycle(list);
+
+
+    document.getElementById("yearAverageDays")
+        .textContent =
+        avgDays
+        ? avgDays + " 天"
+        : "-";
+
+
+    document.getElementById("yearAverageCycle")
+        .textContent =
+        avgCycle
+        ? avgCycle + " 天"
+        : "-";
+
+}
+
+
+/* =====================================================
+   顯示紀錄
+===================================================== */
+
+function renderRecords(){
+
+    const box =
+        document.getElementById("records");
+
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    let list =
+        getMonthRecords();
+
+
+    if(search){
+
+        list =
+            list.filter(r => {
+
+                const text =
+                    `${r.start}
+                     ${r.end}
+                     ${r.note}`
+                    .toLowerCase();
+
+
+                return text.includes(search);
+
+            });
+
+    }
+
+
+    list.sort(
+        (a,b)=>
+            b.start.localeCompare(a.start)
+    );
+
+
+    box.innerHTML = "";
+
+
+    document.getElementById("recordTitle")
+        .textContent =
+        `${currentYear} 年 ${currentMonth} 月`;
+
+
+    if(list.length === 0){
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                🌸<br><br>
+
+                目前沒有生理期紀錄
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(r => {
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "record";
+
+
+        const days =
+            periodDays(
+                r.start,
+                r.end
+            );
+
+
+        const previous =
+            getPreviousRecord(r);
+
+
+        let cycleText =
+            "🔄 第一次記錄";
+
+
+        if(previous){
+
+            const cycle =
+                daysBetween(
+                    previous.start,
+                    r.start
+                );
+
+
+            cycleText =
+                `🔄 與上一次開始日相隔 ${cycle} 天`;
+
+        }
+
+
+        div.innerHTML = `
+
+            <div class="record-top">
+
+                <div>
+
+                    <div class="record-date">
+
+                        🩸 ${r.start}
+
+                    </div>
+
+                    <div class="record-end">
+
+                        🌸 結束：${r.end}
+
+                    </div>
+
+                </div>
+
+
+                <div class="record-days">
+
+                    ${days} 天
+
+                </div>
+
+            </div>
+
+
+            <div class="record-cycle">
+
+                ${cycleText}
+
+            </div>
+
+
+            ${
+                r.note
+                ?
+                `
+                <div class="record-note">
+
+                    📝 ${escapeHtml(r.note)}
+
+                </div>
+                `
+                :
+                ""
+            }
+
+
+            <div class="record-bottom">
+
+                <span>
+                    🌸 生理期
+                </span>
+
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteRecord(${r.id})"
+                >
+                    🗑️ 刪除
+                </button>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   刪除
+===================================================== */
+
+function deleteRecord(id){
+
+    const target =
+        records.find(
+            r => r.id === id
+        );
+
+
+    if(!target){
+
+        return;
+
+    }
+
+
+    const ok =
+        confirm(
+            `確定要刪除 ${target.start} 這筆紀錄嗎？`
+        );
+
+
+    if(!ok){
+
+        return;
+
+    }
+
+
+    records =
+        records.filter(
+            r => r.id !== id
+        );
+
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================================
+   清除目前月份
+===================================================== */
+
+function clearCurrentMonth(){
+
+    const list =
+        getMonthRecords();
+
+
+    if(list.length === 0){
+
+        alert("目前月份沒有資料");
+
+        return;
+
+    }
+
+
+    const ok =
+        confirm(
+            `確定要刪除 ${currentYear} 年 ${currentMonth} 月的 ${list.length} 筆紀錄嗎？`
+        );
+
+
+    if(!ok){
+
+        return;
+
+    }
+
+
+    records =
+        records.filter(r =>
+            !(
+                r.year === currentYear &&
+                r.month === currentMonth
+            )
+        );
+
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================================
+   匯出
+===================================================== */
+
+function exportData(){
+
+    const list =
+        getYearRecords()
+        .sort(
+            (a,b)=>
+                a.start.localeCompare(b.start)
+        );
+
+
+    if(list.length === 0){
+
+        alert("目前年度沒有紀錄");
+
+        return;
+
+    }
+
+
+    let text =
+        `${currentYear} 年生理期記錄\n\n`;
+
+
+    list.forEach(r => {
+
+        const days =
+            periodDays(
+                r.start,
+                r.end
+            );
+
+
+        const previous =
+            getPreviousRecord(r);
+
+
+        let cycle =
+            "";
+
+
+        if(previous){
+
+            cycle =
+                `｜週期 ${daysBetween(
+                    previous.start,
+                    r.start
+                )} 天`;
+
+        }
+
+
+        text +=
+            `開始：${r.start}｜結束：${r.end}｜經期：${days} 天${cycle}`;
+
+
+        if(r.note){
+
+            text +=
+                `｜備註：${r.note}`;
+
+        }
+
+
+        text += "\n";
+
+    });
+
+
+    const blob =
+        new Blob(
+            [text],
+            {
+                type:
+                "text/plain;charset=utf-8"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href =
+        url;
+
+
+    a.download =
+        `${currentYear}-生理期記錄.txt`;
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+   防止 HTML 注入
+===================================================== */
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   啟動
+===================================================== */
+
+init();
+
+</script>
+
+</body>
+</html>
