@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🛒 我的購物清單</title>
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+html{
+    scroll-behavior:smooth;
+}
+body{
+    margin:0;
+    padding:0;
+    background:#f4f7fc;
+    color:#182230;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "PingFang TC",
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        Arial,
+        sans-serif;
+}
+button,
+input,
+select{
+    font:inherit;
+}
+button{
+    cursor:pointer;
+}
+.container{
+    width:min(920px,100%);
+    margin:0 auto;
+    padding:22px 16px 60px;
+}
+/* =========================
+   標題
+========================= */
+.header{
+    text-align:center;
+    padding:10px 8px 24px;
+}
+.title-input{
+    width:100%;
+    border:0;
+    outline:none;
+    background:transparent;
+    text-align:center;
+    color:#182230;
+    font-size:40px;
+    font-weight:950;
+    padding:5px 8px;
+}
+.title-input:focus{
+    background:white;
+    border-radius:16px;
+    box-shadow:
+        0 0 0 3px rgba(56,100,229,.12);
+}
+.subtitle{
+    margin-top:5px;
+    color:#707886;
+    font-size:19px;
+    font-weight:800;
+}
+.save-status{
+    min-height:22px;
+    margin-top:7px;
+    color:#3864e5;
+    font-size:14px;
+    font-weight:800;
+}
+/* =========================
+   卡片
+========================= */
+.card{
+    background:#fff;
+    border:1px solid #e3e7ee;
+    border-radius:28px;
+    padding:22px 20px;
+    margin-bottom:18px;
+    box-shadow:
+        0 4px 14px rgba(20,35,60,.045);
+}
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:20px;
+    font-size:27px;
+    font-weight:950;
+}
+.section-icon{
+    font-size:29px;
+}
+/* =========================
+   新增商品
+========================= */
+.form-grid{
+    display:grid;
+    grid-template-columns:
+        1fr 1fr;
+    gap:14px;
+}
+.form-full{
+    grid-column:1 / -1;
+}
+.label{
+    display:block;
+    margin-bottom:8px;
+    font-size:18px;
+    font-weight:900;
+}
+.input{
+    width:100%;
+    height:62px;
+    padding:0 17px;
+    border:
+        2px solid #dce1e9;
+    border-radius:19px;
+    background:#fff;
+    color:#182230;
+    font-size:20px;
+    font-weight:800;
+    outline:none;
+}
+.input:focus{
+    border-color:#3864e5;
+    box-shadow:
+        0 0 0 4px
+        rgba(56,100,229,.10);
+}
+.add-btn{
+    width:100%;
+    height:67px;
+    margin-top:18px;
+    border:0;
+    border-radius:21px;
+    background:#3864e5;
+    color:#fff;
+    font-size:23px;
+    font-weight:950;
+    box-shadow:
+        0 8px 18px
+        rgba(56,100,229,.18);
+}
+.add-btn:active{
+    transform:scale(.985);
+}
+/* =========================
+   統計
+========================= */
+.stats{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap:11px;
+}
+.stat{
+    background:#f4f7fc;
+    border-radius:20px;
+    padding:16px 8px;
+    text-align:center;
+}
+.stat-number{
+    font-size:29px;
+    font-weight:950;
+}
+.stat-label{
+    margin-top:5px;
+    color:#737b87;
+    font-size:15px;
+    font-weight:800;
+}
+/* =========================
+   預算
+========================= */
+.budget-box{
+    margin-top:16px;
+    background:#edf4ff;
+    border-radius:21px;
+    padding:17px;
+}
+.budget-row{
+    display:flex;
+    justify-content:
+        space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:9px;
+    font-size:18px;
+    font-weight:900;
+}
+.budget-input{
+    width:145px;
+    height:45px;
+    border:
+        2px solid #d8e1f1;
+    border-radius:13px;
+    background:#fff;
+    text-align:right;
+    padding:0 10px;
+    font-weight:900;
+    outline:none;
+}
+.progress-bg{
+    width:100%;
+    height:15px;
+    background:#dfe6f1;
+    border-radius:20px;
+    overflow:hidden;
+}
+.progress{
+    height:100%;
+    width:0%;
+    background:#3864e5;
+    border-radius:20px;
+    transition:
+        width .3s ease;
+}
+.budget-info{
+    margin-top:9px;
+    text-align:center;
+    color:#626b79;
+    font-size:15px;
+    font-weight:800;
+}
+/* =========================
+   搜尋
+========================= */
+.search-row{
+    display:grid;
+    grid-template-columns:
+        1fr 170px;
+    gap:10px;
+    margin-bottom:16px;
+}
+.search-input{
+    height:58px;
+    border:
+        2px solid #dce1e9;
+    border-radius:18px;
+    padding:0 16px;
+    outline:none;
+    font-size:18px;
+    font-weight:800;
+}
+.filter-select{
+    height:58px;
+    border:
+        2px solid #dce1e9;
+    border-radius:18px;
+    background:#fff;
+    padding:0 12px;
+    font-size:17px;
+    font-weight:900;
+    outline:none;
+}
+/* =========================
+   商品列表
+========================= */
+.list-header{
+    display:flex;
+    justify-content:
+        space-between;
+    align-items:center;
+    margin-bottom:13px;
+}
+.list-count{
+    color:#707886;
+    font-size:16px;
+    font-weight:900;
+}
+.clear-bought{
+    border:
+        2px solid #f1cccc;
+    background:#fff;
+    color:#d93636;
+    border-radius:15px;
+    padding:9px 12px;
+    font-size:15px;
+    font-weight:900;
+}
+.item{
+    display:grid;
+    grid-template-columns:
+        45px 1fr auto;
+    gap:11px;
+    align-items:center;
+    padding:14px 3px;
+    border-bottom:
+        1px solid #e8ebf0;
+}
+.item:last-child{
+    border-bottom:0;
+}
+/* checkbox */
+.check{
+    width:31px;
+    height:31px;
+    appearance:none;
+    -webkit-appearance:none;
+    border:
+        3px solid #cbd2dd;
+    border-radius:10px;
+    background:#fff;
+    position:relative;
+    cursor:pointer;
+}
+.check:checked{
+    background:#3864e5;
+    border-color:#3864e5;
+}
+.check:checked::after{
+    content:"✓";
+    position:absolute;
+    left:5px;
+    top:-2px;
+    color:white;
+    font-size:22px;
+    font-weight:950;
+}
+/* 商品資訊 */
+.item-name{
+    font-size:20px;
+    font-weight:950;
+    line-height:1.3;
+}
+.item-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:5px;
+}
+.badge{
+    display:inline-block;
+    background:#f0f3f8;
+    color:#68717e;
+    border-radius:9px;
+    padding:3px 7px;
+    font-size:12px;
+    font-weight:900;
+}
+.item-note{
+    margin-top:5px;
+    color:#858c96;
+    font-size:13px;
+    font-weight:700;
+}
+.item-right{
+    text-align:right;
+}
+.item-price{
+    font-size:19px;
+    font-weight:950;
+}
+.item-qty{
+    color:#777f8a;
+    font-size:13px;
+    font-weight:800;
+    margin-top:3px;
+}
+.delete{
+    margin-top:7px;
+    border:
+        1px solid #f2cccc;
+    background:white;
+    color:#d93636;
+    border-radius:10px;
+    padding:5px 8px;
+    font-size:12px;
+    font-weight:900;
+}
+.item.bought{
+    opacity:.55;
+}
+.item.bought .item-name{
+    text-decoration:
+        line-through;
+}
+/* =========================
+   空白
+========================= */
+.empty{
+    text-align:center;
+    padding:40px 15px;
+    color:#89919d;
+    font-size:18px;
+    font-weight:800;
+}
+/* =========================
+   快速分類
+========================= */
+.category-buttons{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:3px;
+}
+.category-btn{
+    flex:0 0 auto;
+    border:
+        2px solid #dce1e9;
+    background:#fff;
+    border-radius:15px;
+    padding:10px 14px;
+    font-size:15px;
+    font-weight:900;
+}
+.category-btn.active{
+    background:#3864e5;
+    color:white;
+    border-color:#3864e5;
+}
+/* =========================
+   彈窗
+========================= */
+.modal-mask{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:
+        rgba(0,0,0,.42);
+    padding:20px;
+    align-items:center;
+    justify-content:center;
+}
+.modal-mask.show{
+    display:flex;
+}
+.modal{
+    width:min(420px,100%);
+    background:#fff;
+    border-radius:27px;
+    padding:26px 22px 21px;
+    text-align:center;
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.22);
+}
+.modal-icon{
+    font-size:45px;
+}
+.modal-title{
+    margin-top:6px;
+    font-size:25px;
+    font-weight:950;
+}
+.modal-text{
+    margin:10px 0 20px;
+    color:#69717d;
+    font-size:17px;
+    font-weight:700;
+    line-height:1.6;
+}
+.modal-buttons{
+    display:grid;
+    grid-template-columns:
+        1fr 1fr;
+    gap:10px;
+}
+.modal-btn{
+    height:54px;
+    border:0;
+    border-radius:16px;
+    font-size:18px;
+    font-weight:900;
+}
+.cancel{
+    background:#eef1f5;
+}
+.confirm{
+    background:#df3d3d;
+    color:#fff;
+}
+/* =========================
+   RWD
+========================= */
+@media(max-width:650px){
+    .container{
+        padding:
+            16px 13px 45px;
+    }
+    .title-input{
+        font-size:33px;
+    }
+    .subtitle{
+        font-size:17px;
+    }
+    .card{
+        border-radius:24px;
+        padding:
+            20px 16px;
+    }
+    .card-title{
+        font-size:25px;
+    }
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+    .form-full{
+        grid-column:auto;
+    }
+    .input{
+        height:62px;
+    }
+    .add-btn{
+        height:65px;
+    }
+    .stats{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+    .stat-number{
+        font-size:25px;
+    }
+    .stat-label{
+        font-size:13px;
+    }
+    .search-row{
+        grid-template-columns:
+            1fr;
+    }
+    .item{
+        grid-template-columns:
+            38px 1fr auto;
+    }
+    .item-name{
+        font-size:18px;
+    }
+    .item-price{
+        font-size:17px;
+    }
+    .budget-input{
+        width:125px;
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<!-- =========================
+     標題
+========================= -->
+<header class="header">
+    <input
+        id="titleInput"
+        class="title-input"
+        value="🛒 我的購物清單"
+        maxlength="50"
+    >
+    <div class="subtitle">
+        想買什麼，就先記下來 ❤️
+    </div>
+    <div
+        id="saveStatus"
+        class="save-status"
+    ></div>
+</header>
+<!-- =========================
+     新增商品
+========================= -->
+<section class="card">
+    <div class="card-title">
+        <span class="section-icon">
+            ➕
+        </span>
+        新增購物項目
+    </div>
+    <div class="form-grid">
+        <div class="form-full">
+            <label class="label">
+                🛍️ 商品名稱
+            </label>
+            <input
+                id="nameInput"
+                class="input"
+                type="text"
+                placeholder="例如：雞蛋、衛生紙、牛奶"
+            >
+        </div>
+        <div>
+            <label class="label">
+                🔢 數量
+            </label>
+            <input
+                id="qtyInput"
+                class="input"
+                type="number"
+                min="1"
+                step="1"
+                value="1"
+            >
+        </div>
+        <div>
+            <label class="label">
+                💰 單價
+            </label>
+            <input
+                id="priceInput"
+                class="input"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+                placeholder="0"
+            >
+        </div>
+        <div>
+            <label class="label">
+                📦 分類
+            </label>
+            <select
+                id="categoryInput"
+                class="input"
+            >
+                <option value="食品">
+                    🍎 食品
+                </option>
+                <option value="飲料">
+                    🥤 飲料
+                </option>
+                <option value="日用品">
+                    🧻 日用品
+                </option>
+                <option value="清潔">
+                    🧽 清潔
+                </option>
+                <option value="生活">
+                    🏠 生活
+                </option>
+                <option value="其他">
+                    📦 其他
+                </option>
+            </select>
+        </div>
+        <div>
+            <label class="label">
+                📝 備註
+            </label>
+            <input
+                id="noteInput"
+                class="input"
+                type="text"
+                placeholder="品牌、規格..."
+            >
+        </div>
+    </div>
+    <button
+        id="addBtn"
+        class="add-btn"
+    >
+        ＋ 加入購物清單
+    </button>
+</section>
+<!-- =========================
+     統計
+========================= -->
+<section class="card">
+    <div class="card-title">
+        <span class="section-icon">
+            📊
+        </span>
+        購物統計
+    </div>
+    <div class="stats">
+        <div class="stat">
+            <div
+                id="totalItems"
+                class="stat-number"
+            >
+                0
+            </div>
+            <div class="stat-label">
+                商品
+            </div>
+        </div>
+        <div class="stat">
+            <div
+                id="leftItems"
+                class="stat-number"
+            >
+                0
+            </div>
+            <div class="stat-label">
+                待購買
+            </div>
+        </div>
+        <div class="stat">
+            <div
+                id="boughtItems"
+                class="stat-number"
+            >
+                0
+            </div>
+            <div class="stat-label">
+                已購買
+            </div>
+        </div>
+        <div class="stat">
+            <div
+                id="totalMoney"
+                class="stat-number"
+            >
+                $0
+            </div>
+            <div class="stat-label">
+                預估總額
+            </div>
+        </div>
+        <div class="stat">
+            <div
+                id="boughtMoney"
+                class="stat-number"
+            >
+                $0
+            </div>
+            <div class="stat-label">
+                已購金額
+            </div>
+        </div>
+        <div class="stat">
+            <div
+                id="leftMoney"
+                class="stat-number"
+            >
+                $0
+            </div>
+            <div class="stat-label">
+                尚需金額
+            </div>
+        </div>
+    </div>
+    <!-- 預算 -->
+    <div class="budget-box">
+        <div class="budget-row">
+            <span>
+                🎯 我的購物預算
+            </span>
+            <input
+                id="budgetInput"
+                class="budget-input"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="不限"
+            >
+        </div>
+        <div class="progress-bg">
+            <div
+                id="budgetProgress"
+                class="progress"
+            ></div>
+        </div>
+        <div
+            id="budgetInfo"
+            class="budget-info"
+        >
+            尚未設定預算
+        </div>
+    </div>
+</section>
+<!-- =========================
+     商品列表
+========================= -->
+<section class="card">
+    <div class="card-title">
+        <span class="section-icon">
+            🛒
+        </span>
+        購物清單
+    </div>
+    <!-- 搜尋 -->
+    <div class="search-row">
+        <input
+            id="searchInput"
+            class="search-input"
+            type="search"
+            placeholder="🔍 搜尋商品..."
+        >
+        <select
+            id="filterSelect"
+            class="filter-select"
+        >
+            <option value="全部">
+                📋 全部
+            </option>
+            <option value="待購買">
+                🛒 待購買
+            </option>
+            <option value="已購買">
+                ✅ 已購買
+            </option>
+        </select>
+    </div>
+    <!-- 分類 -->
+    <div
+        id="categoryButtons"
+        class="category-buttons"
+    ></div>
+    <div style="height:15px"></div>
+    <div class="list-header">
+        <div
+            id="listCount"
+            class="list-count"
+        >
+            0 項
+        </div>
+        <button
+            id="clearBoughtBtn"
+            class="clear-bought"
+        >
+            🧹 清除已購買
+        </button>
+    </div>
+    <div id="list"></div>
+</section>
+</div>
+<!-- =========================
+     確認視窗
+========================= -->
+<div
+    id="modalMask"
+    class="modal-mask"
+>
+    <div class="modal">
+        <div class="modal-icon">
+            ⚠️
+        </div>
+        <div
+            id="modalTitle"
+            class="modal-title"
+        >
+            確定嗎？
+        </div>
+        <div
+            id="modalText"
+            class="modal-text"
+        >
+            刪除後無法復原。
+        </div>
+        <div class="modal-buttons">
+            <button
+                id="modalCancel"
+                class="modal-btn cancel"
+            >
+                取消
+            </button>
+            <button
+                id="modalConfirm"
+                class="modal-btn confirm"
+            >
+                確定
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+(function(){
+"use strict";
+/* =====================================================
+   儲存
+===================================================== */
+const STORAGE_KEY =
+    "my_shopping_list_v1";
+const TITLE_KEY =
+    "my_shopping_title_v1";
+const BUDGET_KEY =
+    "my_shopping_budget_v1";
+/* =====================================================
+   DOM
+===================================================== */
+const titleInput =
+    document.getElementById(
+        "titleInput"
+    );
+const nameInput =
+    document.getElementById(
+        "nameInput"
+    );
+const qtyInput =
+    document.getElementById(
+        "qtyInput"
+    );
+const priceInput =
+    document.getElementById(
+        "priceInput"
+    );
+const categoryInput =
+    document.getElementById(
+        "categoryInput"
+    );
+const noteInput =
+    document.getElementById(
+        "noteInput"
+    );
+const addBtn =
+    document.getElementById(
+        "addBtn"
+    );
+const totalItems =
+    document.getElementById(
+        "totalItems"
+    );
+const leftItems =
+    document.getElementById(
+        "leftItems"
+    );
+const boughtItems =
+    document.getElementById(
+        "boughtItems"
+    );
+const totalMoney =
+    document.getElementById(
+        "totalMoney"
+    );
+const boughtMoney =
+    document.getElementById(
+        "boughtMoney"
+    );
+const leftMoney =
+    document.getElementById(
+        "leftMoney"
+    );
+const budgetInput =
+    document.getElementById(
+        "budgetInput"
+    );
+const budgetProgress =
+    document.getElementById(
+        "budgetProgress"
+    );
+const budgetInfo =
+    document.getElementById(
+        "budgetInfo"
+    );
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+const filterSelect =
+    document.getElementById(
+        "filterSelect"
+    );
+const categoryButtons =
+    document.getElementById(
+        "categoryButtons"
+    );
+const list =
+    document.getElementById(
+        "list"
+    );
+const listCount =
+    document.getElementById(
+        "listCount"
+    );
+const clearBoughtBtn =
+    document.getElementById(
+        "clearBoughtBtn"
+    );
+const saveStatus =
+    document.getElementById(
+        "saveStatus"
+    );
+const modalMask =
+    document.getElementById(
+        "modalMask"
+    );
+const modalTitle =
+    document.getElementById(
+        "modalTitle"
+    );
+const modalText =
+    document.getElementById(
+        "modalText"
+    );
+const modalCancel =
+    document.getElementById(
+        "modalCancel"
+    );
+const modalConfirm =
+    document.getElementById(
+        "modalConfirm"
+    );
+/* =====================================================
+   資料
+===================================================== */
+let items =
+    loadItems();
+let activeCategory =
+    "全部";
+let pendingAction =
+    null;
+/* =====================================================
+   分類
+===================================================== */
+const categories = [
+    "全部",
+    "食品",
+    "飲料",
+    "日用品",
+    "清潔",
+    "生活",
+    "其他"
+];
+/* =====================================================
+   載入
+===================================================== */
+function loadItems(){
+    try{
+        const saved =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+        if(saved){
+            const data =
+                JSON.parse(saved);
+            if(Array.isArray(data)){
+                return data;
+            }
+        }
+    }catch(error){
+        console.error(
+            "讀取購物清單失敗",
+            error
+        );
+    }
+    return [];
+}
+/* =====================================================
+   儲存
+===================================================== */
+function save(){
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(items)
+    );
+    showSaved();
+}
+/* =====================================================
+   儲存提示
+===================================================== */
+let saveTimer = null;
+function showSaved(){
+    saveStatus.textContent =
+        "✓ 已自動儲存";
+    clearTimeout(saveTimer);
+    saveTimer =
+        setTimeout(
+            function(){
+                saveStatus.textContent =
+                    "";
+            },
+            1200
+        );
+}
+/* =====================================================
+   金額格式
+===================================================== */
+function money(value){
+    const number =
+        Number(value) || 0;
+    return "$" +
+        number.toLocaleString(
+            "zh-TW"
+        );
+}
+/* =====================================================
+   統計
+===================================================== */
+function renderStats(){
+    const total =
+        items.length;
+    const bought =
+        items.filter(
+            item =>
+                item.bought
+        ).length;
+    const left =
+        total - bought;
+    const totalCost =
+        items.reduce(
+            (sum,item) =>
+                sum +
+                (
+                    Number(item.price) *
+                    Number(item.qty)
+                ),
+            0
+        );
+    const boughtCost =
+        items
+        .filter(
+            item =>
+                item.bought
+        )
+        .reduce(
+            (sum,item) =>
+                sum +
+                (
+                    Number(item.price) *
+                    Number(item.qty)
+                ),
+            0
+        );
+    const leftCost =
+        totalCost -
+        boughtCost;
+    totalItems.textContent =
+        total;
+    leftItems.textContent =
+        left;
+    boughtItems.textContent =
+        bought;
+    totalMoney.textContent =
+        money(totalCost);
+    boughtMoney.textContent =
+        money(boughtCost);
+    leftMoney.textContent =
+        money(leftCost);
+    renderBudget(
+        totalCost
+    );
+}
+/* =====================================================
+   預算
+===================================================== */
+function loadBudget(){
+    const saved =
+        localStorage.getItem(
+            BUDGET_KEY
+        );
+    if(saved !== null){
+        budgetInput.value =
+            saved;
+    }
+}
+function saveBudget(){
+    localStorage.setItem(
+        BUDGET_KEY,
+        budgetInput.value
+    );
+    renderStats();
+    showSaved();
+}
+function renderBudget(totalCost){
+    const budget =
+        Number(
+            budgetInput.value
+        );
+    if(
+        !budget ||
+        budget <= 0
+    ){
+        budgetProgress.style.width =
+            "0%";
+        budgetInfo.textContent =
+            "尚未設定預算";
+        return;
+    }
+    const percent =
+        Math.min(
+            (
+                totalCost /
+                budget
+            ) * 100,
+            100
+        );
+    budgetProgress.style.width =
+        percent + "%";
+    const remaining =
+        budget -
+        totalCost;
+    if(remaining >= 0){
+        budgetInfo.textContent =
+            `預算 ${money(budget)}｜還剩 ${money(remaining)}｜已使用 ${percent.toFixed(0)}%`;
+    }else{
+        budgetInfo.textContent =
+            `⚠️ 超出預算 ${money(Math.abs(remaining))}`;
+    }
+}
+/* =====================================================
+   分類按鈕
+===================================================== */
+function renderCategoryButtons(){
+    categoryButtons.innerHTML =
+        "";
+    categories.forEach(
+        category => {
+            const btn =
+                document.createElement(
+                    "button"
+                );
+            btn.className =
+                "category-btn";
+            if(
+                category ===
+                activeCategory
+            ){
+                btn.classList.add(
+                    "active"
+                );
+            }
+            const icon = {
+                "全部":"📋",
+                "食品":"🍎",
+                "飲料":"🥤",
+                "日用品":"🧻",
+                "清潔":"🧽",
+                "生活":"🏠",
+                "其他":"📦"
+            }[category];
+            btn.textContent =
+                icon +
+                " " +
+                category;
+            btn.addEventListener(
+                "click",
+                function(){
+                    activeCategory =
+                        category;
+                    renderCategoryButtons();
+                    renderList();
+                }
+            );
+            categoryButtons.appendChild(
+                btn
+            );
+        }
+    );
+}
+/* =====================================================
+   篩選
+===================================================== */
+function getFilteredItems(){
+    const keyword =
+        searchInput.value
+        .trim()
+        .toLowerCase();
+    const filter =
+        filterSelect.value;
+    return items.filter(
+        item => {
+            const text =
+                (
+                    item.name +
+                    " " +
+                    item.note +
+                    " " +
+                    item.category
+                ).toLowerCase();
+            const matchSearch =
+                !keyword ||
+                text.includes(
+                    keyword
+                );
+            const matchCategory =
+                activeCategory ===
+                "全部" ||
+                item.category ===
+                activeCategory;
+            let matchStatus =
+                true;
+            if(filter === "待購買"){
+                matchStatus =
+                    !item.bought;
+            }
+            if(filter === "已購買"){
+                matchStatus =
+                    item.bought;
+            }
+            return (
+                matchSearch &&
+                matchCategory &&
+                matchStatus
+            );
+        }
+    );
+}
+/* =====================================================
+   列表
+===================================================== */
+function renderList(){
+    const filtered =
+        getFilteredItems();
+    list.innerHTML =
+        "";
+    listCount.textContent =
+        `${filtered.length} 項`;
+    if(filtered.length === 0){
+        list.innerHTML =
+            `
+            <div class="empty">
+                🛒 目前沒有符合的商品
+            </div>
+            `;
+        return;
+    }
+    /*
+       未購買排前面
+    */
+    filtered.sort(
+        (a,b) => {
+            if(
+                a.bought !==
+                b.bought
+            ){
+                return a.bought
+                    ? 1
+                    : -1;
+            }
+            return (
+                Number(b.createdAt || 0) -
+                Number(a.createdAt || 0)
+            );
+        }
+    );
+    filtered.forEach(
+        item => {
+            const row =
+                document.createElement(
+                    "div"
+                );
+            row.className =
+                "item";
+            if(item.bought){
+                row.classList.add(
+                    "bought"
+                );
+            }
+            /* checkbox */
+            const checkbox =
+                document.createElement(
+                    "input"
+                );
+            checkbox.type =
+                "checkbox";
+            checkbox.className =
+                "check";
+            checkbox.checked =
+                !!item.bought;
+            checkbox.addEventListener(
+                "change",
+                function(){
+                    item.bought =
+                        checkbox.checked;
+                    save();
+                    renderAll();
+                }
+            );
+            /* 中間 */
+            const middle =
+                document.createElement(
+                    "div"
+                );
+            const name =
+                document.createElement(
+                    "div"
+                );
+            name.className =
+                "item-name";
+            name.textContent =
+                item.name;
+            middle.appendChild(
+                name
+            );
+            const meta =
+                document.createElement(
+                    "div"
+                );
+            meta.className =
+                "item-meta";
+            const categoryBadge =
+                document.createElement(
+                    "span"
+                );
+            categoryBadge.className =
+                "badge";
+            categoryBadge.textContent =
+                item.category;
+            meta.appendChild(
+                categoryBadge
+            );
+            middle.appendChild(
+                meta
+            );
+            if(item.note){
+                const note =
+                    document.createElement(
+                        "div"
+                    );
+                note.className =
+                    "item-note";
+                note.textContent =
+                    "📝 " +
+                    item.note;
+                middle.appendChild(
+                    note
+                );
+            }
+            /* 右邊 */
+            const right =
+                document.createElement(
+                    "div"
+                );
+            right.className =
+                "item-right";
+            const price =
+                Number(item.price) *
+                Number(item.qty);
+            const priceEl =
+                document.createElement(
+                    "div"
+                );
+            priceEl.className =
+                "item-price";
+            priceEl.textContent =
+                money(price);
+            right.appendChild(
+                priceEl
+            );
+            const qty =
+                document.createElement(
+                    "div"
+                );
+            qty.className =
+                "item-qty";
+            qty.textContent =
+                `${item.qty} × ${money(item.price)}`;
+            right.appendChild(
+                qty
+            );
+            const deleteBtn =
+                document.createElement(
+                    "button"
+                );
+            deleteBtn.className =
+                "delete";
+            deleteBtn.textContent =
+                "刪除";
+            deleteBtn.addEventListener(
+                "click",
+                function(){
+                    confirmDelete(
+                        item.id
+                    );
+                }
+            );
+            right.appendChild(
+                deleteBtn
+            );
+            row.appendChild(
+                checkbox
+            );
+            row.appendChild(
+                middle
+            );
+            row.appendChild(
+                right
+            );
+            list.appendChild(
+                row
+            );
+        }
+    );
+}
+/* =====================================================
+   全部更新
+===================================================== */
+function renderAll(){
+    renderStats();
+    renderCategoryButtons();
+    renderList();
+}
+/* =====================================================
+   新增
+===================================================== */
+function addItem(){
+    const name =
+        nameInput.value.trim();
+    const qty =
+        Number(
+            qtyInput.value
+        );
+    const price =
+        Number(
+            priceInput.value
+        );
+    const category =
+        categoryInput.value;
+    const note =
+        noteInput.value.trim();
+    if(!name){
+        alert(
+            "請輸入商品名稱。"
+        );
+        nameInput.focus();
+        return;
+    }
+    if(
+        !Number.isFinite(qty) ||
+        qty <= 0
+    ){
+        alert(
+            "請輸入正確數量。"
+        );
+        return;
+    }
+    if(
+        !Number.isFinite(price) ||
+        price < 0
+    ){
+        alert(
+            "請輸入正確價格。"
+        );
+        return;
+    }
+    /*
+       如果同一商品、同一分類已存在，
+       直接增加數量
+    */
+    const existing =
+        items.find(
+            item =>
+                item.name === name &&
+                item.category === category &&
+                !item.bought
+        );
+    if(existing){
+        existing.qty =
+            Number(existing.qty) +
+            qty;
+        /*
+           如果這次有輸入價格，
+           更新價格
+        */
+        if(price > 0){
+            existing.price =
+                price;
+        }
+    }else{
+        items.push({
+            id:
+                Date.now() +
+                Math.random(),
+            name,
+            qty,
+            price,
+            category,
+            note,
+            bought:false,
+            createdAt:
+                Date.now()
+        });
+    }
+    save();
+    /* 清空 */
+    nameInput.value =
+        "";
+    qtyInput.value =
+        "1";
+    priceInput.value =
+        "0";
+    noteInput.value =
+        "";
+    renderAll();
+    nameInput.focus();
+}
+/* =====================================================
+   刪除確認
+===================================================== */
+function confirmDelete(id){
+    const item =
+        items.find(
+            x =>
+                x.id === id
+        );
+    if(!item){
+        return;
+    }
+    openModal(
+        "確定要刪除嗎？",
+        `要刪除「${item.name}」嗎？刪除後無法復原。`,
+        function(){
+            items =
+                items.filter(
+                    x =>
+                        x.id !== id
+                );
+            save();
+            renderAll();
+        }
+    );
+}
+/* =====================================================
+   清除已購買
+===================================================== */
+function clearBought(){
+    const count =
+        items.filter(
+            item =>
+                item.bought
+        ).length;
+    if(count === 0){
+        alert(
+            "目前沒有已購買商品。"
+        );
+        return;
+    }
+    openModal(
+        "清除已購買商品？",
+        `目前共有 ${count} 項已購買商品，清除後無法復原。`,
+        function(){
+            items =
+                items.filter(
+                    item =>
+                        !item.bought
+                );
+            save();
+            renderAll();
+        }
+    );
+}
+/* =====================================================
+   Modal
+===================================================== */
+function openModal(
+    title,
+    text,
+    action
+){
+    modalTitle.textContent =
+        title;
+    modalText.textContent =
+        text;
+    pendingAction =
+        action;
+    modalMask.classList.add(
+        "show"
+    );
+}
+function closeModal(){
+    pendingAction =
+        null;
+    modalMask.classList.remove(
+        "show"
+    );
+}
+/* =====================================================
+   標題
+===================================================== */
+function saveTitle(){
+    let title =
+        titleInput.value.trim();
+    if(!title){
+        title =
+            "🛒 我的購物清單";
+        titleInput.value =
+            title;
+    }
+    localStorage.setItem(
+        TITLE_KEY,
+        title
+    );
+    document.title =
+        title;
+    showSaved();
+}
+/* =====================================================
+   事件
+===================================================== */
+addBtn.addEventListener(
+    "click",
+    addItem
+);
+nameInput.addEventListener(
+    "keydown",
+    function(event){
+        if(event.key === "Enter"){
+            event.preventDefault();
+            addItem();
+        }
+    }
+);
+searchInput.addEventListener(
+    "input",
+    renderList
+);
+filterSelect.addEventListener(
+    "change",
+    renderList
+);
+budgetInput.addEventListener(
+    "input",
+    saveBudget
+);
+clearBoughtBtn.addEventListener(
+    "click",
+    clearBought
+);
+titleInput.addEventListener(
+    "input",
+    saveTitle
+);
+modalCancel.addEventListener(
+    "click",
+    closeModal
+);
+modalConfirm.addEventListener(
+    "click",
+    function(){
+        if(
+            typeof pendingAction ===
+            "function"
+        ){
+            const action =
+                pendingAction;
+            closeModal();
+            action();
+        }else{
+            closeModal();
+        }
+    }
+);
+modalMask.addEventListener(
+    "click",
+    function(event){
+        if(
+            event.target ===
+            modalMask
+        ){
+            closeModal();
+        }
+    }
+);
+document.addEventListener(
+    "keydown",
+    function(event){
+        if(
+            event.key ===
+            "Escape"
+        ){
+            closeModal();
+        }
+    }
+);
+/* =====================================================
+   初始化
+===================================================== */
+const savedTitle =
+    localStorage.getItem(
+        TITLE_KEY
+    );
+if(savedTitle){
+    titleInput.value =
+        savedTitle;
+}
+loadBudget();
+document.title =
+    titleInput.value;
+renderAll();
+})();
+</script>
+</body>
+</html>
