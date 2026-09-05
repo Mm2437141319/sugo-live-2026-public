@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>我的記帳清單</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+    background:#f4f6f8;
+    color:#222;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:15px;
+}
+
+.header{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:white;
+    border-radius:22px;
+    padding:22px 18px;
+    margin-bottom:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+}
+
+.header h1{
+    margin:0 0 7px;
+    font-size:27px;
+}
+
+.header p{
+    margin:0;
+    opacity:.9;
+    font-size:14px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:17px;
+    margin-bottom:15px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:14px;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:9px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field label{
+    font-size:13px;
+    font-weight:700;
+    color:#666;
+}
+
+input,select{
+    width:100%;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:12px;
+    font-size:16px;
+    background:#fff;
+    outline:none;
+}
+
+input:focus,select:focus{
+    border-color:#667eea;
+    box-shadow:0 0 0 3px rgba(102,126,234,.12);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.type-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.type-btn{
+    border:2px solid #eee;
+    background:#fff;
+    border-radius:13px;
+    padding:13px;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.type-btn.active.income{
+    border-color:#2e9d61;
+    background:#eefaf3;
+    color:#20834e;
+}
+
+.type-btn.active.expense{
+    border-color:#e85d75;
+    background:#fff0f3;
+    color:#d9435f;
+}
+
+.add-btn{
+    width:100%;
+    border:0;
+    border-radius:14px;
+    padding:14px;
+    margin-top:12px;
+    background:#667eea;
+    color:white;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.add-btn:active{
+    transform:scale(.98);
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.summary-box{
+    border-radius:15px;
+    padding:15px;
+    background:#f7f7f8;
+}
+
+.summary-box .label{
+    font-size:13px;
+    color:#777;
+    margin-bottom:5px;
+}
+
+.summary-box .value{
+    font-size:23px;
+    font-weight:900;
+}
+
+.income-color{
+    color:#23935a;
+}
+
+.expense-color{
+    color:#dc4861;
+}
+
+.balance-color{
+    color:#667eea;
+}
+
+.month-title{
+    font-size:20px;
+    font-weight:900;
+    margin-bottom:13px;
+}
+
+.search{
+    margin-bottom:10px;
+}
+
+.record{
+    border:1px solid #eee;
+    border-radius:15px;
+    padding:14px;
+    margin-bottom:10px;
+    background:#fff;
+}
+
+.record-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.record-name{
+    font-size:17px;
+    font-weight:800;
+}
+
+.record-date{
+    color:#777;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.record-category{
+    display:inline-block;
+    margin-top:7px;
+    padding:4px 9px;
+    border-radius:20px;
+    background:#f0f1f4;
+    font-size:12px;
+}
+
+.record-amount{
+    font-size:20px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.record-amount.income{
+    color:#23935a;
+}
+
+.record-amount.expense{
+    color:#dc4861;
+}
+
+.record-note{
+    color:#777;
+    font-size:13px;
+    margin-top:8px;
+    line-height:1.5;
+}
+
+.record-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+}
+
+.delete-btn{
+    border:0;
+    background:#fff0f2;
+    color:#d9435f;
+    border-radius:9px;
+    padding:7px 11px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    color:#999;
+    padding:28px 10px;
+}
+
+.year-summary{
+    display:grid;
+    gap:9px;
+}
+
+.year-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    background:#f7f7f8;
+    border-radius:12px;
+}
+
+.year-row strong{
+    font-size:17px;
+}
+
+.month-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.month-btn{
+    border:1px solid #ddd;
+    background:white;
+    border-radius:10px;
+    padding:10px 4px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.month-btn.active{
+    background:#667eea;
+    color:white;
+    border-color:#667eea;
+}
+
+.month-btn.has-data{
+    position:relative;
+}
+
+.month-btn.has-data::after{
+    content:"";
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#f5a623;
+    position:absolute;
+    top:5px;
+    right:5px;
+}
+
+.action-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.action-btn{
+    border:0;
+    border-radius:12px;
+    padding:12px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.clear-btn{
+    background:#fff0f2;
+    color:#d9435f;
+}
+
+.export-btn{
+    background:#eef1ff;
+    color:#5668c8;
+}
+
+.modal-bg{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal{
+    width:100%;
+    max-width:360px;
+    background:white;
+    border-radius:20px;
+    padding:22px;
+}
+
+.modal h3{
+    margin-top:0;
+}
+
+.modal-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:15px;
+}
+
+.modal button{
+    border:0;
+    border-radius:12px;
+    padding:12px;
+    font-weight:800;
+}
+
+.cancel{
+    background:#eee;
+}
+
+.confirm{
+    background:#d9435f;
+    color:white;
+}
+
+@media(max-width:480px){
+    .filters{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .filters .field:first-child{
+        grid-column:1/-1;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .month-list{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>💰 我的記帳清單</h1>
+        <p>收入、支出，每個月份獨立計算</p>
+    </div>
+
+    <!-- 年月選擇 -->
+    <div class="card">
+        <div class="card-title">📅 選擇年月</div>
+
+        <div class="filters">
+
+            <div class="field">
+                <label>年份</label>
+                <select id="yearSelect"></select>
+            </div>
+
+            <div class="field">
+                <label>月份</label>
+                <select id="monthSelect">
+                    <option value="1">1 月</option>
+                    <option value="2">2 月</option>
+                    <option value="3">3 月</option>
+                    <option value="4">4 月</option>
+                    <option value="5">5 月</option>
+                    <option value="6">6 月</option>
+                    <option value="7">7 月</option>
+                    <option value="8">8 月</option>
+                    <option value="9">9 月</option>
+                    <option value="10">10 月</option>
+                    <option value="11">11 月</option>
+                    <option value="12">12 月</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="month-list" id="monthButtons"></div>
+    </div>
+
+    <!-- 當月統計 -->
+    <div class="card">
+
+        <div class="month-title" id="currentMonthTitle">
+            2026 年 9 月
+        </div>
+
+        <div class="summary">
+
+            <div class="summary-box">
+                <div class="label">💚 本月收入</div>
+                <div class="value income-color" id="monthIncome">
+                    $0
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="label">❤️ 本月支出</div>
+                <div class="value expense-color" id="monthExpense">
+                    $0
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="label">💰 本月結餘</div>
+                <div class="value balance-color" id="monthBalance">
+                    $0
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="label">📝 記帳筆數</div>
+                <div class="value" id="monthCount">
+                    0
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 新增記帳 -->
+    <div class="card">
+
+        <div class="card-title">➕ 新增記帳</div>
+
+        <div class="type-buttons">
+
+            <button
+                class="type-btn income active"
+                id="incomeBtn"
+                onclick="setType('income')">
+                💚 收入
+            </button>
+
+            <button
+                class="type-btn expense"
+                id="expenseBtn"
+                onclick="setType('expense')">
+                ❤️ 支出
+            </button>
+
+        </div>
+
+        <br>
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>📆 日期</label>
+                <input type="date" id="dateInput">
+            </div>
+
+            <div class="field">
+                <label>💵 金額</label>
+                <input
+                    type="number"
+                    id="amountInput"
+                    placeholder="例如 500"
+                    min="0"
+                    inputmode="decimal">
+            </div>
+
+            <div class="field full">
+                <label>📝 項目名稱</label>
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="例如：午餐、薪水、房租">
+            </div>
+
+            <div class="field">
+                <label>🏷️ 分類</label>
+
+                <select id="categoryInput">
+
+                    <option value="餐飲">🍜 餐飲</option>
+                    <option value="交通">🚗 交通</option>
+                    <option value="購物">🛍️ 購物</option>
+                    <option value="生活">🏠 生活</option>
+                    <option value="水電">💡 水電</option>
+                    <option value="娛樂">🎮 娛樂</option>
+                    <option value="醫療">💊 醫療</option>
+                    <option value="薪資">💰 薪資</option>
+                    <option value="投資">📈 投資</option>
+                    <option value="其他">📦 其他</option>
+
+                </select>
+            </div>
+
+            <div class="field">
+                <label>🔖 備註</label>
+
+                <input
+                    type="text"
+                    id="noteInput"
+                    placeholder="選填">
+            </div>
+
+        </div>
+
+        <button class="add-btn" onclick="addRecord()">
+            ＋ 新增這筆記帳
+        </button>
+
+    </div>
+
+    <!-- 全年統計 -->
+    <div class="card">
+
+        <div class="card-title">
+            📊 <span id="yearTitle">2026</span> 年度統計
+        </div>
+
+        <div class="year-summary">
+
+            <div class="year-row">
+                <span>💚 全年收入</span>
+                <strong class="income-color" id="yearIncome">$0</strong>
+            </div>
+
+            <div class="year-row">
+                <span>❤️ 全年支出</span>
+                <strong class="expense-color" id="yearExpense">$0</strong>
+            </div>
+
+            <div class="year-row">
+                <span>💰 全年結餘</span>
+                <strong class="balance-color" id="yearBalance">$0</strong>
+            </div>
+
+            <div class="year-row">
+                <span>📝 全年筆數</span>
+                <strong id="yearCount">0</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 紀錄 -->
+    <div class="card">
+
+        <div class="card-title">
+            📋 <span id="recordTitle">2026 年 9 月</span> 記帳紀錄
+        </div>
+
+        <input
+            class="search"
+            type="search"
+            id="searchInput"
+            placeholder="🔎 搜尋項目、分類、備註..."
+            oninput="renderRecords()">
+
+        <div id="records"></div>
+
+    </div>
+
+    <!-- 操作 -->
+    <div class="card">
+
+        <div class="action-row">
+
+            <button class="action-btn export-btn" onclick="exportData()">
+                📤 匯出記帳
+            </button>
+
+            <button class="action-btn clear-btn" onclick="openModal()">
+                🗑️ 清除本月
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- 確認視窗 -->
+<div class="modal-bg" id="modalBg">
+
+    <div class="modal">
+
+        <h3>⚠️ 確定要清除嗎？</h3>
+
+        <p id="modalText">
+            將刪除目前月份的所有記帳資料。
+        </p>
+
+        <div class="modal-buttons">
+
+            <button class="cancel" onclick="closeModal()">
+                取消
+            </button>
+
+            <button class="confirm" onclick="clearCurrentMonth()">
+                確定刪除
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const STORAGE_KEY = "my_accounting_list_v1";
+
+let records = JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "[]"
+);
+
+let currentType = "income";
+
+const today = new Date();
+
+let currentYear = today.getFullYear();
+let currentMonth = today.getMonth() + 1;
+
+
+// =========================
+// 初始化
+// =========================
+
+function init(){
+
+    createYears();
+
+    document.getElementById("yearSelect").value =
+        currentYear;
+
+    document.getElementById("monthSelect").value =
+        currentMonth;
+
+    setToday();
+
+    document.getElementById("yearSelect")
+        .addEventListener("change",function(){
+
+            currentYear = Number(this.value);
+
+            renderAll();
+
+        });
+
+    document.getElementById("monthSelect")
+        .addEventListener("change",function(){
+
+            currentMonth = Number(this.value);
+
+            setDefaultDate();
+
+            renderAll();
+
+        });
+
+    renderAll();
+}
+
+
+// =========================
+// 建立年份
+// =========================
+
+function createYears(){
+
+    const select =
+        document.getElementById("yearSelect");
+
+    select.innerHTML = "";
+
+    const startYear = 2020;
+    const endYear = 2035;
+
+    for(let y=startYear;y<=endYear;y++){
+
+        const option =
+            document.createElement("option");
+
+        option.value = y;
+        option.textContent = y + " 年";
+
+        select.appendChild(option);
+    }
+}
+
+
+// =========================
+// 今天日期
+// =========================
+
+function setToday(){
+
+    const date =
+        new Date();
+
+    const yyyy =
+        date.getFullYear();
+
+    const mm =
+        String(date.getMonth()+1).padStart(2,"0");
+
+    const dd =
+        String(date.getDate()).padStart(2,"0");
+
+    document.getElementById("dateInput").value =
+        `${yyyy}-${mm}-${dd}`;
+}
+
+
+// =========================
+// 切換月份後預設日期
+// =========================
+
+function setDefaultDate(){
+
+    const yyyy =
+        currentYear;
+
+    const mm =
+        String(currentMonth).padStart(2,"0");
+
+    const dd =
+        "01";
+
+    document.getElementById("dateInput").value =
+        `${yyyy}-${mm}-${dd}`;
+}
+
+
+// =========================
+// 收入 / 支出
+// =========================
+
+function setType(type){
+
+    currentType = type;
+
+    const incomeBtn =
+        document.getElementById("incomeBtn");
+
+    const expenseBtn =
+        document.getElementById("expenseBtn");
+
+    incomeBtn.classList.remove("active");
+    expenseBtn.classList.remove("active");
+
+    if(type === "income"){
+
+        incomeBtn.classList.add("active");
+
+    }else{
+
+        expenseBtn.classList.add("active");
+
+    }
+}
+
+
+// =========================
+// 新增記帳
+// =========================
+
+function addRecord(){
+
+    const date =
+        document.getElementById("dateInput").value;
+
+    const amount =
+        Number(document.getElementById("amountInput").value);
+
+    const name =
+        document.getElementById("nameInput").value.trim();
+
+    const category =
+        document.getElementById("categoryInput").value;
+
+    const note =
+        document.getElementById("noteInput").value.trim();
+
+
+    if(!date){
+
+        alert("請選擇日期");
+        return;
+
+    }
+
+    if(!name){
+
+        alert("請輸入項目名稱");
+        return;
+
+    }
+
+    if(!amount || amount <= 0){
+
+        alert("請輸入正確金額");
+        return;
+
+    }
+
+
+    const record = {
+
+        id: Date.now(),
+
+        type: currentType,
+
+        date: date,
+
+        year: Number(date.substring(0,4)),
+
+        month: Number(date.substring(5,7)),
+
+        amount: amount,
+
+        name: name,
+
+        category: category,
+
+        note: note
+
+    };
+
+
+    records.push(record);
+
+    saveData();
+
+    // 如果日期不是目前月份，自動跳到該月份
+    currentYear = record.year;
+    currentMonth = record.month;
+
+    document.getElementById("yearSelect").value =
+        currentYear;
+
+    document.getElementById("monthSelect").value =
+        currentMonth;
+
+    // 清空輸入
+    document.getElementById("amountInput").value = "";
+    document.getElementById("nameInput").value = "";
+    document.getElementById("noteInput").value = "";
+
+    renderAll();
+
+}
+
+
+// =========================
+// 儲存
+// =========================
+
+function saveData(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+    );
+
+}
+
+
+// =========================
+// 取得目前月份
+// =========================
+
+function getCurrentMonthRecords(){
+
+    return records.filter(r =>
+        r.year === currentYear &&
+        r.month === currentMonth
+    );
+
+}
+
+
+// =========================
+// 取得全年
+// =========================
+
+function getCurrentYearRecords(){
+
+    return records.filter(r =>
+        r.year === currentYear
+    );
+
+}
+
+
+// =========================
+// 格式化金額
+// =========================
+
+function money(number){
+
+    return "$" +
+        Number(number || 0)
+        .toLocaleString("zh-TW");
+
+}
+
+
+// =========================
+// 更新所有畫面
+// =========================
+
+function renderAll(){
+
+    renderMonthButtons();
+
+    renderMonthSummary();
+
+    renderYearSummary();
+
+    renderRecords();
+
+}
+
+
+// =========================
+// 月份按鈕
+// =========================
+
+function renderMonthButtons(){
+
+    const box =
+        document.getElementById("monthButtons");
+
+    box.innerHTML = "";
+
+    for(let m=1;m<=12;m++){
+
+        const btn =
+            document.createElement("button");
+
+        btn.className = "month-btn";
+
+        if(m === currentMonth){
+
+            btn.classList.add("active");
+
+        }
+
+        const hasData =
+            records.some(r =>
+                r.year === currentYear &&
+                r.month === m
+            );
+
+        if(hasData){
+
+            btn.classList.add("has-data");
+
+        }
+
+        btn.textContent = m + " 月";
+
+        btn.onclick = function(){
+
+            currentMonth = m;
+
+            document.getElementById("monthSelect").value =
+                m;
+
+            setDefaultDate();
+
+            renderAll();
+
+        };
+
+        box.appendChild(btn);
+
+    }
+
+}
+
+
+// =========================
+// 當月統計
+// =========================
+
+function renderMonthSummary(){
+
+    const list =
+        getCurrentMonthRecords();
+
+    let income = 0;
+    let expense = 0;
+
+    list.forEach(r => {
+
+        if(r.type === "income"){
+
+            income += r.amount;
+
+        }else{
+
+            expense += r.amount;
+
+        }
+
+    });
+
+    const balance =
+        income - expense;
+
+
+    document.getElementById("monthIncome")
+        .textContent = money(income);
+
+    document.getElementById("monthExpense")
+        .textContent = money(expense);
+
+    document.getElementById("monthBalance")
+        .textContent = money(balance);
+
+    document.getElementById("monthCount")
+        .textContent = list.length;
+
+
+    document.getElementById("currentMonthTitle")
+        .textContent =
+        `${currentYear} 年 ${currentMonth} 月`;
+
+}
+
+
+// =========================
+// 全年統計
+// =========================
+
+function renderYearSummary(){
+
+    const list =
+        getCurrentYearRecords();
+
+    let income = 0;
+    let expense = 0;
+
+    list.forEach(r => {
+
+        if(r.type === "income"){
+
+            income += r.amount;
+
+        }else{
+
+            expense += r.amount;
+
+        }
+
+    });
+
+    const balance =
+        income - expense;
+
+
+    document.getElementById("yearIncome")
+        .textContent = money(income);
+
+    document.getElementById("yearExpense")
+        .textContent = money(expense);
+
+    document.getElementById("yearBalance")
+        .textContent = money(balance);
+
+    document.getElementById("yearCount")
+        .textContent = list.length;
+
+    document.getElementById("yearTitle")
+        .textContent = currentYear;
+
+}
+
+
+// =========================
+// 顯示紀錄
+// =========================
+
+function renderRecords(){
+
+    const box =
+        document.getElementById("records");
+
+    const search =
+        document.getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    let list =
+        getCurrentMonthRecords();
+
+
+    if(search){
+
+        list = list.filter(r => {
+
+            const text =
+                `${r.name} ${r.category} ${r.note}`
+                .toLowerCase();
+
+            return text.includes(search);
+
+        });
+
+    }
+
+
+    // 最新日期在最上面
+    list.sort((a,b)=>{
+
+        if(a.date !== b.date){
+
+            return b.date.localeCompare(a.date);
+
+        }
+
+        return b.id - a.id;
+
+    });
+
+
+    box.innerHTML = "";
+
+
+    document.getElementById("recordTitle")
+        .textContent =
+        `${currentYear} 年 ${currentMonth} 月`;
+
+
+    if(list.length === 0){
+
+        box.innerHTML = `
+            <div class="empty">
+                📭<br>
+                這個月份目前沒有記帳紀錄
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(r => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "record";
+
+
+        const sign =
+            r.type === "income" ? "+" : "-";
+
+
+        div.innerHTML = `
+
+            <div class="record-top">
+
+                <div>
+
+                    <div class="record-name">
+                        ${escapeHtml(r.name)}
+                    </div>
+
+                    <div class="record-date">
+                        📆 ${r.date}
+                    </div>
+
+                    <span class="record-category">
+                        ${escapeHtml(r.category)}
+                    </span>
+
+                </div>
+
+                <div class="record-amount ${r.type}">
+                    ${sign}${money(r.amount)}
+                </div>
+
+            </div>
+
+            ${
+                r.note
+                ?
+                `<div class="record-note">
+                    📝 ${escapeHtml(r.note)}
+                </div>`
+                :
+                ""
+            }
+
+            <div class="record-bottom">
+
+                <span>
+                    ${r.type === "income"
+                        ? "💚 收入"
+                        : "❤️ 支出"}
+                </span>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteRecord(${r.id})">
+                    🗑️ 刪除
+                </button>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+// =========================
+// 刪除單筆
+// =========================
+
+function deleteRecord(id){
+
+    const target =
+        records.find(r => r.id === id);
+
+    if(!target) return;
+
+
+    const ok =
+        confirm(
+            `確定要刪除「${target.name}」這筆記帳嗎？`
+        );
+
+    if(!ok) return;
+
+
+    records =
+        records.filter(r => r.id !== id);
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+// =========================
+// 開啟清除視窗
+// =========================
+
+function openModal(){
+
+    const count =
+        getCurrentMonthRecords().length;
+
+    document.getElementById("modalText")
+        .textContent =
+        `目前 ${currentYear} 年 ${currentMonth} 月共有 ${count} 筆記帳，確定全部刪除嗎？`;
+
+    document.getElementById("modalBg")
+        .style.display = "flex";
+
+}
+
+
+// =========================
+// 關閉
+// =========================
+
+function closeModal(){
+
+    document.getElementById("modalBg")
+        .style.display = "none";
+
+}
+
+
+// =========================
+// 清除本月
+// =========================
+
+function clearCurrentMonth(){
+
+    records =
+        records.filter(r =>
+            !(
+                r.year === currentYear &&
+                r.month === currentMonth
+            )
+        );
+
+    saveData();
+
+    closeModal();
+
+    renderAll();
+
+}
+
+
+// =========================
+// 匯出
+// =========================
+
+function exportData(){
+
+    const list =
+        getCurrentMonthRecords();
+
+    if(list.length === 0){
+
+        alert("目前月份沒有資料可以匯出");
+        return;
+
+    }
+
+
+    let text =
+        `${currentYear}年${currentMonth}月 記帳紀錄\n\n`;
+
+    let income = 0;
+    let expense = 0;
+
+
+    list
+        .sort((a,b)=>a.date.localeCompare(b.date))
+        .forEach(r => {
+
+            const type =
+                r.type === "income"
+                ? "收入"
+                : "支出";
+
+            text +=
+                `${r.date}｜${type}｜${r.name}｜${r.category}｜$${r.amount}`;
+
+            if(r.note){
+
+                text += `｜${r.note}`;
+
+            }
+
+            text += "\n";
+
+
+            if(r.type === "income"){
+
+                income += r.amount;
+
+            }else{
+
+                expense += r.amount;
+
+            }
+
+        });
+
+
+    text += "\n--------------------\n";
+
+    text += `收入：$${income.toLocaleString()}\n`;
+
+    text += `支出：$${expense.toLocaleString()}\n`;
+
+    text += `結餘：$${(income-expense).toLocaleString()}\n`;
+
+
+    const blob =
+        new Blob(
+            [text],
+            {type:"text/plain;charset=utf-8"}
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        `${currentYear}-${String(currentMonth).padStart(2,"0")}-記帳.txt`;
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+// =========================
+// 防止 HTML 注入
+// =========================
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+// =========================
+// 啟動
+// =========================
+
+init();
+
+</script>
+
+</body>
+</html>
