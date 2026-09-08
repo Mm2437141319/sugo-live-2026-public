@@ -1,0 +1,337 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>🐾 寵物年度喝水紀錄</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#f7f8fa;color:#333;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+}
+.container{max-width:720px;margin:auto;padding:18px 14px 45px}
+.card{
+  background:#fff;border-radius:22px;padding:20px;margin-bottom:14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06)
+}
+h1{font-size:28px;margin:0;font-weight:850}
+.sub{color:#888;margin-top:7px}
+.pet input,.field input,.field select,.filter select{
+  width:100%;height:48px;border:1px solid #ddd;border-radius:13px;
+  background:#fff;padding:0 13px;font-size:16px;outline:none
+}
+.pet{margin-top:15px}
+.title{font-size:20px;font-weight:800;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.field label{display:block;color:#777;font-size:14px;margin-bottom:6px}
+.add,.save{
+  width:100%;height:50px;border:0;border-radius:14px;
+  background:#333;color:#fff;font-size:17px;font-weight:750;margin-top:14px
+}
+.cancel{
+  width:100%;height:44px;border:1px solid #ddd;border-radius:13px;
+  background:#fff;color:#666;font-size:15px;margin-top:8px
+}
+.editing{
+  background:#fff9e8;border:1px solid #f0d98c
+}
+.editing .title{color:#8a6810}
+.filter{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.filter label{font-size:13px;color:#777;display:block;margin-bottom:5px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{background:#fafafa;border-radius:15px;text-align:center;padding:13px 5px}
+.num{font-size:21px;font-weight:850}
+.lab{font-size:12px;color:#888;margin-top:3px}
+.record{
+  padding:15px 0;border-bottom:1px solid #eee
+}
+.record:last-child{border-bottom:0}
+.recordTop{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.date{font-size:19px;font-weight:750}
+.year{font-size:13px;color:#999;margin-top:3px}
+.cc{font-size:23px;font-weight:850;white-space:nowrap}
+.cc small{font-size:13px;color:#777;font-weight:500}
+.actions{display:flex;gap:8px;margin-top:9px}
+.actions button{
+  border:0;border-radius:9px;padding:8px 13px;font-size:13px
+}
+.edit{background:#eee}
+.del{background:#ffe8e8;color:#a33}
+.empty{text-align:center;color:#aaa;padding:30px 8px}
+.monthTotal{
+  background:#f7f7f7;border-radius:14px;padding:12px 14px;margin-bottom:4px;
+  font-weight:700
+}
+.clear{
+  width:100%;height:44px;border:1px solid #ddd;background:#fff;
+  border-radius:12px;color:#888;margin-top:12px
+}
+.note{font-size:12px;color:#999;line-height:1.6;margin-top:10px}
+@media(max-width:480px){
+  .grid,.filter{grid-template-columns:1fr}
+  h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="card">
+    <h1>🐾 寵物年度喝水紀錄</h1>
+    <div class="sub">記錄每天喝水量 💧</div>
+    <div class="pet">
+      <input id="petName" placeholder="寵物名字（可不填）">
+    </div>
+  </div>
+
+  <div class="card" id="formCard">
+    <div class="title" id="formTitle">💧 新增喝水紀錄</div>
+
+    <div class="grid">
+      <div class="field">
+        <label>年份（可選填）</label>
+        <select id="year">
+          <option value="">請選擇</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>日期（可選填）</label>
+        <input id="date" type="text" inputmode="numeric" placeholder="例如 06/02">
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:11px">
+      <label>喝水量 CC（可選填）</label>
+      <input id="cc" type="number" min="0" step="1" inputmode="numeric" placeholder="例如 230">
+    </div>
+
+    <button class="add" id="mainButton" onclick="submitRecord()">＋ 新增紀錄</button>
+    <button class="cancel" id="cancelButton" onclick="cancelEdit()" style="display:none">取消編輯</button>
+
+    <div class="note">
+      年份、日期、CC 數都可以留白。日期建議輸入 MM/DD，例如 06/02。
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">📅 查看紀錄</div>
+    <div class="filter">
+      <div>
+        <label>年份</label>
+        <select id="filterYear" onchange="render()">
+          <option value="all">全部年份</option>
+        </select>
+      </div>
+      <div>
+        <label>月份</label>
+        <select id="filterMonth" onchange="render()">
+          <option value="all">全部月份</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">📊 統計</div>
+    <div class="stats">
+      <div class="stat"><div class="num" id="totalCC">0</div><div class="lab">總 CC</div></div>
+      <div class="stat"><div class="num" id="count">0</div><div class="lab">紀錄筆數</div></div>
+      <div class="stat"><div class="num" id="avg">0</div><div class="lab">平均 CC</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">📋 喝水紀錄</div>
+    <div id="monthTotal"></div>
+    <div id="records"></div>
+    <button class="clear" onclick="clearAll()">清除全部紀錄</button>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY="petWaterRecordsV2";
+const PET_KEY="petWaterPetNameV2";
+let records=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+let editingId=null;
+
+const year=document.getElementById("year");
+const filterYear=document.getElementById("filterYear");
+const filterMonth=document.getElementById("filterMonth");
+
+for(let y=100;y<=130;y++){
+  year.insertAdjacentHTML("beforeend",`<option value="${y}">${y} 年</option>`);
+  filterYear.insertAdjacentHTML("beforeend",`<option value="${y}">${y} 年</option>`);
+}
+for(let m=1;m<=12;m++){
+  const mm=String(m).padStart(2,"0");
+  filterMonth.insertAdjacentHTML("beforeend",`<option value="${mm}">${mm} 月</option>`);
+}
+
+const petName=document.getElementById("petName");
+petName.value=localStorage.getItem(PET_KEY)||"";
+petName.addEventListener("input",()=>localStorage.setItem(PET_KEY,petName.value));
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(records));}
+
+function normalizeDate(v){
+  v=(v||"").trim().replace(/[^\d]/g,"");
+  if(!v) return "";
+  if(v.length===3) v="0"+v;
+  if(v.length===4) return v.slice(0,2)+"/"+v.slice(2);
+  return null;
+}
+
+function validDate(v){
+  if(v==="") return true;
+  const m=v.match(/^(0[1-9]|1[0-2])\\/(0[1-9]|[12]\\d|3[01])$/);
+  if(!m) return false;
+  const mm=Number(m[1]), dd=Number(m[2]);
+  const days=new Date(2000,mm,0).getDate();
+  return dd<=days;
+}
+
+function submitRecord(){
+  let y=year.value;
+  let d=normalizeDate(document.getElementById("date").value);
+  let c=document.getElementById("cc").value.trim();
+
+  if(d===null || !validDate(d)){
+    alert("日期請輸入 MM/DD，例如 06/02");
+    return;
+  }
+
+  const data={year:y,date:d,cc:c===""?"":Number(c)};
+
+  if(editingId!==null){
+    const i=records.findIndex(r=>r.id===editingId);
+    if(i>=0) records[i]={...records[i],...data};
+    editingId=null;
+    resetForm();
+  }else{
+    records.push({id:Date.now()+Math.random(),...data});
+    resetForm();
+  }
+
+  save();
+  render();
+}
+
+function resetForm(){
+  year.value="";
+  document.getElementById("date").value="";
+  document.getElementById("cc").value="";
+  document.getElementById("formCard").classList.remove("editing");
+  document.getElementById("formTitle").textContent="💧 新增喝水紀錄";
+  document.getElementById("mainButton").textContent="＋ 新增紀錄";
+  document.getElementById("cancelButton").style.display="none";
+}
+
+function startEdit(id){
+  const r=records.find(x=>x.id===id);
+  if(!r)return;
+  editingId=id;
+  year.value=r.year||"";
+  document.getElementById("date").value=r.date||"";
+  document.getElementById("cc").value=r.cc===""?"":r.cc;
+  document.getElementById("formCard").classList.add("editing");
+  document.getElementById("formTitle").textContent="✏️ 編輯喝水紀錄";
+  document.getElementById("mainButton").textContent="💾 儲存修改";
+  document.getElementById("cancelButton").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelEdit(){
+  editingId=null;
+  resetForm();
+}
+
+function deleteRecord(id){
+  if(!confirm("確定要刪除這筆紀錄嗎？"))return;
+  records=records.filter(r=>r.id!==id);
+  save();render();
+}
+
+function clearAll(){
+  if(!records.length)return;
+  if(!confirm("確定要清除全部喝水紀錄嗎？"))return;
+  records=[];save();render();
+}
+
+function dateSortValue(r){
+  if(!r.date)return "99/99";
+  return r.date;
+}
+
+function render(){
+  const fy=filterYear.value, fm=filterMonth.value;
+  let list=records.filter(r=>{
+    if(fy!=="all" && r.year!==fy)return false;
+    if(fm!=="all"){
+      if(!r.date || r.date.slice(0,2)!==fm)return false;
+    }
+    return true;
+  });
+
+  list.sort((a,b)=>{
+    const ya=a.year||"999", yb=b.year||"999";
+    if(ya!==yb)return yb.localeCompare(ya);
+    return dateSortValue(b).localeCompare(dateSortValue(a));
+  });
+
+  const values=list.filter(r=>r.cc!=="" && Number.isFinite(Number(r.cc))).map(r=>Number(r.cc));
+  const total=values.reduce((a,b)=>a+b,0);
+  const avg=values.length?Math.round(total/values.length):0;
+
+  document.getElementById("totalCC").textContent=total.toLocaleString();
+  document.getElementById("count").textContent=list.length;
+  document.getElementById("avg").textContent=avg.toLocaleString();
+
+  let scope="";
+  if(fy!=="all")scope+=fy+" 年";
+  if(fm!=="all")scope+=(scope?" ":"")+fm+" 月";
+  if(!scope)scope="目前篩選";
+  document.getElementById("monthTotal").innerHTML=
+    `<div class="monthTotal">💧 ${scope}：${total.toLocaleString()} CC</div>`;
+
+  const box=document.getElementById("records");
+  if(!list.length){
+    box.innerHTML='<div class="empty">尚無紀錄 💧</div>';
+    return;
+  }
+
+  box.innerHTML=list.map(r=>{
+    const y=r.year?r.year+" 年":"年份未填";
+    const d=r.date||"日期未填";
+    const cc=r.cc===""?"未填":Number(r.cc).toLocaleString()+" <small>CC</small>";
+    return `
+      <div class="record">
+        <div class="recordTop">
+          <div>
+            <div class="date">${d}</div>
+            <div class="year">${y}</div>
+          </div>
+          <div class="cc">${cc}</div>
+        </div>
+        <div class="actions">
+          <button class="edit" onclick="startEdit(${r.id})">✏️ 編輯</button>
+          <button class="del" onclick="deleteRecord(${r.id})">🗑️ 刪除</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+render();
+</script>
+</body>
+</html>
+'''
+
+path = Path("/mnt/data/pet-water-record-v2.html")
+path.write_text(html, encoding="utf-8")
+print(f"已完成：{path}")
