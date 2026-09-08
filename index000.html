@@ -2,35 +2,21 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#f5f7fb">
-
 <title>寵物喝水紀錄</title>
 
 <style>
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
 *{
     box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color:transparent
 }
 
-html,
-body{
+html,body{
     margin:0;
     padding:0;
     width:100%;
     min-height:100%;
-
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -38,699 +24,508 @@ body{
         "Noto Sans TC",
         "Microsoft JhengHei",
         sans-serif;
-
     background:#f5f7fb;
-    color:#222;
-}
-
-body{
-    min-height:100vh;
+    color:#222
 }
 
 button,
 input,
 select{
-    font-family:inherit;
+    font-family:inherit
 }
 
 button{
-    cursor:pointer;
+    cursor:pointer
 }
-
-
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
 
 .container{
     width:100%;
     max-width:1100px;
     margin:0 auto;
-    padding:16px;
+    padding:16px
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-    background:#ffffff;
-    border-radius:22px;
+.header,
+.pet-name-card,
+.form-card,
+.today-card,
+.analysis-card,
+.chart-card,
+.filter-card,
+.table-card{
+    background:#fff;
+    border-radius:20px;
     padding:20px;
     margin-bottom:16px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05)
+}
 
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.06);
+.header{
+    border-radius:22px
 }
 
 .header-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
+    gap:15px
 }
 
 .pet-title-area{
     display:flex;
     align-items:center;
-    gap:13px;
+    gap:13px
 }
 
 .pet-icon{
     width:58px;
     height:58px;
-
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     background:#eef2ff;
-
-    font-size:31px;
+    font-size:31px
 }
 
 .header-title{
     margin:0;
     font-size:26px;
-    font-weight:800;
+    font-weight:800
 }
 
 .header-subtitle{
     margin-top:5px;
     color:#777;
-    font-size:13px;
+    font-size:13px
 }
 
 .clock{
     color:#777;
     font-size:13px;
-    white-space:nowrap;
+    white-space:nowrap
 }
 
-
-/* =========================================================
-   PET NAME
-========================================================= */
-
-.pet-name-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
-}
-
-.pet-name-title{
-    font-size:18px;
+.pet-name-title,
+.section-title{
+    font-size:19px;
     font-weight:800;
-    margin-bottom:12px;
+    margin-bottom:15px
 }
 
 .pet-name-row{
     display:flex;
-    gap:10px;
+    gap:10px
 }
 
 .pet-name-row input{
     flex:1;
     min-height:48px;
-
     border:1px solid #dfe3ea;
     border-radius:12px;
-
     padding:0 14px;
-
     font-size:17px;
-    outline:none;
+    outline:none
 }
 
 .pet-name-row input:focus{
     border-color:#6574ff;
+    box-shadow:0 0 0 3px rgba(101,116,255,.12)
+}
 
-    box-shadow:
-        0 0 0 3px rgba(101,116,255,0.12);
+.pet-name-btn,
+.main-button{
+    min-height:48px;
+    border:0;
+    border-radius:13px;
+    font-size:15px;
+    font-weight:800
 }
 
 .pet-name-btn{
-    min-height:48px;
-
-    border:0;
-    border-radius:12px;
-
     padding:0 18px;
-
     background:#6574ff;
-    color:#ffffff;
-
-    font-size:15px;
-    font-weight:800;
+    color:#fff
 }
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
 
 .dashboard{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:11px;
-
-    margin-bottom:16px;
+    margin-bottom:16px
 }
 
 .stat-card{
-    background:#ffffff;
+    background:#fff;
     border-radius:18px;
     padding:16px;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,0.05);
+    box-shadow:0 5px 18px rgba(0,0,0,.05)
 }
 
 .stat-label{
     font-size:13px;
     color:#777;
-    margin-bottom:7px;
+    margin-bottom:7px
 }
 
 .stat-value{
     font-size:25px;
-    font-weight:800;
+    font-weight:800
 }
 
 .stat-unit{
     font-size:12px;
-    color:#888;
-}
-
-
-/* =========================================================
-   FORM CARD
-========================================================= */
-
-.form-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
-}
-
-.section-title{
-    font-size:19px;
-    font-weight:800;
-    margin-bottom:15px;
+    color:#888
 }
 
 .form-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
-    gap:13px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:13px
 }
 
 .field{
     display:flex;
     flex-direction:column;
-    gap:7px;
+    gap:7px
 }
 
 .field label{
     font-size:13px;
     font-weight:700;
-    color:#555;
+    color:#555
 }
 
 .field input,
 .field select{
     width:100%;
     min-height:48px;
-
     border:1px solid #dfe3ea;
     border-radius:12px;
-
     padding:0 13px;
-
-    background:#ffffff;
-
+    background:#fff;
     font-size:16px;
-    outline:none;
+    outline:none
 }
 
 .field input:focus,
 .field select:focus{
     border-color:#6574ff;
-
-    box-shadow:
-        0 0 0 3px rgba(101,116,255,0.12);
+    box-shadow:0 0 0 3px rgba(101,116,255,.12)
 }
-
-
-/* =========================================================
-   DATE
-========================================================= */
 
 .date-row{
     display:flex;
-    gap:7px;
+    gap:7px
 }
 
 .date-row input{
-    flex:1;
+    flex:1
 }
 
 .small-button{
     min-height:48px;
-
     border:0;
     border-radius:11px;
-
     padding:0 13px;
-
     background:#eef1ff;
     color:#4353d8;
-
     font-weight:700;
-
-    white-space:nowrap;
+    white-space:nowrap
 }
 
 .date-info{
     min-height:19px;
-
     color:#777;
-
-    font-size:12px;
+    font-size:12px
 }
-
-
-/* =========================================================
-   FORM BUTTONS
-========================================================= */
 
 .form-actions{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-
-    margin-top:17px;
+    margin-top:17px
 }
 
 .main-button{
-    min-height:48px;
-
-    border:0;
-    border-radius:13px;
-
-    padding:0 20px;
-
-    font-size:15px;
-    font-weight:800;
+    padding:0 20px
 }
 
 .add-button{
     background:#6574ff;
-    color:#ffffff;
+    color:#fff
 }
 
 .cancel-button{
     background:#edf0f5;
-    color:#444;
+    color:#444
 }
 
 .clear-button{
     background:#fff0f0;
-    color:#d33;
-}
-
-
-/* =========================================================
-   TODAY CARD
-========================================================= */
-
-.today-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
+    color:#d33
 }
 
 .today-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    gap:11px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:11px
 }
 
-.today-box{
+.today-box,
+.extreme-box{
     background:#f7f8fb;
     border-radius:15px;
-    padding:15px;
+    padding:15px
 }
 
-.today-box-label{
+.today-box-label,
+.extreme-label{
     color:#777;
     font-size:12px;
-    margin-bottom:5px;
+    margin-bottom:5px
 }
 
 .today-box-value{
     font-size:22px;
-    font-weight:800;
-}
-
-
-/* =========================================================
-   ANALYSIS
-========================================================= */
-
-.analysis-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
+    font-weight:800
 }
 
 .analysis-message{
     padding:15px;
-
     border-radius:14px;
-
     background:#f7f8fb;
-
     color:#555;
-
     font-size:14px;
-
-    line-height:1.7;
+    line-height:1.7
 }
 
 .analysis-list{
     margin:12px 0 0;
     padding-left:20px;
-
     color:#555;
-
     font-size:14px;
-
-    line-height:1.7;
+    line-height:1.7
 }
-
-.analysis-list li{
-    margin-bottom:5px;
-}
-
-
-/* =========================================================
-   EXTREME CARDS
-========================================================= */
 
 .extreme-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:11px;
-
-    margin-top:12px;
-}
-
-.extreme-box{
-    background:#f7f8fb;
-    border-radius:14px;
-    padding:14px;
-}
-
-.extreme-label{
-    font-size:12px;
-    color:#777;
+    margin-top:12px
 }
 
 .extreme-value{
     font-size:19px;
     font-weight:800;
-    margin-top:4px;
-}
-
-
-/* =========================================================
-   CHART
-========================================================= */
-
-.chart-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
+    margin-top:4px
 }
 
 .chart-wrapper{
     width:100%;
-    overflow:hidden;
+    overflow:hidden
 }
 
 #waterChart{
     width:100%;
     height:270px;
-    display:block;
+    display:block
 }
 
 .chart-empty{
     text-align:center;
     color:#999;
     padding:65px 10px;
-    font-size:14px;
-}
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-.filter-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
+    font-size:14px
 }
 
 .filter-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    gap:12px;
-}
-
-
-/* =========================================================
-   RECORD TABLE
-========================================================= */
-
-.table-card{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.05);
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px
 }
 
 .table-wrapper{
     width:100%;
     overflow-x:auto;
-
-    -webkit-overflow-scrolling:touch;
+    -webkit-overflow-scrolling:touch
 }
 
 table{
     width:100%;
-    min-width:760px;
-
-    border-collapse:collapse;
+    border-collapse:collapse
 }
 
 th,
 td{
     padding:12px 9px;
-
-    border-bottom:
-        1px solid #edf0f4;
-
+    border-bottom:1px solid #edf0f4;
     text-align:left;
-
-    white-space:nowrap;
+    white-space:nowrap
 }
 
 th{
     background:#f8f9fb;
     color:#666;
-    font-size:13px;
+    font-size:13px
 }
 
 td{
-    font-size:14px;
+    font-size:14px
 }
 
 .cc-value{
     font-size:17px;
-    font-weight:800;
+    font-weight:800
 }
 
 .action-group{
     display:flex;
-    gap:7px;
+    gap:7px
 }
 
 .table-button{
     border:0;
     border-radius:9px;
-
-    padding:7px 11px;
-
+    padding:8px 11px;
     font-size:13px;
-    font-weight:700;
+    font-weight:700
 }
 
 .view-button{
     background:#f1f3f7;
-    color:#555;
+    color:#555
 }
 
 .edit-button{
     background:#eef1ff;
-    color:#4353d8;
+    color:#4353d8
 }
 
 .delete-button{
     background:#fff0f0;
-    color:#d33;
+    color:#d33
 }
 
+.mobile-records{
+    display:none
+}
 
-/* =========================================================
-   MODAL
-========================================================= */
+.record-card{
+    background:#f8f9fb;
+    border-radius:16px;
+    padding:15px;
+    margin-bottom:10px
+}
+
+.record-card:last-child{
+    margin-bottom:0
+}
+
+.record-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:5px 0
+}
+
+.record-label{
+    color:#777;
+    font-size:13px
+}
+
+.record-value{
+    font-weight:700;
+    text-align:right
+}
+
+.record-actions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px
+}
+
+.record-actions button{
+    min-height:42px;
+    border:0;
+    border-radius:10px;
+    font-weight:800
+}
 
 .modal{
     position:fixed;
     inset:0;
-
     display:none;
-
     align-items:center;
     justify-content:center;
-
     padding:18px;
-
-    background:
-        rgba(0,0,0,0.45);
-
-    z-index:9999;
+    background:rgba(0,0,0,.45);
+    z-index:9999
 }
 
 .modal.show{
-    display:flex;
+    display:flex
 }
 
 .modal-box{
     width:100%;
     max-width:430px;
-
-    background:#ffffff;
-
+    background:#fff;
     border-radius:20px;
-
-    padding:22px;
+    padding:22px
 }
 
 .modal-title{
     font-size:20px;
     font-weight:800;
-
-    margin-bottom:12px;
+    margin-bottom:12px
 }
 
 .modal-content{
     color:#555;
-
-    line-height:1.7;
-
-    font-size:14px;
+    line-height:1.8;
+    font-size:14px
 }
 
 .modal-actions{
     display:flex;
-
     justify-content:flex-end;
-
     gap:9px;
-
-    margin-top:18px;
+    margin-top:18px
 }
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
 
 .footer{
     text-align:center;
-
     color:#999;
-
     font-size:12px;
-
     line-height:1.7;
-
-    padding:10px 0 30px;
+    padding:10px 0 30px
 }
 
+.editing-note{
+    display:none;
+    background:#eef1ff;
+    color:#4353d8;
+    border-radius:12px;
+    padding:10px 12px;
+    margin-bottom:12px;
+    font-size:13px;
+    font-weight:700
+}
 
-/* =========================================================
-   MOBILE
-========================================================= */
+.editing-note.show{
+    display:block
+}
 
 @media(max-width:850px){
 
     .dashboard{
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
+        grid-template-columns:repeat(2,minmax(0,1fr))
     }
 
     .form-grid{
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
+        grid-template-columns:repeat(2,minmax(0,1fr))
     }
 
 }
@@ -738,36 +533,10 @@ td{
 @media(max-width:600px){
 
     .container{
-        padding:10px;
+        padding:10px
     }
 
-    .header{
-        padding:16px;
-        border-radius:18px;
-    }
-
-    .header-top{
-        align-items:flex-start;
-    }
-
-    .clock{
-        font-size:11px;
-    }
-
-    .pet-icon{
-        width:48px;
-        height:48px;
-        font-size:25px;
-    }
-
-    .header-title{
-        font-size:21px;
-    }
-
-    .header-subtitle{
-        font-size:11px;
-    }
-
+    .header,
     .pet-name-card,
     .form-card,
     .today-card,
@@ -776,71 +545,101 @@ td{
     .filter-card,
     .table-card{
         padding:15px;
-        border-radius:17px;
+        border-radius:17px
+    }
+
+    .header-top{
+        align-items:flex-start
+    }
+
+    .pet-icon{
+        width:48px;
+        height:48px;
+        font-size:25px
+    }
+
+    .header-title{
+        font-size:21px
+    }
+
+    .header-subtitle{
+        font-size:11px
+    }
+
+    .clock{
+        font-size:10px
     }
 
     .pet-name-row{
-        flex-direction:column;
+        flex-direction:column
     }
 
     .pet-name-btn{
-        width:100%;
+        width:100%
     }
 
     .dashboard{
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-        gap:8px;
+        gap:8px
     }
 
     .stat-card{
-        padding:13px;
+        padding:13px
     }
 
     .stat-value{
-        font-size:22px;
+        font-size:22px
     }
 
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .today-grid{
-        grid-template-columns:1fr;
-    }
-
-    .filter-grid{
-        grid-template-columns:1fr;
-    }
-
+    .form-grid,
+    .filter-grid,
+    .today-grid,
     .extreme-grid{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr
     }
 
     .form-actions{
-        flex-direction:column;
+        flex-direction:column
     }
 
     .main-button{
-        width:100%;
+        width:100%
+    }
+
+    .table-wrapper{
+        display:none
+    }
+
+    .mobile-records{
+        display:block
+    }
+
+    .record-actions{
+        grid-template-columns:repeat(3,1fr)
+    }
+
+    .date-row{
+        flex-wrap:wrap
+    }
+
+    .date-row input{
+        min-width:0
+    }
+
+    .small-button{
+        flex:1
+    }
+
+    .section-title{
+        font-size:18px
     }
 
 }
-
 </style>
 </head>
 
-
 <body>
 
-
 <div class="container">
-
-
-<!-- =======================================================
-     HEADER
-======================================================== -->
 
 <section class="header">
 
@@ -879,10 +678,6 @@ td{
 </section>
 
 
-<!-- =======================================================
-     PET NAME
-======================================================== -->
-
 <section class="pet-name-card">
 
     <div class="pet-name-title">
@@ -909,12 +704,7 @@ td{
 </section>
 
 
-<!-- =======================================================
-     DASHBOARD
-======================================================== -->
-
 <section class="dashboard">
-
 
     <div class="stat-card">
 
@@ -995,13 +785,8 @@ td{
 
     </div>
 
-
 </section>
 
-
-<!-- =======================================================
-     ADD / EDIT FORM
-======================================================== -->
 
 <section class="form-card">
 
@@ -1011,11 +796,13 @@ td{
         💧 新增喝水紀錄
     </div>
 
+    <div
+        id="editingNote"
+        class="editing-note">
+        ✏️ 正在編輯：修改日期或喝水量後會自動儲存並覆蓋原紀錄。
+    </div>
 
     <div class="form-grid">
-
-
-        <!-- YEAR -->
 
         <div class="field">
 
@@ -1033,8 +820,6 @@ td{
 
         </div>
 
-
-        <!-- DATE -->
 
         <div class="field">
 
@@ -1073,8 +858,6 @@ td{
         </div>
 
 
-        <!-- CC -->
-
         <div class="field">
 
             <label for="cc">
@@ -1092,8 +875,6 @@ td{
         </div>
 
 
-        <!-- TARGET -->
-
         <div class="field">
 
             <label for="dailyTarget">
@@ -1110,7 +891,6 @@ td{
 
         </div>
 
-
     </div>
 
 
@@ -1123,7 +903,6 @@ td{
             ➕ 新增紀錄
         </button>
 
-
         <button
             id="cancelEditBtn"
             type="button"
@@ -1131,7 +910,6 @@ td{
             style="display:none;">
             取消編輯
         </button>
-
 
         <button
             id="clearAllBtn"
@@ -1145,19 +923,13 @@ td{
 </section>
 
 
-<!-- =======================================================
-     TODAY STATUS
-======================================================== -->
-
 <section class="today-card">
 
     <div class="section-title">
         📅 今日狀態
     </div>
 
-
     <div class="today-grid">
-
 
         <div class="today-box">
 
@@ -1205,23 +977,16 @@ td{
                     —
                 </span>
 
-                <span>
-                    CC
-                </span>
+                CC
 
             </div>
 
         </div>
 
-
     </div>
 
 </section>
 
-
-<!-- =======================================================
-     ANALYSIS
-======================================================== -->
 
 <section class="analysis-card">
 
@@ -1229,24 +994,18 @@ td{
         🔎 喝水變化分析
     </div>
 
-
     <div
         id="analysisMessage"
         class="analysis-message">
-
         尚無足夠資料進行分析。
-
     </div>
-
 
     <ul
         id="analysisList"
         class="analysis-list">
     </ul>
 
-
     <div class="extreme-grid">
-
 
         <div class="extreme-box">
 
@@ -1277,22 +1036,16 @@ td{
 
         </div>
 
-
     </div>
 
 </section>
 
-
-<!-- =======================================================
-     CHART
-======================================================== -->
 
 <section class="chart-card">
 
     <div class="section-title">
         📈 近 30 日喝水趨勢
     </div>
-
 
     <div class="chart-wrapper">
 
@@ -1304,22 +1057,15 @@ td{
 
     </div>
 
-
     <div
         id="chartEmpty"
         class="chart-empty"
         style="display:none;">
-
         目前沒有資料可以繪製圖表。
-
     </div>
 
 </section>
 
-
-<!-- =======================================================
-     FILTER
-======================================================== -->
 
 <section class="filter-card">
 
@@ -1327,9 +1073,7 @@ td{
         🔍 查看紀錄
     </div>
 
-
     <div class="filter-grid">
-
 
         <div class="field">
 
@@ -1360,53 +1104,18 @@ td{
                     全部月份
                 </option>
 
-                <option value="1">
-                    1 月
-                </option>
-
-                <option value="2">
-                    2 月
-                </option>
-
-                <option value="3">
-                    3 月
-                </option>
-
-                <option value="4">
-                    4 月
-                </option>
-
-                <option value="5">
-                    5 月
-                </option>
-
-                <option value="6">
-                    6 月
-                </option>
-
-                <option value="7">
-                    7 月
-                </option>
-
-                <option value="8">
-                    8 月
-                </option>
-
-                <option value="9">
-                    9 月
-                </option>
-
-                <option value="10">
-                    10 月
-                </option>
-
-                <option value="11">
-                    11 月
-                </option>
-
-                <option value="12">
-                    12 月
-                </option>
+                <option value="1">1 月</option>
+                <option value="2">2 月</option>
+                <option value="3">3 月</option>
+                <option value="4">4 月</option>
+                <option value="5">5 月</option>
+                <option value="6">6 月</option>
+                <option value="7">7 月</option>
+                <option value="8">8 月</option>
+                <option value="9">9 月</option>
+                <option value="10">10 月</option>
+                <option value="11">11 月</option>
+                <option value="12">12 月</option>
 
             </select>
 
@@ -1428,22 +1137,16 @@ td{
 
         </div>
 
-
     </div>
 
 </section>
 
-
-<!-- =======================================================
-     RECORD TABLE
-======================================================== -->
 
 <section class="table-card">
 
     <div class="section-title">
         📋 所有喝水紀錄
     </div>
-
 
     <div class="table-wrapper">
 
@@ -1453,34 +1156,16 @@ td{
 
                 <tr>
 
-                    <th>
-                        日期
-                    </th>
-
-                    <th>
-                        星期
-                    </th>
-
-                    <th>
-                        年份
-                    </th>
-
-                    <th>
-                        喝水量
-                    </th>
-
-                    <th>
-                        建立時間
-                    </th>
-
-                    <th>
-                        操作
-                    </th>
+                    <th>日期</th>
+                    <th>星期</th>
+                    <th>年份</th>
+                    <th>喝水量</th>
+                    <th>建立時間</th>
+                    <th>操作</th>
 
                 </tr>
 
             </thead>
-
 
             <tbody
                 id="recordTableBody">
@@ -1490,12 +1175,14 @@ td{
 
     </div>
 
+
+    <div
+        id="mobileRecords"
+        class="mobile-records">
+    </div>
+
 </section>
 
-
-<!-- =======================================================
-     FOOTER
-======================================================== -->
 
 <div class="footer">
 
@@ -1503,17 +1190,12 @@ td{
 
     可自由修改寵物名稱、日期與喝水量<br>
 
-    資料會保存在目前裝置的瀏覽器中
+    資料會自動保存在目前裝置的瀏覽器中
 
 </div>
 
-
 </div>
 
-
-<!-- =======================================================
-     VIEW MODAL
-======================================================== -->
 
 <div
     id="viewModal"
@@ -1539,16 +1221,19 @@ td{
                 關閉
             </button>
 
+            <button
+                id="viewEditBtn"
+                type="button"
+                class="main-button add-button">
+                ✏️ 編輯這筆
+            </button>
+
         </div>
 
     </div>
 
 </div>
 
-
-<!-- =======================================================
-     DELETE MODAL
-======================================================== -->
 
 <div
     id="deleteModal"
@@ -1592,10 +1277,6 @@ td{
 
 <script>
 
-/* =========================================================
-   STORAGE KEYS
-========================================================= */
-
 const RECORD_STORAGE_KEY =
     "PET_WATER_RECORDS_MAIN";
 
@@ -1606,9 +1287,18 @@ const TARGET_STORAGE_KEY =
     "PET_WATER_DAILY_TARGET";
 
 
-/* =========================================================
-   APPLICATION STATE
-========================================================= */
+/* Keep compatibility with previous versions */
+
+const LEGACY_RECORD_KEYS = [
+    "petWaterRecordsV2",
+    "PET_WATER_RECORDS_MAIN"
+];
+
+const LEGACY_PET_KEYS = [
+    "petWaterPetNameV2",
+    "PET_WATER_PET_NAME"
+];
+
 
 let records = [];
 
@@ -1616,205 +1306,138 @@ let editingId = null;
 
 let pendingDeleteId = null;
 
+let viewingId = null;
 
-/* =========================================================
-   DOM
-========================================================= */
+let autoSaveTimer = null;
+
+
+const $ = id =>
+    document.getElementById(id);
+
 
 const headerPetName =
-    document.getElementById(
-        "headerPetName"
-    );
+    $("headerPetName");
 
 const petNameInput =
-    document.getElementById(
-        "petNameInput"
-    );
+    $("petNameInput");
 
 const savePetNameBtn =
-    document.getElementById(
-        "savePetNameBtn"
-    );
+    $("savePetNameBtn");
 
 const currentTime =
-    document.getElementById(
-        "currentTime"
-    );
+    $("currentTime");
 
 const yearSelect =
-    document.getElementById(
-        "year"
-    );
+    $("year");
 
 const recordDate =
-    document.getElementById(
-        "recordDate"
-    );
+    $("recordDate");
 
 const ccInput =
-    document.getElementById(
-        "cc"
-    );
+    $("cc");
 
 const dailyTargetInput =
-    document.getElementById(
-        "dailyTarget"
-    );
+    $("dailyTarget");
 
 const todayBtn =
-    document.getElementById(
-        "todayBtn"
-    );
+    $("todayBtn");
 
 const clearDateBtn =
-    document.getElementById(
-        "clearDateBtn"
-    );
+    $("clearDateBtn");
 
 const dateInfo =
-    document.getElementById(
-        "dateInfo"
-    );
+    $("dateInfo");
 
 const saveBtn =
-    document.getElementById(
-        "saveBtn"
-    );
+    $("saveBtn");
 
 const cancelEditBtn =
-    document.getElementById(
-        "cancelEditBtn"
-    );
+    $("cancelEditBtn");
 
 const clearAllBtn =
-    document.getElementById(
-        "clearAllBtn"
-    );
+    $("clearAllBtn");
 
 const formTitle =
-    document.getElementById(
-        "formTitle"
-    );
+    $("formTitle");
+
+const editingNote =
+    $("editingNote");
 
 const filterYear =
-    document.getElementById(
-        "filterYear"
-    );
+    $("filterYear");
 
 const filterMonth =
-    document.getElementById(
-        "filterMonth"
-    );
+    $("filterMonth");
 
 const filterSummary =
-    document.getElementById(
-        "filterSummary"
-    );
+    $("filterSummary");
 
 const recordTableBody =
-    document.getElementById(
-        "recordTableBody"
-    );
+    $("recordTableBody");
+
+const mobileRecords =
+    $("mobileRecords");
 
 const todayCC =
-    document.getElementById(
-        "todayCC"
-    );
+    $("todayCC");
 
 const weekAverage =
-    document.getElementById(
-        "weekAverage"
-    );
+    $("weekAverage");
 
 const monthAverage =
-    document.getElementById(
-        "monthAverage"
-    );
+    $("monthAverage");
 
 const goalRate =
-    document.getElementById(
-        "goalRate"
-    );
+    $("goalRate");
 
 const todayWater =
-    document.getElementById(
-        "todayWater"
-    );
+    $("todayWater");
 
 const todayTarget =
-    document.getElementById(
-        "todayTarget"
-    );
+    $("todayTarget");
 
 const todayDateText =
-    document.getElementById(
-        "todayDateText"
-    );
+    $("todayDateText");
 
 const analysisMessage =
-    document.getElementById(
-        "analysisMessage"
-    );
+    $("analysisMessage");
 
 const analysisList =
-    document.getElementById(
-        "analysisList"
-    );
+    $("analysisList");
 
 const maxDaily =
-    document.getElementById(
-        "maxDaily"
-    );
+    $("maxDaily");
 
 const minDaily =
-    document.getElementById(
-        "minDaily"
-    );
+    $("minDaily");
 
 const waterChart =
-    document.getElementById(
-        "waterChart"
-    );
+    $("waterChart");
 
 const chartEmpty =
-    document.getElementById(
-        "chartEmpty"
-    );
+    $("chartEmpty");
 
 const viewModal =
-    document.getElementById(
-        "viewModal"
-    );
+    $("viewModal");
 
 const viewContent =
-    document.getElementById(
-        "viewContent"
-    );
+    $("viewContent");
 
 const closeViewBtn =
-    document.getElementById(
-        "closeViewBtn"
-    );
+    $("closeViewBtn");
+
+const viewEditBtn =
+    $("viewEditBtn");
 
 const deleteModal =
-    document.getElementById(
-        "deleteModal"
-    );
+    $("deleteModal");
 
 const cancelDeleteBtn =
-    document.getElementById(
-        "cancelDeleteBtn"
-    );
+    $("cancelDeleteBtn");
 
 const confirmDeleteBtn =
-    document.getElementById(
-        "confirmDeleteBtn"
-    );
+    $("confirmDeleteBtn");
 
-
-/* =========================================================
-   UTILITY
-========================================================= */
 
 function generateId(){
 
@@ -1823,7 +1446,7 @@ function generateId(){
         "_" +
         Math.random()
             .toString(36)
-            .substring(2,10)
+            .slice(2,10)
     );
 
 }
@@ -1831,28 +1454,19 @@ function generateId(){
 
 function getTodayISO(){
 
-    const now =
+    const d =
         new Date();
 
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(
-            now.getMonth()+1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2,"0");
-
     return (
-        year +
+        d.getFullYear() +
         "-" +
-        month +
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0") +
         "-" +
-        day
+        String(
+            d.getDate()
+        ).padStart(2,"0")
     );
 
 }
@@ -1864,14 +1478,14 @@ function getROCYear(dateString){
         return "";
     }
 
-    const date =
+    const d =
         new Date(
             dateString +
             "T00:00:00"
         );
 
     return (
-        date.getFullYear() -
+        d.getFullYear() -
         1911
     );
 
@@ -1884,31 +1498,22 @@ function formatDate(dateString){
         return "—";
     }
 
-    const date =
+    const d =
         new Date(
             dateString +
             "T00:00:00"
         );
 
-    const year =
-        date.getFullYear();
-
-    const month =
-        String(
-            date.getMonth()+1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2,"0");
-
     return (
-        year +
+        d.getFullYear() +
         "/" +
-        month +
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0") +
         "/" +
-        day
+        String(
+            d.getDate()
+        ).padStart(2,"0")
     );
 
 }
@@ -1920,13 +1525,13 @@ function getWeekday(dateString){
         return "";
     }
 
-    const date =
+    const d =
         new Date(
             dateString +
             "T00:00:00"
         );
 
-    const names = [
+    return [
         "星期日",
         "星期一",
         "星期二",
@@ -1934,10 +1539,8 @@ function getWeekday(dateString){
         "星期四",
         "星期五",
         "星期六"
-    ];
-
-    return names[
-        date.getDay()
+    ][
+        d.getDay()
     ];
 
 }
@@ -1948,15 +1551,9 @@ function numberValue(value){
     const n =
         Number(value);
 
-    if(
-        !Number.isFinite(n)
-    ){
-
-        return 0;
-
-    }
-
-    return n;
+    return Number.isFinite(n)
+        ? n
+        : 0;
 
 }
 
@@ -1972,27 +1569,86 @@ function roundNumber(value){
 
 function escapeHTML(value){
 
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+function formatDateTime(value){
+
+    if(!value){
+        return "—";
+    }
+
+    const d =
+        new Date(value);
+
+    if(
+        Number.isNaN(
+            d.getTime()
         )
-        .replace(
-            /</g,
-            "&lt;"
+    ){
+        return "—";
+    }
+
+    return (
+        d.getFullYear() +
+        "/" +
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0") +
+        "/" +
+        String(
+            d.getDate()
+        ).padStart(2,"0") +
+        " " +
+        String(
+            d.getHours()
+        ).padStart(2,"0") +
+        ":" +
+        String(
+            d.getMinutes()
+        ).padStart(2,"0")
+    );
+
+}
+
+
+function isValidDate(value){
+
+    return (
+        /^\d{4}-\d{2}-\d{2}$/.test(
+            value || ""
+        ) &&
+        !Number.isNaN(
+            new Date(
+                value +
+                "T00:00:00"
+            ).getTime()
         )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    );
 
 }
 
@@ -2003,48 +1659,57 @@ function escapeHTML(value){
 
 function loadPetName(){
 
-    const saved =
-        localStorage.getItem(
-            PET_NAME_STORAGE_KEY
-        );
+    let saved = null;
 
+    for(
+        const key of LEGACY_PET_KEYS
+    ){
 
-    if(saved){
+        const value =
+            localStorage.getItem(
+                key
+            );
 
-        petNameInput.value =
-            saved;
+        if(value){
 
-        headerPetName.textContent =
-            saved;
+            saved =
+                value;
 
-    }else{
+            break;
 
-        petNameInput.value =
-            "Lucky";
-
-        headerPetName.textContent =
-            "Lucky";
+        }
 
     }
+
+
+    const name =
+        saved ||
+        "Lucky";
+
+
+    petNameInput.value =
+        name;
+
+    headerPetName.textContent =
+        name;
 
 }
 
 
-function savePetName(){
+function savePetName(
+    silent = false
+){
 
-    let name =
-        petNameInput.value.trim();
+    const name =
+        petNameInput.value.trim() ||
+        "我的寵物";
 
 
-    if(!name){
+    petNameInput.value =
+        name;
 
-        name =
-            "我的寵物";
-
-        petNameInput.value =
-            name;
-
-    }
+    headerPetName.textContent =
+        name;
 
 
     localStorage.setItem(
@@ -2053,13 +1718,13 @@ function savePetName(){
     );
 
 
-    headerPetName.textContent =
-        name;
+    if(!silent){
 
+        alert(
+            "寵物名稱已儲存 ❤️"
+        );
 
-    alert(
-        "寵物名稱已儲存 ❤️"
-    );
+    }
 
 }
 
@@ -2070,16 +1735,15 @@ function savePetName(){
 
 function loadTarget(){
 
-    const saved =
+    const value =
         localStorage.getItem(
             TARGET_STORAGE_KEY
         );
 
-
-    if(saved){
+    if(value){
 
         dailyTargetInput.value =
-            saved;
+            value;
 
     }
 
@@ -2088,17 +1752,17 @@ function loadTarget(){
 
 function saveTarget(){
 
-    const target =
+    const value =
         numberValue(
             dailyTargetInput.value
         );
 
 
-    if(target > 0){
+    if(value > 0){
 
         localStorage.setItem(
             TARGET_STORAGE_KEY,
-            String(target)
+            String(value)
         );
 
     }else{
@@ -2121,25 +1785,44 @@ function saveTarget(){
 
 function loadRecords(){
 
-    try{
+    let saved = null;
 
-        const saved =
+    for(
+        const key of LEGACY_RECORD_KEYS
+    ){
+
+        const raw =
             localStorage.getItem(
-                RECORD_STORAGE_KEY
+                key
             );
 
+        if(raw){
 
-        if(!saved){
+            saved =
+                raw;
 
-            records = [];
-
-            return;
+            break;
 
         }
 
+    }
+
+
+    if(!saved){
+
+        records = [];
+
+        return;
+
+    }
+
+
+    try{
 
         const parsed =
-            JSON.parse(saved);
+            JSON.parse(
+                saved
+            );
 
 
         if(
@@ -2148,30 +1831,66 @@ function loadRecords(){
 
             records =
                 parsed.map(
-                    item => ({
+                    (
+                        item,
+                        index
+                    ) => {
 
-                        id:
-                            item.id ||
-                            generateId(),
+                        const date =
+                            isValidDate(
+                                item.date
+                            )
+                            ? item.date
+                            : "";
 
-                        year:
-                            item.year ||
-                            "",
 
-                        date:
-                            item.date ||
-                            "",
-
-                        cc:
-                            numberValue(
+                        const cc =
+                            item.cc === "" ||
+                            item.cc == null
+                            ? ""
+                            : numberValue(
                                 item.cc
-                            ),
+                            );
 
-                        createdAt:
-                            item.createdAt ||
-                            new Date().toISOString()
 
-                    })
+                        return {
+
+                            id:
+                                item.id ||
+                                generateId() +
+                                "_" +
+                                index,
+
+                            year:
+                                date
+                                ? String(
+                                    getROCYear(
+                                        date
+                                    )
+                                )
+                                : (
+                                    item.year ||
+                                    ""
+                                ),
+
+                            date:
+                                date,
+
+                            cc:
+                                cc,
+
+                            createdAt:
+                                item.createdAt ||
+                                new Date()
+                                    .toISOString(),
+
+                            updatedAt:
+                                item.updatedAt ||
+                                ""
+
+                        };
+
+                    }
                 );
 
         }else{
@@ -2179,6 +1898,19 @@ function loadRecords(){
             records = [];
 
         }
+
+
+        /*
+         * Migrate old records into the current key.
+         * Old data is NOT deleted.
+         */
+
+        localStorage.setItem(
+            RECORD_STORAGE_KEY,
+            JSON.stringify(
+                records
+            )
+        );
 
     }catch(error){
 
@@ -2197,7 +1929,9 @@ function saveRecords(){
 
     localStorage.setItem(
         RECORD_STORAGE_KEY,
-        JSON.stringify(records)
+        JSON.stringify(
+            records
+        )
     );
 
 }
@@ -2209,35 +1943,30 @@ function saveRecords(){
 
 function buildYearOptions(){
 
-    const currentROCYear =
+    const current =
         new Date()
             .getFullYear() -
         1911;
 
 
+    const currentSelected =
+        yearSelect.value;
+
+    const filterSelected =
+        filterYear.value;
+
+
     yearSelect.innerHTML =
-        "";
-
-
-    const defaultOption =
-        document.createElement(
-            "option"
-        );
-
-    defaultOption.value =
-        "";
-
-    defaultOption.textContent =
-        "請選擇年份";
-
-    yearSelect.appendChild(
-        defaultOption
-    );
+        `
+        <option value="">
+            請選擇年份
+        </option>
+        `;
 
 
     for(
         let year = 90;
-        year <= currentROCYear + 5;
+        year <= current + 5;
         year++
     ){
 
@@ -2261,59 +1990,63 @@ function buildYearOptions(){
     }
 
 
-    const usedYears =
-        new Set();
-
-
-    records.forEach(
-        record => {
-
-            if(record.year){
-
-                usedYears.add(
-                    String(record.year)
-                );
-
-            }
-
-        }
-    );
-
-
-    usedYears.forEach(
-        year => {
-
-            if(
-                !Array.from(
-                    yearSelect.options
-                ).some(
-                    option =>
-                        option.value ===
-                        year
+    const years =
+        new Set(
+            records
+                .map(
+                    record =>
+                        String(
+                            record.year ||
+                            ""
+                        )
                 )
-            ){
+                .filter(Boolean)
+        );
 
-                const option =
-                    document.createElement(
-                        "option"
+
+    Array.from(years)
+        .sort(
+            (
+                a,
+                b
+            ) =>
+                Number(b) -
+                Number(a)
+        )
+        .forEach(
+            year => {
+
+                if(
+                    !Array.from(
+                        yearSelect.options
+                    ).some(
+                        option =>
+                            option.value ===
+                            year
+                    )
+                ){
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        year;
+
+                    option.textContent =
+                        "民國 " +
+                        year +
+                        " 年";
+
+                    yearSelect.appendChild(
+                        option
                     );
 
-                option.value =
-                    year;
-
-                option.textContent =
-                    "民國 " +
-                    year +
-                    " 年";
-
-                yearSelect.appendChild(
-                    option
-                );
+                }
 
             }
-
-        }
-    );
+        );
 
 
     filterYear.innerHTML =
@@ -2324,28 +2057,12 @@ function buildYearOptions(){
         `;
 
 
-    const allYears =
-        new Set();
-
-
-    records.forEach(
-        record => {
-
-            if(record.year){
-
-                allYears.add(
-                    String(record.year)
-                );
-
-            }
-
-        }
-    );
-
-
-    Array.from(allYears)
+    Array.from(years)
         .sort(
-            (a,b) =>
+            (
+                a,
+                b
+            ) =>
                 Number(b) -
                 Number(a)
         )
@@ -2372,6 +2089,38 @@ function buildYearOptions(){
             }
         );
 
+
+    if(
+        Array.from(
+            yearSelect.options
+        ).some(
+            option =>
+                option.value ===
+                currentSelected
+        )
+    ){
+
+        yearSelect.value =
+            currentSelected;
+
+    }
+
+
+    if(
+        Array.from(
+            filterYear.options
+        ).some(
+            option =>
+                option.value ===
+                filterSelected
+        )
+    ){
+
+        filterYear.value =
+            filterSelected;
+
+    }
+
 }
 
 
@@ -2391,7 +2140,7 @@ function updateDateInfo(){
     }
 
 
-    const rocYear =
+    const year =
         getROCYear(
             recordDate.value
         );
@@ -2404,8 +2153,15 @@ function updateDateInfo(){
 
     dateInfo.textContent =
         "民國 " +
-        rocYear +
+        year +
         " 年・" +
+        recordDate.value
+            .slice(5)
+            .replace(
+                "-",
+                "/"
+            ) +
+        "・" +
         weekday;
 
 }
@@ -2453,51 +2209,88 @@ function clearDate(){
 
 function updateClock(){
 
-    const now =
+    const d =
         new Date();
 
 
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(
-            now.getMonth()+1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2,"0");
-
-    const hour =
-        String(
-            now.getHours()
-        ).padStart(2,"0");
-
-    const minute =
-        String(
-            now.getMinutes()
-        ).padStart(2,"0");
-
-    const second =
-        String(
-            now.getSeconds()
-        ).padStart(2,"0");
-
-
     currentTime.textContent =
-        year +
+        d.getFullYear() +
         "/" +
-        month +
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0") +
         "/" +
-        day +
+        String(
+            d.getDate()
+        ).padStart(2,"0") +
         " " +
-        hour +
+        String(
+            d.getHours()
+        ).padStart(2,"0") +
         ":" +
-        minute +
+        String(
+            d.getMinutes()
+        ).padStart(2,"0") +
         ":" +
-        second;
+        String(
+            d.getSeconds()
+        ).padStart(2,"0");
+
+}
+
+
+/* =========================================================
+   RECORD FORM
+========================================================= */
+
+function buildRecordFromForm(
+    old = null
+){
+
+    const date =
+        recordDate.value;
+
+
+    const cc =
+        numberValue(
+            ccInput.value
+        );
+
+
+    const year =
+        yearSelect.value ||
+        String(
+            getROCYear(
+                date
+            )
+        );
+
+
+    return {
+
+        id:
+            old?.id ||
+            generateId(),
+
+        year:
+            year,
+
+        date:
+            date,
+
+        cc:
+            cc,
+
+        createdAt:
+            old?.createdAt ||
+            new Date()
+                .toISOString(),
+
+        updatedAt:
+            new Date()
+                .toISOString()
+
+    };
 
 }
 
@@ -2511,16 +2304,21 @@ function addRecord(){
     const date =
         recordDate.value;
 
+
     const cc =
         numberValue(
             ccInput.value
         );
 
 
-    if(!date){
+    if(
+        !isValidDate(
+            date
+        )
+    ){
 
         alert(
-            "請先選擇日期。"
+            "請先選擇正確日期。"
         );
 
         return;
@@ -2548,28 +2346,74 @@ function addRecord(){
         );
 
 
-    const newRecord = {
+    /*
+     * Same date = one record.
+     * Automatically overwrite.
+     */
 
-        id:
-            generateId(),
+    const sameIndex =
+        records.findIndex(
+            record =>
+                record.date ===
+                date
+        );
 
-        year:
-            year,
 
-        date:
-            date,
+    if(
+        sameIndex >= 0
+    ){
 
-        cc:
-            cc,
+        const old =
+            records[
+                sameIndex
+            ];
 
-        createdAt:
-            new Date().toISOString()
 
-    };
+        records[
+            sameIndex
+        ] = {
+
+            ...old,
+
+            ...buildRecordFromForm(
+                old
+            ),
+
+            year:
+                year,
+
+            date:
+                date,
+
+            cc:
+                cc
+
+        };
+
+
+        saveRecords();
+
+        buildYearOptions();
+
+        renderAll();
+
+        resetForm();
+
+
+        alert(
+            formatDate(date) +
+            " 已有紀錄，已自動覆蓋為 " +
+            cc +
+            " CC 💾"
+        );
+
+        return;
+
+    }
 
 
     records.push(
-        newRecord
+        buildRecordFromForm()
     );
 
 
@@ -2577,13 +2421,13 @@ function addRecord(){
 
     buildYearOptions();
 
-    resetForm();
-
     renderAll();
+
+    resetForm();
 
 
     alert(
-        "喝水紀錄已新增 💧"
+        "喝水紀錄已自動儲存 💧"
     );
 
 }
@@ -2593,11 +2437,13 @@ function addRecord(){
    UPDATE RECORD
 ========================================================= */
 
-function updateRecord(){
+function updateRecord(
+    silent = false
+){
 
     if(!editingId){
 
-        return;
+        return false;
 
     }
 
@@ -2605,30 +2451,29 @@ function updateRecord(){
     const date =
         recordDate.value;
 
+
     const cc =
         numberValue(
             ccInput.value
         );
 
 
-    if(!date){
+    if(
+        !isValidDate(
+            date
+        ) ||
+        cc <= 0
+    ){
 
-        alert(
-            "請選擇日期。"
-        );
+        if(!silent){
 
-        return;
+            alert(
+                "請確認日期與喝水量。"
+            );
 
-    }
+        }
 
-
-    if(cc <= 0){
-
-        alert(
-            "請輸入大於 0 的喝水量。"
-        );
-
-        return;
+        return false;
 
     }
 
@@ -2641,23 +2486,20 @@ function updateRecord(){
         );
 
 
-    if(index === -1){
-
-        alert(
-            "找不到這筆紀錄。"
-        );
+    if(index < 0){
 
         cancelEdit();
 
-        return;
+        return false;
 
     }
 
 
-    records[index].date =
-        date;
+    const old =
+        records[index];
 
-    records[index].year =
+
+    const year =
         yearSelect.value ||
         String(
             getROCYear(
@@ -2665,22 +2507,130 @@ function updateRecord(){
             )
         );
 
-    records[index].cc =
-        cc;
+
+    /*
+     * If editing to another existing date,
+     * merge into that date instead of creating duplicate records.
+     */
+
+    const duplicate =
+        records.findIndex(
+            (
+                record,
+                recordIndex
+            ) =>
+                recordIndex !== index &&
+                record.date === date
+        );
+
+
+    if(
+        duplicate >= 0
+    ){
+
+        records[
+            duplicate
+        ] = {
+
+            ...records[
+                duplicate
+            ],
+
+            date:
+                date,
+
+            year:
+                year,
+
+            cc:
+                cc,
+
+            updatedAt:
+                new Date()
+                    .toISOString()
+
+        };
+
+
+        records.splice(
+            index,
+            1
+        );
+
+    }else{
+
+        records[index] = {
+
+            ...old,
+
+            date:
+                date,
+
+            year:
+                year,
+
+            cc:
+                cc,
+
+            updatedAt:
+                new Date()
+                    .toISOString()
+
+        };
+
+    }
 
 
     saveRecords();
 
     buildYearOptions();
 
-    cancelEdit();
-
     renderAll();
 
 
-    alert(
-        "紀錄已成功修改 ✏️"
+    if(!silent){
+
+        alert(
+            "修改已自動儲存並覆蓋原紀錄 ✏️"
+        );
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   AUTO SAVE
+========================================================= */
+
+function scheduleAutoSave(){
+
+    if(!editingId){
+
+        return;
+
+    }
+
+
+    clearTimeout(
+        autoSaveTimer
     );
+
+
+    autoSaveTimer =
+        setTimeout(
+            function(){
+
+                updateRecord(
+                    true
+                );
+
+            },
+            500
+        );
 
 }
 
@@ -2693,7 +2643,9 @@ function handleSave(){
 
     if(editingId){
 
-        updateRecord();
+        updateRecord(
+            false
+        );
 
     }else{
 
@@ -2705,7 +2657,7 @@ function handleSave(){
 
 
 /* =========================================================
-   EDIT RECORD
+   EDIT
 ========================================================= */
 
 function editRecord(id){
@@ -2719,10 +2671,6 @@ function editRecord(id){
 
     if(!record){
 
-        alert(
-            "找不到這筆紀錄。"
-        );
-
         return;
 
     }
@@ -2733,17 +2681,20 @@ function editRecord(id){
 
 
     recordDate.value =
-        record.date || "";
+        record.date ||
+        "";
 
 
     yearSelect.value =
         String(
-            record.year || ""
+            record.year ||
+            ""
         );
 
 
     ccInput.value =
-        record.cc;
+        record.cc ??
+        "";
 
 
     updateDateInfo();
@@ -2753,8 +2704,13 @@ function editRecord(id){
         "✏️ 編輯喝水紀錄";
 
 
+    editingNote.classList.add(
+        "show"
+    );
+
+
     saveBtn.textContent =
-        "💾 儲存修改";
+        "💾 已開啟自動儲存";
 
 
     cancelEditBtn.style.display =
@@ -2775,12 +2731,22 @@ function editRecord(id){
 
 function cancelEdit(){
 
+    clearTimeout(
+        autoSaveTimer
+    );
+
+
     editingId =
         null;
 
 
     formTitle.textContent =
         "💧 新增喝水紀錄";
+
+
+    editingNote.classList.remove(
+        "show"
+    );
 
 
     saveBtn.textContent =
@@ -2811,7 +2777,7 @@ function resetForm(){
 
 
 /* =========================================================
-   VIEW RECORD
+   VIEW
 ========================================================= */
 
 function viewRecord(id){
@@ -2830,7 +2796,11 @@ function viewRecord(id){
     }
 
 
-    const petName =
+    viewingId =
+        id;
+
+
+    const name =
         petNameInput.value.trim() ||
         "我的寵物";
 
@@ -2839,31 +2809,45 @@ function viewRecord(id){
 
         <div>
             <strong>🐾 寵物：</strong>
-            ${escapeHTML(petName)}
+            ${escapeHTML(name)}
         </div>
 
         <div>
             <strong>📅 日期：</strong>
             ${escapeHTML(
-                formatDate(record.date)
+                formatDate(
+                    record.date
+                )
             )}
         </div>
 
         <div>
             <strong>📆 星期：</strong>
             ${escapeHTML(
-                getWeekday(record.date)
+                getWeekday(
+                    record.date
+                )
             )}
         </div>
 
         <div>
             <strong>🗓️ 年份：</strong>
-            民國 ${escapeHTML(record.year)}
+            民國
+            ${escapeHTML(
+                record.year ||
+                getROCYear(
+                    record.date
+                )
+            )}
+            年
         </div>
 
         <div>
             <strong>💧 喝水量：</strong>
-            ${escapeHTML(record.cc)} CC
+            ${escapeHTML(
+                record.cc
+            )}
+            CC
         </div>
 
         <div>
@@ -2871,6 +2855,15 @@ function viewRecord(id){
             ${escapeHTML(
                 formatDateTime(
                     record.createdAt
+                )
+            )}
+        </div>
+
+        <div>
+            <strong>💾 最後修改：</strong>
+            ${escapeHTML(
+                formatDateTime(
+                    record.updatedAt
                 )
             )}
         </div>
@@ -2885,69 +2878,15 @@ function viewRecord(id){
 }
 
 
-/* =========================================================
-   FORMAT DATETIME
-========================================================= */
+function closeView(){
 
-function formatDateTime(value){
-
-    if(!value){
-
-        return "—";
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if(
-        Number.isNaN(
-            date.getTime()
-        )
-    ){
-
-        return "—";
-
-    }
-
-
-    const year =
-        date.getFullYear();
-
-    const month =
-        String(
-            date.getMonth()+1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2,"0");
-
-    const hour =
-        String(
-            date.getHours()
-        ).padStart(2,"0");
-
-    const minute =
-        String(
-            date.getMinutes()
-        ).padStart(2,"0");
-
-
-    return (
-        year +
-        "/" +
-        month +
-        "/" +
-        day +
-        " " +
-        hour +
-        ":" +
-        minute
+    viewModal.classList.remove(
+        "show"
     );
+
+
+    viewingId =
+        null;
 
 }
 
@@ -3009,9 +2948,20 @@ function confirmDelete(){
 
     saveRecords();
 
-    buildYearOptions();
-
     closeDeleteModal();
+
+
+    if(
+        editingId ===
+        pendingDeleteId
+    ){
+
+        cancelEdit();
+
+    }
+
+
+    buildYearOptions();
 
     renderAll();
 
@@ -3020,7 +2970,9 @@ function confirmDelete(){
 
         alert(
             "已刪除 " +
-            formatDate(record.date) +
+            formatDate(
+                record.date
+            ) +
             " 的喝水紀錄。"
         );
 
@@ -3035,7 +2987,7 @@ function confirmDelete(){
 
 function clearAllRecords(){
 
-    if(records.length === 0){
+    if(!records.length){
 
         alert(
             "目前沒有紀錄。"
@@ -3077,15 +3029,22 @@ function clearAllRecords(){
 
 function getSortedRecords(){
 
-    return [...records].sort(
-        (a,b) => {
+    return [
+        ...records
+    ].sort(
+        (
+            a,
+            b
+        ) => {
 
             const dateCompare =
                 String(
-                    b.date || ""
+                    b.date ||
+                    ""
                 ).localeCompare(
                     String(
-                        a.date || ""
+                        a.date ||
+                        ""
                     )
                 );
 
@@ -3100,10 +3059,12 @@ function getSortedRecords(){
 
 
             return String(
-                b.createdAt || ""
+                b.createdAt ||
+                ""
             ).localeCompare(
                 String(
-                    a.createdAt || ""
+                    a.createdAt ||
+                    ""
                 )
             );
 
@@ -3145,29 +3106,34 @@ function getFilteredRecords(){
                 }
 
 
-                if(selectedMonth){
+                if(
+                    selectedMonth
+                ){
 
-                    if(!record.date){
+                    if(
+                        !record.date
+                    ){
 
                         return false;
 
                     }
 
 
-                    const date =
-                        new Date(
-                            record.date +
-                            "T00:00:00"
+                    const month =
+                        Number(
+                            record.date
+                                .slice(
+                                    5,
+                                    7
+                                )
                         );
 
 
-                    const month =
-                        date.getMonth()+1;
-
-
                     if(
-                        String(month) !==
-                        String(selectedMonth)
+                        month !==
+                        Number(
+                            selectedMonth
+                        )
                     ){
 
                         return false;
@@ -3186,6 +3152,91 @@ function getFilteredRecords(){
 
 
 /* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+function actionButtons(id){
+
+    const box =
+        document.createElement(
+            "div"
+        );
+
+
+    box.className =
+        "action-group";
+
+
+    const buttons = [
+
+        [
+            "👁️ 查看",
+            "view-button",
+            () =>
+                viewRecord(id)
+        ],
+
+        [
+            "✏️ 編輯",
+            "edit-button",
+            () =>
+                editRecord(id)
+        ],
+
+        [
+            "🗑️ 刪除",
+            "delete-button",
+            () =>
+                askDelete(id)
+        ]
+
+    ];
+
+
+    buttons.forEach(
+        (
+            item
+        ) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "table-button " +
+                item[1];
+
+
+            button.textContent =
+                item[0];
+
+
+            button.addEventListener(
+                "click",
+                item[2]
+            );
+
+
+            box.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    return box;
+
+}
+
+
+/* =========================================================
    TABLE
 ========================================================= */
 
@@ -3198,15 +3249,17 @@ function renderTable(){
     recordTableBody.innerHTML =
         "";
 
+    mobileRecords.innerHTML =
+        "";
+
 
     if(
-        list.length === 0
+        !list.length
     ){
 
-        recordTableBody.innerHTML = `
-
+        recordTableBody.innerHTML =
+            `
             <tr>
-
                 <td
                     colspan="6"
                     style="
@@ -3214,14 +3267,23 @@ function renderTable(){
                         padding:40px;
                         color:#999;
                     ">
-
                     尚無喝水紀錄
-
                 </td>
-
             </tr>
+            `;
 
-        `;
+
+        mobileRecords.innerHTML =
+            `
+            <div
+                style="
+                    text-align:center;
+                    padding:30px;
+                    color:#999;
+                ">
+                尚無喝水紀錄
+            </div>
+            `;
 
 
         updateFilterSummary(
@@ -3243,63 +3305,64 @@ function renderTable(){
                 );
 
 
-            const dateCell =
-                document.createElement(
-                    "td"
-                );
+            const values = [
 
-            dateCell.textContent =
                 formatDate(
                     record.date
-                );
+                ),
 
-
-            const weekdayCell =
-                document.createElement(
-                    "td"
-                );
-
-            weekdayCell.textContent =
                 getWeekday(
                     record.date
-                );
+                ),
 
-
-            const yearCell =
-                document.createElement(
-                    "td"
-                );
-
-            yearCell.textContent =
                 record.year
                     ? "民國 " +
                       record.year +
                       " 年"
-                    : "—";
+                    : "—",
 
-
-            const ccCell =
-                document.createElement(
-                    "td"
-                );
-
-            ccCell.className =
-                "cc-value";
-
-            ccCell.textContent =
                 record.cc +
-                " CC";
+                    " CC",
 
-
-            const createdCell =
-                document.createElement(
-                    "td"
-                );
-
-            createdCell.textContent =
                 formatDateTime(
                     record.createdAt
-                );
+                )
+
+            ];
+
+
+            values.forEach(
+                (
+                    value,
+                    index
+                ) => {
+
+                    const td =
+                        document.createElement(
+                            "td"
+                        );
+
+
+                    if(
+                        index === 3
+                    ){
+
+                        td.className =
+                            "cc-value";
+
+                    }
+
+
+                    td.textContent =
+                        value;
+
+
+                    tr.appendChild(
+                        td
+                    );
+
+                }
+            );
 
 
             const actionCell =
@@ -3308,139 +3371,12 @@ function renderTable(){
                 );
 
 
-            const actionGroup =
-                document.createElement(
-                    "div"
-                );
-
-            actionGroup.className =
-                "action-group";
-
-
-            /* VIEW */
-
-            const viewButton =
-                document.createElement(
-                    "button"
-                );
-
-            viewButton.type =
-                "button";
-
-            viewButton.className =
-                "table-button view-button";
-
-            viewButton.textContent =
-                "👁️ 查看";
-
-
-            viewButton.addEventListener(
-                "click",
-                function(){
-
-                    viewRecord(
-                        record.id
-                    );
-
-                }
-            );
-
-
-            /* EDIT */
-
-            const editButton =
-                document.createElement(
-                    "button"
-                );
-
-            editButton.type =
-                "button";
-
-            editButton.className =
-                "table-button edit-button";
-
-            editButton.textContent =
-                "✏️ 編輯";
-
-
-            editButton.addEventListener(
-                "click",
-                function(){
-
-                    editRecord(
-                        record.id
-                    );
-
-                }
-            );
-
-
-            /* DELETE */
-
-            const deleteButton =
-                document.createElement(
-                    "button"
-                );
-
-            deleteButton.type =
-                "button";
-
-            deleteButton.className =
-                "table-button delete-button";
-
-            deleteButton.textContent =
-                "🗑️ 刪除";
-
-
-            deleteButton.addEventListener(
-                "click",
-                function(){
-
-                    askDelete(
-                        record.id
-                    );
-
-                }
-            );
-
-
-            actionGroup.appendChild(
-                viewButton
-            );
-
-            actionGroup.appendChild(
-                editButton
-            );
-
-            actionGroup.appendChild(
-                deleteButton
-            );
-
-
             actionCell.appendChild(
-                actionGroup
+                actionButtons(
+                    record.id
+                )
             );
 
-
-            tr.appendChild(
-                dateCell
-            );
-
-            tr.appendChild(
-                weekdayCell
-            );
-
-            tr.appendChild(
-                yearCell
-            );
-
-            tr.appendChild(
-                ccCell
-            );
-
-            tr.appendChild(
-                createdCell
-            );
 
             tr.appendChild(
                 actionCell
@@ -3449,6 +3385,210 @@ function renderTable(){
 
             recordTableBody.appendChild(
                 tr
+            );
+
+
+            /*
+             * Mobile card
+             */
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "record-card";
+
+
+            const rows = [
+
+                [
+                    "📅 日期",
+                    formatDate(
+                        record.date
+                    )
+                ],
+
+                [
+                    "📆 星期",
+                    getWeekday(
+                        record.date
+                    )
+                ],
+
+                [
+                    "🗓️ 年份",
+                    record.year
+                        ? "民國 " +
+                          record.year +
+                          " 年"
+                        : "—"
+                ],
+
+                [
+                    "💧 喝水量",
+                    record.cc +
+                    " CC"
+                ],
+
+                [
+                    "🕐 建立時間",
+                    formatDateTime(
+                        record.createdAt
+                    )
+                ]
+
+            ];
+
+
+            rows.forEach(
+                (
+                    rowData
+                ) => {
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "record-row";
+
+
+                    const label =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    label.className =
+                        "record-label";
+
+
+                    label.textContent =
+                        rowData[0];
+
+
+                    const value =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    value.className =
+                        "record-value";
+
+
+                    value.textContent =
+                        rowData[1];
+
+
+                    row.appendChild(
+                        label
+                    );
+
+                    row.appendChild(
+                        value
+                    );
+
+
+                    card.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+
+            actions.className =
+                "record-actions";
+
+
+            const mobileButtons = [
+
+                [
+                    "👁️ 查看",
+                    "view-button",
+                    () =>
+                        viewRecord(
+                            record.id
+                        )
+                ],
+
+                [
+                    "✏️ 編輯",
+                    "edit-button",
+                    () =>
+                        editRecord(
+                            record.id
+                        )
+                ],
+
+                [
+                    "🗑️ 刪除",
+                    "delete-button",
+                    () =>
+                        askDelete(
+                            record.id
+                        )
+                ]
+
+            ];
+
+
+            mobileButtons.forEach(
+                (
+                    item
+                ) => {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        item[1];
+
+
+                    button.textContent =
+                        item[0];
+
+
+                    button.addEventListener(
+                        "click",
+                        item[2]
+                    );
+
+
+                    actions.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+
+            card.appendChild(
+                actions
+            );
+
+
+            mobileRecords.appendChild(
+                card
             );
 
         }
@@ -3466,7 +3606,9 @@ function renderTable(){
    FILTER SUMMARY
 ========================================================= */
 
-function updateFilterSummary(list){
+function updateFilterSummary(
+    list
+){
 
     const total =
         list.reduce(
@@ -3486,7 +3628,9 @@ function updateFilterSummary(list){
         "共 " +
         list.length +
         " 筆・合計 " +
-        roundNumber(total) +
+        roundNumber(
+            total
+        ) +
         " CC";
 
 }
@@ -3505,22 +3649,23 @@ function buildDailyMap(){
     records.forEach(
         record => {
 
-            if(!record.date){
+            if(
+                !record.date
+            ){
 
                 return;
 
             }
 
 
-            const old =
-                map.get(
-                    record.date
-                ) || 0;
-
-
             map.set(
                 record.date,
-                old +
+                (
+                    map.get(
+                        record.date
+                    ) ||
+                    0
+                ) +
                 numberValue(
                     record.cc
                 )
@@ -3539,7 +3684,9 @@ function buildDailyMap(){
    LAST N DAYS
 ========================================================= */
 
-function getLastNDays(numberOfDays){
+function getLastNDays(
+    numberOfDays
+){
 
     const result = [];
 
@@ -3548,7 +3695,10 @@ function getLastNDays(numberOfDays){
 
 
     today.setHours(
-        0,0,0,0
+        0,
+        0,
+        0,
+        0
     );
 
 
@@ -3562,7 +3712,9 @@ function getLastNDays(numberOfDays){
     ){
 
         const date =
-            new Date(today);
+            new Date(
+                today
+            );
 
 
         date.setDate(
@@ -3571,26 +3723,18 @@ function getLastNDays(numberOfDays){
         );
 
 
-        const year =
-            date.getFullYear();
+        result.push(
 
-        const month =
+            date.getFullYear() +
+            "-" +
             String(
                 date.getMonth()+1
-            ).padStart(2,"0");
-
-        const day =
+            ).padStart(2,"0") +
+            "-" +
             String(
                 date.getDate()
-            ).padStart(2,"0");
+            ).padStart(2,"0")
 
-
-        result.push(
-            year +
-            "-" +
-            month +
-            "-" +
-            day
         );
 
     }
@@ -3616,21 +3760,8 @@ function renderToday(){
 
 
     const total =
-        map.get(today) || 0;
-
-
-    todayCC.textContent =
-        roundNumber(total);
-
-
-    todayWater.textContent =
-        roundNumber(total);
-
-
-    todayDateText.textContent =
-        formatDate(today) +
-        " " +
-        getWeekday(today);
+        map.get(today) ||
+        0;
 
 
     const target =
@@ -3639,10 +3770,36 @@ function renderToday(){
         );
 
 
-    if(target > 0){
+    todayCC.textContent =
+        roundNumber(
+            total
+        );
+
+
+    todayWater.textContent =
+        roundNumber(
+            total
+        );
+
+
+    todayDateText.textContent =
+        formatDate(
+            today
+        ) +
+        " " +
+        getWeekday(
+            today
+        );
+
+
+    if(
+        target > 0
+    ){
 
         todayTarget.textContent =
-            roundNumber(target);
+            roundNumber(
+                target
+            );
 
 
         goalRate.textContent =
@@ -3658,6 +3815,7 @@ function renderToday(){
         todayTarget.textContent =
             "—";
 
+
         goalRate.textContent =
             "—";
 
@@ -3672,38 +3830,31 @@ function renderToday(){
 
 function calculateWeekAverage(){
 
-    const days =
-        getLastNDays(7);
-
-
     const map =
         buildDailyMap();
 
 
-    let total = 0;
-
-    let count = 0;
-
-
-    days.forEach(
-        date => {
-
-            if(
-                map.has(date)
-            ){
-
-                total +=
-                    map.get(date);
-
-                count++;
-
-            }
-
-        }
-    );
+    const values =
+        getLastNDays(
+            7
+        )
+        .filter(
+            date =>
+                map.has(
+                    date
+                )
+        )
+        .map(
+            date =>
+                map.get(
+                    date
+                )
+        );
 
 
-    if(count === 0){
+    if(
+        !values.length
+    ){
 
         return 0;
 
@@ -3711,7 +3862,18 @@ function calculateWeekAverage(){
 
 
     return roundNumber(
-        total / count
+
+        values.reduce(
+            (
+                total,
+                value
+            ) =>
+                total +
+                value,
+            0
+        ) /
+        values.length
+
     );
 
 }
@@ -3727,54 +3889,51 @@ function calculateMonthAverage(){
         new Date();
 
 
-    const currentYear =
-        now.getFullYear();
-
-    const currentMonth =
-        now.getMonth();
-
-
     const map =
         buildDailyMap();
 
 
-    let total = 0;
+    const values =
+        [
+            ...map
+        ]
+        .filter(
+            (
+                [
+                    dateString
+                ]
+            ) => {
 
-    let count = 0;
+                const date =
+                    new Date(
+                        dateString +
+                        "T00:00:00"
+                    );
 
 
-    map.forEach(
-        (
-            value,
-            dateString
-        ) => {
+                return (
 
-            const date =
-                new Date(
-                    dateString +
-                    "T00:00:00"
+                    date.getFullYear() ===
+                    now.getFullYear()
+
+                    &&
+
+                    date.getMonth() ===
+                    now.getMonth()
+
                 );
 
-
-            if(
-                date.getFullYear() ===
-                    currentYear &&
-
-                date.getMonth() ===
-                    currentMonth
-            ){
-
-                total += value;
-
-                count++;
-
             }
+        )
+        .map(
+            item =>
+                item[1]
+        );
 
-        }
-    );
 
-
-    if(count === 0){
+    if(
+        !values.length
+    ){
 
         return 0;
 
@@ -3782,7 +3941,18 @@ function calculateMonthAverage(){
 
 
     return roundNumber(
-        total / count
+
+        values.reduce(
+            (
+                total,
+                value
+            ) =>
+                total +
+                value,
+            0
+        ) /
+        values.length
+
     );
 
 }
@@ -3794,18 +3964,22 @@ function calculateMonthAverage(){
 
 function renderExtremes(){
 
-    const map =
-        buildDailyMap();
-
-
     const entries =
-        Array.from(
-            map.entries()
+        [
+            ...buildDailyMap()
+        ]
+        .sort(
+            (
+                a,
+                b
+            ) =>
+                b[1] -
+                a[1]
         );
 
 
     if(
-        entries.length === 0
+        !entries.length
     ){
 
         maxDaily.textContent =
@@ -3819,13 +3993,6 @@ function renderExtremes(){
     }
 
 
-    entries.sort(
-        (a,b) =>
-            b[1] -
-            a[1]
-    );
-
-
     const max =
         entries[0];
 
@@ -3837,16 +4004,24 @@ function renderExtremes(){
 
 
     maxDaily.textContent =
-        formatDate(max[0]) +
+        formatDate(
+            max[0]
+        ) +
         "・" +
-        roundNumber(max[1]) +
+        roundNumber(
+            max[1]
+        ) +
         " CC";
 
 
     minDaily.textContent =
-        formatDate(min[0]) +
+        formatDate(
+            min[0]
+        ) +
         "・" +
-        roundNumber(min[1]) +
+        roundNumber(
+            min[1]
+        ) +
         " CC";
 
 }
@@ -3863,9 +4038,19 @@ function renderAnalysis(){
 
 
     const dates =
-        Array.from(
-            map.keys()
-        ).sort();
+        [
+            ...map.keys()
+        ]
+        .sort();
+
+
+    const values =
+        dates.map(
+            date =>
+                map.get(
+                    date
+                )
+        );
 
 
     analysisList.innerHTML =
@@ -3879,16 +4064,10 @@ function renderAnalysis(){
         analysisMessage.textContent =
             "目前紀錄較少，累積更多天數後，可以更清楚觀察喝水趨勢。";
 
+
         return;
 
     }
-
-
-    const values =
-        dates.map(
-            date =>
-                map.get(date)
-        );
 
 
     const latest =
@@ -3906,33 +4085,29 @@ function renderAnalysis(){
     const average =
         values.reduce(
             (
-                sum,
+                total,
                 value
             ) =>
-                sum + value,
+                total +
+                value,
             0
         ) /
         values.length;
 
 
-    let change = 0;
-
-
-    if(previous > 0){
-
-        change =
-            (
-                latest -
-                previous
-            ) /
-            previous *
-            100;
-
-    }
+    const change =
+        previous > 0
+        ? (
+            latest -
+            previous
+        ) /
+        previous *
+        100
+        : 0;
 
 
     analysisMessage.textContent =
-        "以下是依照 " +
+        "以下依照 " +
         (
             petNameInput.value.trim() ||
             "寵物"
@@ -3945,34 +4120,48 @@ function renderAnalysis(){
 
     messages.push(
         "目前有紀錄日期的平均喝水量約 " +
-        roundNumber(average) +
+        roundNumber(
+            average
+        ) +
         " CC。"
     );
 
 
     messages.push(
         "最近一天的喝水量約 " +
-        roundNumber(latest) +
+        roundNumber(
+            latest
+        ) +
         " CC。"
     );
 
 
-    if(previous > 0){
+    if(
+        previous > 0
+    ){
 
-        if(change >= 20){
+        if(
+            change >= 20
+        ){
 
             messages.push(
                 "最近一天比前一天增加約 " +
-                roundNumber(change) +
+                roundNumber(
+                    change
+                ) +
                 "%。可以持續觀察是否只是短期變化。"
             );
 
-        }else if(change <= -20){
+        }else if(
+            change <= -20
+        ){
 
             messages.push(
                 "最近一天比前一天減少約 " +
                 roundNumber(
-                    Math.abs(change)
+                    Math.abs(
+                        change
+                    )
                 ) +
                 "%。建議繼續記錄幾天觀察。"
             );
@@ -3981,66 +4170,10 @@ function renderAnalysis(){
 
             messages.push(
                 "最近一天與前一天的變化約 " +
-                roundNumber(change) +
-                "%，目前沒有非常明顯的單日變化。"
-            );
-
-        }
-
-    }
-
-
-    const last7Days =
-        getLastNDays(7);
-
-
-    const recordedLast7 =
-        last7Days
-            .filter(
-                date =>
-                    map.has(date)
-            )
-            .map(
-                date =>
-                    map.get(date)
-            );
-
-
-    if(
-        recordedLast7.length >= 2
-    ){
-
-        const recentAverage =
-            recordedLast7.reduce(
-                (
-                    sum,
-                    value
-                ) =>
-                    sum + value,
-                0
-            ) /
-            recordedLast7.length;
-
-
-        if(
-            recentAverage >
-            average * 1.3
-        ){
-
-            messages.push(
-                "最近 7 天平均值明顯高於長期平均，可以留意是否受到天氣、活動量或食物含水量影響。"
-            );
-
-        }
-
-
-        if(
-            recentAverage <
-            average * 0.7
-        ){
-
-            messages.push(
-                "最近 7 天平均值明顯低於長期平均，建議確認紀錄是否完整並持續觀察。"
+                roundNumber(
+                    change
+                ) +
+                "%。"
             );
 
         }
@@ -4061,8 +4194,10 @@ function renderAnalysis(){
                     "li"
                 );
 
+
             li.textContent =
                 message;
+
 
             analysisList.appendChild(
                 li
@@ -4081,7 +4216,9 @@ function renderAnalysis(){
 function renderChart(){
 
     const days =
-        getLastNDays(30);
+        getLastNDays(
+            30
+        );
 
 
     const map =
@@ -4092,7 +4229,9 @@ function renderChart(){
         days.map(
             date =>
                 numberValue(
-                    map.get(date)
+                    map.get(
+                        date
+                    )
                 )
         );
 
@@ -4122,17 +4261,23 @@ function renderChart(){
         "none";
 
 
-    const width = 900;
+    const width =
+        900;
 
-    const height = 270;
+    const height =
+        270;
 
-    const left = 45;
+    const left =
+        45;
 
-    const right = 15;
+    const right =
+        15;
 
-    const top = 20;
+    const top =
+        20;
 
-    const bottom = 38;
+    const bottom =
+        38;
 
 
     const chartWidth =
@@ -4147,20 +4292,19 @@ function renderChart(){
         bottom;
 
 
-    const rawMax =
+    const maxValue =
         Math.max(
-            ...values,
-            1
+            Math.ceil(
+                Math.max(
+                    ...values,
+                    1
+                ) /
+                100
+            ) *
+            100,
+            100
         );
 
-
-    const maxValue =
-        Math.ceil(
-            rawMax / 100
-        ) * 100;
-
-
-    /* GRID */
 
     for(
         let i = 0;
@@ -4189,7 +4333,8 @@ function renderChart(){
 
         line.setAttribute(
             "x2",
-            width - right
+            width -
+            right
         );
 
         line.setAttribute(
@@ -4205,11 +4350,6 @@ function renderChart(){
         line.setAttribute(
             "stroke",
             "#e7eaf0"
-        );
-
-        line.setAttribute(
-            "stroke-width",
-            "1"
         );
 
 
@@ -4249,11 +4389,9 @@ function renderChart(){
         text.textContent =
             Math.round(
                 maxValue -
-                (
-                    maxValue *
-                    i /
-                    4
-                )
+                maxValue *
+                i /
+                4
             );
 
 
@@ -4264,44 +4402,39 @@ function renderChart(){
     }
 
 
-    /* LINE */
+    const getPoint =
+        (
+            value,
+            index
+        ) => {
 
-    const points =
-        values.map(
-            (
-                value,
-                index
-            ) => {
-
-                const x =
-                    left +
-                    chartWidth *
-                    (
-                        index /
-                        (
-                            values.length - 1
-                        )
-                    );
-
-
-                const y =
-                    top +
-                    chartHeight *
-                    (
-                        1 -
-                        value /
-                        maxValue
-                    );
-
-
-                return (
-                    x +
-                    "," +
-                    y
+            const x =
+                left +
+                chartWidth *
+                index /
+                (
+                    values.length -
+                    1
                 );
 
-            }
-        ).join(" ");
+
+            const y =
+                top +
+                chartHeight *
+                (
+                    1 -
+                    value /
+                    maxValue
+                );
+
+
+            return (
+                x +
+                "," +
+                y
+            );
+
+        };
 
 
     const polyline =
@@ -4313,28 +4446,39 @@ function renderChart(){
 
     polyline.setAttribute(
         "points",
-        points
+        values
+            .map(
+                getPoint
+            )
+            .join(
+                " "
+            )
     );
+
 
     polyline.setAttribute(
         "fill",
         "none"
     );
 
+
     polyline.setAttribute(
         "stroke",
         "#6574ff"
     );
+
 
     polyline.setAttribute(
         "stroke-width",
         "4"
     );
 
+
     polyline.setAttribute(
         "stroke-linecap",
         "round"
     );
+
 
     polyline.setAttribute(
         "stroke-linejoin",
@@ -4347,40 +4491,30 @@ function renderChart(){
     );
 
 
-    /* POINTS */
-
     values.forEach(
         (
             value,
             index
         ) => {
 
-            if(value <= 0){
+            if(
+                value <= 0
+            ){
 
                 return;
 
             }
 
 
-            const x =
-                left +
-                chartWidth *
-                (
-                    index /
-                    (
-                        values.length - 1
-                    )
-                );
-
-
-            const y =
-                top +
-                chartHeight *
-                (
-                    1 -
-                    value /
-                    maxValue
-                );
+            const [
+                x,
+                y
+            ] =
+                getPoint(
+                    value,
+                    index
+                )
+                .split(",");
 
 
             const circle =
@@ -4395,25 +4529,30 @@ function renderChart(){
                 x
             );
 
+
             circle.setAttribute(
                 "cy",
                 y
             );
+
 
             circle.setAttribute(
                 "r",
                 "5"
             );
 
+
             circle.setAttribute(
                 "fill",
-                "#ffffff"
+                "#fff"
             );
+
 
             circle.setAttribute(
                 "stroke",
                 "#6574ff"
             );
+
 
             circle.setAttribute(
                 "stroke-width",
@@ -4429,34 +4568,15 @@ function renderChart(){
     );
 
 
-    /* DATE LABELS */
-
-    const labelIndexes = [
+    [
         0,
         7,
         14,
         21,
         29
-    ];
-
-
-    labelIndexes.forEach(
+    ]
+    .forEach(
         index => {
-
-            const date =
-                days[index];
-
-
-            const x =
-                left +
-                chartWidth *
-                (
-                    index /
-                    (
-                        days.length - 1
-                    )
-                );
-
 
             const text =
                 document.createElementNS(
@@ -4465,25 +4585,39 @@ function renderChart(){
                 );
 
 
+            const x =
+                left +
+                chartWidth *
+                index /
+                (
+                    days.length -
+                    1
+                );
+
+
             text.setAttribute(
                 "x",
                 x
             );
+
 
             text.setAttribute(
                 "y",
                 height - 9
             );
 
+
             text.setAttribute(
                 "font-size",
                 "11"
             );
 
+
             text.setAttribute(
                 "text-anchor",
                 "middle"
             );
+
 
             text.setAttribute(
                 "fill",
@@ -4492,7 +4626,11 @@ function renderChart(){
 
 
             text.textContent =
-                date.substring(5);
+                days[
+                    index
+                ].slice(
+                    5
+                );
 
 
             waterChart.appendChild(
@@ -4544,7 +4682,7 @@ function renderAll(){
 
 
 /* =========================================================
-   EVENT: PET NAME
+   PET NAME EVENTS
 ========================================================= */
 
 savePetNameBtn.addEventListener(
@@ -4559,15 +4697,47 @@ savePetNameBtn.addEventListener(
 );
 
 
+petNameInput.addEventListener(
+    "input",
+    function(){
+
+        headerPetName.textContent =
+            petNameInput.value.trim() ||
+            "我的寵物";
+
+
+        clearTimeout(
+            window.petNameSaveTimer
+        );
+
+
+        window.petNameSaveTimer =
+            setTimeout(
+                function(){
+
+                    savePetName(
+                        true
+                    );
+
+                },
+                500
+            );
+
+    }
+);
+
+
 /* =========================================================
-   EVENT: DATE
+   DATE EVENTS
 ========================================================= */
 
 recordDate.addEventListener(
     "change",
     function(){
 
-        if(recordDate.value){
+        if(
+            recordDate.value
+        ){
 
             yearSelect.value =
                 String(
@@ -4578,14 +4748,47 @@ recordDate.addEventListener(
 
         }
 
+
         updateDateInfo();
+
+        scheduleAutoSave();
+
+    }
+);
+
+
+recordDate.addEventListener(
+    "input",
+    function(){
+
+        scheduleAutoSave();
+
+    }
+);
+
+
+yearSelect.addEventListener(
+    "change",
+    function(){
+
+        scheduleAutoSave();
+
+    }
+);
+
+
+ccInput.addEventListener(
+    "input",
+    function(){
+
+        scheduleAutoSave();
 
     }
 );
 
 
 /* =========================================================
-   EVENT: TODAY
+   TODAY
 ========================================================= */
 
 todayBtn.addEventListener(
@@ -4594,68 +4797,40 @@ todayBtn.addEventListener(
 
         setToday();
 
+        scheduleAutoSave();
+
     }
 );
 
 
 /* =========================================================
-   EVENT: CLEAR DATE
+   CLEAR DATE
 ========================================================= */
 
 clearDateBtn.addEventListener(
     "click",
     function(){
 
-        clearDate();
+        if(
+            editingId
+        ){
+
+            alert(
+                "編輯中的紀錄不能清除日期；請先取消編輯。"
+            );
+
+        }else{
+
+            clearDate();
+
+        }
 
     }
 );
 
 
 /* =========================================================
-   EVENT: SAVE
-========================================================= */
-
-saveBtn.addEventListener(
-    "click",
-    function(){
-
-        handleSave();
-
-    }
-);
-
-
-/* =========================================================
-   EVENT: CANCEL EDIT
-========================================================= */
-
-cancelEditBtn.addEventListener(
-    "click",
-    function(){
-
-        cancelEdit();
-
-    }
-);
-
-
-/* =========================================================
-   EVENT: CLEAR ALL
-========================================================= */
-
-clearAllBtn.addEventListener(
-    "click",
-    function(){
-
-        clearAllRecords();
-
-    }
-);
-
-
-/* =========================================================
-   EVENT: TARGET
+   TARGET
 ========================================================= */
 
 dailyTargetInput.addEventListener(
@@ -4679,7 +4854,41 @@ dailyTargetInput.addEventListener(
 
 
 /* =========================================================
-   EVENT: FILTER YEAR
+   MAIN BUTTONS
+========================================================= */
+
+saveBtn.addEventListener(
+    "click",
+    function(){
+
+        handleSave();
+
+    }
+);
+
+
+cancelEditBtn.addEventListener(
+    "click",
+    function(){
+
+        cancelEdit();
+
+    }
+);
+
+
+clearAllBtn.addEventListener(
+    "click",
+    function(){
+
+        clearAllRecords();
+
+    }
+);
+
+
+/* =========================================================
+   FILTERS
 ========================================================= */
 
 filterYear.addEventListener(
@@ -4692,10 +4901,6 @@ filterYear.addEventListener(
 );
 
 
-/* =========================================================
-   EVENT: FILTER MONTH
-========================================================= */
-
 filterMonth.addEventListener(
     "change",
     function(){
@@ -4707,16 +4912,14 @@ filterMonth.addEventListener(
 
 
 /* =========================================================
-   EVENT: VIEW CLOSE
+   VIEW MODAL
 ========================================================= */
 
 closeViewBtn.addEventListener(
     "click",
     function(){
 
-        viewModal.classList.remove(
-            "show"
-        );
+        closeView();
 
     }
 );
@@ -4731,8 +4934,31 @@ viewModal.addEventListener(
             viewModal
         ){
 
-            viewModal.classList.remove(
-                "show"
+            closeView();
+
+        }
+
+    }
+);
+
+
+viewEditBtn.addEventListener(
+    "click",
+    function(){
+
+        if(
+            viewingId
+        ){
+
+            const id =
+                viewingId;
+
+
+            closeView();
+
+
+            editRecord(
+                id
             );
 
         }
@@ -4742,7 +4968,7 @@ viewModal.addEventListener(
 
 
 /* =========================================================
-   EVENT: DELETE
+   DELETE MODAL
 ========================================================= */
 
 cancelDeleteBtn.addEventListener(
@@ -4783,7 +5009,7 @@ deleteModal.addEventListener(
 
 
 /* =========================================================
-   ESC KEY
+   ESC
 ========================================================= */
 
 document.addEventListener(
@@ -4795,9 +5021,7 @@ document.addEventListener(
             "Escape"
         ){
 
-            viewModal.classList.remove(
-                "show"
-            );
+            closeView();
 
             closeDeleteModal();
 
@@ -4835,10 +5059,6 @@ function initialize(){
 
 }
 
-
-/* =========================================================
-   START
-========================================================= */
 
 initialize();
 
