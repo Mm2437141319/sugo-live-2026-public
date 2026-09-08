@@ -9,11 +9,15 @@
                maximum-scale=1.0,
                user-scalable=no">
 
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f5f7fb">
 
-<title>Lucky 寵物喝水紀錄</title>
+<title>寵物喝水紀錄</title>
 
 <style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -24,6 +28,9 @@ html,
 body{
     margin:0;
     padding:0;
+    width:100%;
+    min-height:100%;
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -31,8 +38,9 @@ body{
         "Noto Sans TC",
         "Microsoft JhengHei",
         sans-serif;
+
     background:#f5f7fb;
-    color:#202124;
+    color:#222;
 }
 
 body{
@@ -49,109 +57,194 @@ button{
     cursor:pointer;
 }
 
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
 .container{
     width:100%;
     max-width:1100px;
     margin:0 auto;
-    padding:20px;
+    padding:16px;
 }
 
-/* =========================
+
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 .header{
     background:#ffffff;
     border-radius:22px;
-    padding:22px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    padding:20px;
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.06);
 }
 
-.header-title{
+.header-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:15px;
-    flex-wrap:wrap;
 }
 
-.title-left{
+.pet-title-area{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:13px;
 }
 
 .pet-icon{
-    width:55px;
-    height:55px;
+    width:58px;
+    height:58px;
+
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#f1f5ff;
-    font-size:30px;
+
+    background:#eef2ff;
+
+    font-size:31px;
 }
 
-h1{
+.header-title{
     margin:0;
-    font-size:27px;
+    font-size:26px;
     font-weight:800;
 }
 
-.subtitle{
+.header-subtitle{
     margin-top:5px;
     color:#777;
-    font-size:14px;
+    font-size:13px;
 }
 
-/* =========================
+.clock{
+    color:#777;
+    font-size:13px;
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   PET NAME
+========================================================= */
+
+.pet-name-card{
+    background:#ffffff;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
+}
+
+.pet-name-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.pet-name-row{
+    display:flex;
+    gap:10px;
+}
+
+.pet-name-row input{
+    flex:1;
+    min-height:48px;
+
+    border:1px solid #dfe3ea;
+    border-radius:12px;
+
+    padding:0 14px;
+
+    font-size:17px;
+    outline:none;
+}
+
+.pet-name-row input:focus{
+    border-color:#6574ff;
+
+    box-shadow:
+        0 0 0 3px rgba(101,116,255,0.12);
+}
+
+.pet-name-btn{
+    min-height:48px;
+
+    border:0;
+    border-radius:12px;
+
+    padding:0 18px;
+
+    background:#6574ff;
+    color:#ffffff;
+
+    font-size:15px;
+    font-weight:800;
+}
+
+
+/* =========================================================
    DASHBOARD
-========================= */
+========================================================= */
 
 .dashboard{
     display:grid;
+
     grid-template-columns:
-        repeat(4, minmax(0,1fr));
-    gap:12px;
-    margin-bottom:18px;
+        repeat(4,minmax(0,1fr));
+
+    gap:11px;
+
+    margin-bottom:16px;
 }
 
-.card{
+.stat-card{
     background:#ffffff;
     border-radius:18px;
-    padding:18px;
-    box-shadow:0 5px 18px rgba(0,0,0,0.05);
+    padding:16px;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.05);
 }
 
 .stat-label{
     font-size:13px;
     color:#777;
-    margin-bottom:8px;
+    margin-bottom:7px;
 }
 
 .stat-value{
-    font-size:27px;
+    font-size:25px;
     font-weight:800;
-    line-height:1.2;
 }
 
 .stat-unit{
-    font-size:13px;
+    font-size:12px;
     color:#888;
-    margin-left:3px;
 }
 
-/* =========================
-   FORM
-========================= */
+
+/* =========================================================
+   FORM CARD
+========================================================= */
 
 .form-card{
     background:#ffffff;
     border-radius:20px;
     padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
 }
 
 .section-title{
@@ -162,8 +255,10 @@ h1{
 
 .form-grid{
     display:grid;
+
     grid-template-columns:
-        repeat(4, minmax(0,1fr));
+        repeat(4,minmax(0,1fr));
+
     gap:13px;
 }
 
@@ -183,162 +278,235 @@ h1{
 .field select{
     width:100%;
     min-height:48px;
+
     border:1px solid #dfe3ea;
     border-radius:12px;
-    background:#fff;
+
     padding:0 13px;
+
+    background:#ffffff;
+
     font-size:16px;
     outline:none;
-    transition:0.2s;
 }
 
 .field input:focus,
 .field select:focus{
-    border-color:#6b7cff;
+    border-color:#6574ff;
+
     box-shadow:
-        0 0 0 3px rgba(107,124,255,0.12);
+        0 0 0 3px rgba(101,116,255,0.12);
 }
+
+
+/* =========================================================
+   DATE
+========================================================= */
 
 .date-row{
     display:flex;
-    gap:8px;
+    gap:7px;
 }
 
 .date-row input{
     flex:1;
 }
 
-.small-btn{
+.small-button{
+    min-height:48px;
+
     border:0;
     border-radius:11px;
-    padding:0 14px;
-    min-height:48px;
+
+    padding:0 13px;
+
     background:#eef1ff;
     color:#4353d8;
+
     font-weight:700;
+
     white-space:nowrap;
 }
 
-.small-btn:active{
-    transform:scale(0.97);
+.date-info{
+    min-height:19px;
+
+    color:#777;
+
+    font-size:12px;
 }
 
-.date-info{
-    min-height:20px;
-    color:#666;
-    font-size:13px;
-}
+
+/* =========================================================
+   FORM BUTTONS
+========================================================= */
 
 .form-actions{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-    margin-top:16px;
+
+    margin-top:17px;
 }
 
-.btn{
+.main-button{
     min-height:48px;
+
     border:0;
     border-radius:13px;
+
     padding:0 20px;
-    font-size:16px;
+
+    font-size:15px;
     font-weight:800;
 }
 
-.btn-primary{
-    background:#5c6cff;
-    color:white;
+.add-button{
+    background:#6574ff;
+    color:#ffffff;
 }
 
-.btn-secondary{
-    background:#eef0f5;
+.cancel-button{
+    background:#edf0f5;
     color:#444;
 }
 
-.btn-danger{
+.clear-button{
     background:#fff0f0;
     color:#d33;
 }
 
-.btn:active{
-    transform:scale(0.98);
-}
 
-/* =========================
-   TODAY STATUS
-========================= */
+/* =========================================================
+   TODAY CARD
+========================================================= */
 
 .today-card{
     background:#ffffff;
     border-radius:20px;
     padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
 }
 
 .today-grid{
     display:grid;
+
     grid-template-columns:
-        repeat(3, minmax(0,1fr));
-    gap:12px;
+        repeat(3,minmax(0,1fr));
+
+    gap:11px;
 }
 
 .today-box{
-    background:#f8f9fc;
+    background:#f7f8fb;
     border-radius:15px;
     padding:15px;
 }
 
-.today-box-title{
-    font-size:13px;
+.today-box-label{
     color:#777;
+    font-size:12px;
     margin-bottom:5px;
 }
 
 .today-box-value{
-    font-size:23px;
+    font-size:22px;
     font-weight:800;
 }
 
-/* =========================
+
+/* =========================================================
    ANALYSIS
-========================= */
+========================================================= */
 
 .analysis-card{
     background:#ffffff;
     border-radius:20px;
     padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
 }
 
 .analysis-message{
     padding:15px;
+
     border-radius:14px;
+
     background:#f7f8fb;
-    line-height:1.7;
+
+    color:#555;
+
     font-size:14px;
+
+    line-height:1.7;
 }
 
 .analysis-list{
     margin:12px 0 0;
     padding-left:20px;
+
+    color:#555;
+
+    font-size:14px;
+
+    line-height:1.7;
 }
 
 .analysis-list li{
-    margin-bottom:7px;
+    margin-bottom:5px;
 }
 
-/* =========================
+
+/* =========================================================
+   EXTREME CARDS
+========================================================= */
+
+.extreme-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:11px;
+
+    margin-top:12px;
+}
+
+.extreme-box{
+    background:#f7f8fb;
+    border-radius:14px;
+    padding:14px;
+}
+
+.extreme-label{
+    font-size:12px;
+    color:#777;
+}
+
+.extreme-value{
+    font-size:19px;
+    font-weight:800;
+    margin-top:4px;
+}
+
+
+/* =========================================================
    CHART
-========================= */
+========================================================= */
 
 .chart-card{
     background:#ffffff;
     border-radius:20px;
     padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
 }
 
 .chart-wrapper{
@@ -348,71 +516,86 @@ h1{
 
 #waterChart{
     width:100%;
-    height:260px;
+    height:270px;
     display:block;
 }
 
 .chart-empty{
     text-align:center;
-    color:#888;
-    padding:60px 10px;
+    color:#999;
+    padding:65px 10px;
+    font-size:14px;
 }
 
-/* =========================
+
+/* =========================================================
    FILTER
-========================= */
+========================================================= */
 
 .filter-card{
     background:#ffffff;
     border-radius:20px;
     padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
 }
 
 .filter-grid{
     display:grid;
+
     grid-template-columns:
-        repeat(3, minmax(0,1fr));
+        repeat(3,minmax(0,1fr));
+
     gap:12px;
 }
 
-/* =========================
-   TABLE
-========================= */
+
+/* =========================================================
+   RECORD TABLE
+========================================================= */
 
 .table-card{
     background:#ffffff;
     border-radius:20px;
     padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.05);
 }
 
 .table-wrapper{
     width:100%;
     overflow-x:auto;
+
     -webkit-overflow-scrolling:touch;
 }
 
 table{
     width:100%;
-    min-width:650px;
+    min-width:760px;
+
     border-collapse:collapse;
 }
 
 th,
 td{
-    padding:12px 10px;
-    border-bottom:1px solid #edf0f4;
+    padding:12px 9px;
+
+    border-bottom:
+        1px solid #edf0f4;
+
     text-align:left;
+
     white-space:nowrap;
 }
 
 th{
     background:#f8f9fb;
-    font-size:13px;
     color:#666;
+    font-size:13px;
 }
 
 td{
@@ -429,47 +612,50 @@ td{
     gap:7px;
 }
 
-.table-btn{
+.table-button{
     border:0;
     border-radius:9px;
+
     padding:7px 11px;
+
     font-size:13px;
     font-weight:700;
 }
 
-.edit-btn{
+.view-button{
+    background:#f1f3f7;
+    color:#555;
+}
+
+.edit-button{
     background:#eef1ff;
     color:#4353d8;
 }
 
-.delete-btn{
+.delete-button{
     background:#fff0f0;
     color:#d33;
 }
 
-/* =========================
-   FOOTER
-========================= */
 
-.footer{
-    text-align:center;
-    color:#999;
-    font-size:12px;
-    padding:15px 0 30px;
-}
-
-/* =========================
+/* =========================================================
    MODAL
-========================= */
+========================================================= */
 
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.45);
+
     display:none;
+
     align-items:center;
     justify-content:center;
-    padding:20px;
+
+    padding:18px;
+
+    background:
+        rgba(0,0,0,0.45);
+
     z-index:9999;
 }
 
@@ -479,44 +665,72 @@ td{
 
 .modal-box{
     width:100%;
-    max-width:420px;
-    background:#fff;
+    max-width:430px;
+
+    background:#ffffff;
+
     border-radius:20px;
+
     padding:22px;
 }
 
 .modal-title{
     font-size:20px;
     font-weight:800;
-    margin-bottom:10px;
+
+    margin-bottom:12px;
 }
 
-.modal-text{
-    line-height:1.6;
+.modal-content{
     color:#555;
+
+    line-height:1.7;
+
+    font-size:14px;
 }
 
 .modal-actions{
     display:flex;
+
     justify-content:flex-end;
+
     gap:9px;
+
     margin-top:18px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    text-align:center;
+
+    color:#999;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    padding:10px 0 30px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:850px){
 
     .dashboard{
         grid-template-columns:
-            repeat(2, minmax(0,1fr));
+            repeat(2,minmax(0,1fr));
     }
 
     .form-grid{
         grid-template-columns:
-            repeat(2, minmax(0,1fr));
+            repeat(2,minmax(0,1fr));
     }
 
 }
@@ -524,39 +738,37 @@ td{
 @media(max-width:600px){
 
     .container{
-        padding:12px;
+        padding:10px;
     }
 
     .header{
-        padding:17px;
+        padding:16px;
         border-radius:18px;
     }
 
-    h1{
-        font-size:22px;
+    .header-top{
+        align-items:flex-start;
+    }
+
+    .clock{
+        font-size:11px;
     }
 
     .pet-icon{
         width:48px;
         height:48px;
-        font-size:26px;
+        font-size:25px;
     }
 
-    .dashboard{
-        grid-template-columns:
-            repeat(2, minmax(0,1fr));
-        gap:9px;
+    .header-title{
+        font-size:21px;
     }
 
-    .card{
-        padding:14px;
-        border-radius:15px;
+    .header-subtitle{
+        font-size:11px;
     }
 
-    .stat-value{
-        font-size:23px;
-    }
-
+    .pet-name-card,
     .form-card,
     .today-card,
     .analysis-card,
@@ -565,6 +777,29 @@ td{
     .table-card{
         padding:15px;
         border-radius:17px;
+    }
+
+    .pet-name-row{
+        flex-direction:column;
+    }
+
+    .pet-name-btn{
+        width:100%;
+    }
+
+    .dashboard{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:8px;
+    }
+
+    .stat-card{
+        padding:13px;
+    }
+
+    .stat-value{
+        font-size:22px;
     }
 
     .form-grid{
@@ -579,9 +814,16 @@ td{
         grid-template-columns:1fr;
     }
 
-    .btn{
-        flex:1;
-        min-width:120px;
+    .extreme-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-actions{
+        flex-direction:column;
+    }
+
+    .main-button{
+        width:100%;
     }
 
 }
@@ -589,583 +831,724 @@ td{
 </style>
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-    <!-- =========================
-         HEADER
-    ========================== -->
 
-    <section class="header">
+<!-- =======================================================
+     HEADER
+======================================================== -->
 
-        <div class="header-title">
+<section class="header">
 
-            <div class="title-left">
+    <div class="header-top">
 
-                <div class="pet-icon">
-                    🐶
-                </div>
+        <div class="pet-title-area">
 
-                <div>
+            <div class="pet-icon">
+                🐶
+            </div>
 
-                    <h1>
-                        Lucky 寵物喝水紀錄
-                    </h1>
+            <div>
 
-                    <div class="subtitle">
-                        年份・日期・喝水量 CC・趨勢分析
-                    </div>
+                <h1
+                    id="headerPetName"
+                    class="header-title">
+                    Lucky
+                </h1>
 
+                <div class="header-subtitle">
+                    寵物喝水紀錄與分析
                 </div>
 
             </div>
 
-            <div id="currentTime"
-                 class="subtitle">
+        </div>
+
+        <div
+            id="currentTime"
+            class="clock">
+            —
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     PET NAME
+======================================================== -->
+
+<section class="pet-name-card">
+
+    <div class="pet-name-title">
+        🐾 寵物名稱
+    </div>
+
+    <div class="pet-name-row">
+
+        <input
+            id="petNameInput"
+            type="text"
+            maxlength="30"
+            placeholder="請輸入寵物名稱">
+
+        <button
+            id="savePetNameBtn"
+            type="button"
+            class="pet-name-btn">
+            💾 儲存名稱
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     DASHBOARD
+======================================================== -->
+
+<section class="dashboard">
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            今日喝水量
+        </div>
+
+        <div class="stat-value">
+
+            <span id="todayCC">
+                0
+            </span>
+
+            <span class="stat-unit">
+                CC
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            7 日平均
+        </div>
+
+        <div class="stat-value">
+
+            <span id="weekAverage">
+                0
+            </span>
+
+            <span class="stat-unit">
+                CC
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            本月平均
+        </div>
+
+        <div class="stat-value">
+
+            <span id="monthAverage">
+                0
+            </span>
+
+            <span class="stat-unit">
+                CC
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            今日目標達成
+        </div>
+
+        <div class="stat-value">
+
+            <span id="goalRate">
+                —
+            </span>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =======================================================
+     ADD / EDIT FORM
+======================================================== -->
+
+<section class="form-card">
+
+    <div
+        id="formTitle"
+        class="section-title">
+        💧 新增喝水紀錄
+    </div>
+
+
+    <div class="form-grid">
+
+
+        <!-- YEAR -->
+
+        <div class="field">
+
+            <label for="year">
+                年份
+            </label>
+
+            <select id="year">
+
+                <option value="">
+                    請選擇年份
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <div class="field">
+
+            <label for="recordDate">
+                日期
+            </label>
+
+            <div class="date-row">
+
+                <input
+                    id="recordDate"
+                    type="date">
+
+                <button
+                    id="todayBtn"
+                    type="button"
+                    class="small-button">
+                    今天
+                </button>
+
+                <button
+                    id="clearDateBtn"
+                    type="button"
+                    class="small-button">
+                    清除
+                </button>
+
+            </div>
+
+            <div
+                id="dateInfo"
+                class="date-info">
                 —
             </div>
 
         </div>
 
-    </section>
 
+        <!-- CC -->
 
-    <!-- =========================
-         DASHBOARD
-    ========================== -->
+        <div class="field">
 
-    <section class="dashboard">
+            <label for="cc">
+                喝水量 CC
+            </label>
 
-        <div class="card">
-
-            <div class="stat-label">
-                今日喝水量
-            </div>
-
-            <div class="stat-value">
-                <span id="todayCC">
-                    0
-                </span>
-
-                <span class="stat-unit">
-                    CC
-                </span>
-            </div>
+            <input
+                id="cc"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="decimal"
+                placeholder="例如 200">
 
         </div>
 
 
-        <div class="card">
+        <!-- TARGET -->
 
-            <div class="stat-label">
-                7 日平均
-            </div>
+        <div class="field">
 
-            <div class="stat-value">
-                <span id="weekAverage">
-                    0
-                </span>
+            <label for="dailyTarget">
+                每日目標 CC
+            </label>
 
-                <span class="stat-unit">
-                    CC
-                </span>
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="stat-label">
-                本月平均
-            </div>
-
-            <div class="stat-value">
-                <span id="monthAverage">
-                    0
-                </span>
-
-                <span class="stat-unit">
-                    CC
-                </span>
-            </div>
+            <input
+                id="dailyTarget"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="decimal"
+                placeholder="例如 500">
 
         </div>
 
 
-        <div class="card">
+    </div>
 
-            <div class="stat-label">
-                今日目標達成
-            </div>
 
-            <div class="stat-value">
-                <span id="goalRate">
-                    —
-                </span>
-            </div>
+    <div class="form-actions">
 
-        </div>
+        <button
+            id="saveBtn"
+            type="button"
+            class="main-button add-button">
+            ➕ 新增紀錄
+        </button>
 
-    </section>
 
-
-    <!-- =========================
-         ADD RECORD
-    ========================== -->
-
-    <section class="form-card">
-
-        <div class="section-title">
-            💧 新增喝水紀錄
-        </div>
-
-
-        <div class="form-grid">
-
-            <!-- YEAR -->
-
-            <div class="field">
-
-                <label for="year">
-                    年份
-                </label>
-
-                <select id="year">
-
-                    <option value="">
-                        請選擇年份
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- DATE -->
-
-            <div class="field">
-
-                <label for="recordDate">
-                    日期
-                </label>
-
-                <div class="date-row">
-
-                    <input
-                        id="recordDate"
-                        type="date"
-                    >
-
-                    <button
-                        id="todayBtn"
-                        class="small-btn"
-                        type="button">
-                        今天
-                    </button>
-
-                    <button
-                        id="clearDateBtn"
-                        class="small-btn"
-                        type="button">
-                        清除
-                    </button>
-
-                </div>
-
-                <div
-                    id="dateInfo"
-                    class="date-info">
-                    —
-                </div>
-
-            </div>
-
-
-            <!-- CC -->
-
-            <div class="field">
-
-                <label for="cc">
-                    喝水量
-                </label>
-
-                <input
-                    id="cc"
-                    type="number"
-                    inputmode="decimal"
-                    min="0"
-                    step="1"
-                    placeholder="例如 200"
-                >
-
-            </div>
-
-
-            <!-- TARGET -->
-
-            <div class="field">
-
-                <label for="dailyTarget">
-                    每日喝水目標
-                </label>
-
-                <input
-                    id="dailyTarget"
-                    type="number"
-                    inputmode="decimal"
-                    min="0"
-                    step="1"
-                    placeholder="例如 500"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="form-actions">
-
-            <button
-                id="saveBtn"
-                type="button"
-                class="btn btn-primary">
-                ➕ 新增紀錄
-            </button>
-
-            <button
-                id="cancelEditBtn"
-                type="button"
-                class="btn btn-secondary"
-                style="display:none;">
-                取消編輯
-            </button>
-
-            <button
-                id="clearAllBtn"
-                type="button"
-                class="btn btn-danger">
-                清除全部紀錄
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         TODAY
-    ========================== -->
-
-    <section class="today-card">
-
-        <div class="section-title">
-            📅 今日狀態
-        </div>
-
-        <div class="today-grid">
-
-            <div class="today-box">
-
-                <div class="today-box-title">
-                    今日日期
-                </div>
-
-                <div
-                    id="todayDateText"
-                    class="today-box-value">
-                    —
-                </div>
-
-            </div>
-
-
-            <div class="today-box">
-
-                <div class="today-box-title">
-                    今日喝水
-                </div>
-
-                <div class="today-box-value">
-
-                    <span id="todayWater">
-                        0
-                    </span>
-
-                    CC
-
-                </div>
-
-            </div>
-
-
-            <div class="today-box">
-
-                <div class="today-box-title">
-                    目標
-                </div>
-
-                <div class="today-box-value">
-
-                    <span id="todayTarget">
-                        —
-                    </span>
-
-                    <span id="targetUnit">
-                        CC
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         ANALYSIS
-    ========================== -->
-
-    <section class="analysis-card">
-
-        <div class="section-title">
-            🔎 喝水變化分析
-        </div>
-
-        <div
-            id="analysisMessage"
-            class="analysis-message">
-
-            尚無足夠紀錄進行分析。
-
-        </div>
-
-        <ul
-            id="analysisList"
-            class="analysis-list">
-        </ul>
-
-    </section>
-
-
-    <!-- =========================
-         CHART
-    ========================== -->
-
-    <section class="chart-card">
-
-        <div class="section-title">
-            📈 近 30 日喝水趨勢
-        </div>
-
-        <div class="chart-wrapper">
-
-            <svg
-                id="waterChart"
-                viewBox="0 0 900 260"
-                preserveAspectRatio="none">
-            </svg>
-
-        </div>
-
-        <div
-            id="chartEmpty"
-            class="chart-empty"
+        <button
+            id="cancelEditBtn"
+            type="button"
+            class="main-button cancel-button"
             style="display:none;">
-            目前沒有足夠資料可以繪製圖表。
+            取消編輯
+        </button>
+
+
+        <button
+            id="clearAllBtn"
+            type="button"
+            class="main-button clear-button">
+            🗑️ 清除全部
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     TODAY STATUS
+======================================================== -->
+
+<section class="today-card">
+
+    <div class="section-title">
+        📅 今日狀態
+    </div>
+
+
+    <div class="today-grid">
+
+
+        <div class="today-box">
+
+            <div class="today-box-label">
+                今日日期
+            </div>
+
+            <div
+                id="todayDateText"
+                class="today-box-value">
+                —
+            </div>
+
         </div>
 
-    </section>
 
+        <div class="today-box">
 
-    <!-- =========================
-         FILTER
-    ========================== -->
+            <div class="today-box-label">
+                今日總喝水
+            </div>
 
-    <section class="filter-card">
+            <div class="today-box-value">
 
-        <div class="section-title">
-            🔍 紀錄篩選
-        </div>
+                <span id="todayWater">
+                    0
+                </span>
 
-        <div class="filter-grid">
-
-            <div class="field">
-
-                <label for="filterYear">
-                    年份
-                </label>
-
-                <select id="filterYear">
-
-                    <option value="">
-                        全部年份
-                    </option>
-
-                </select>
+                CC
 
             </div>
 
+        </div>
 
-            <div class="field">
 
-                <label for="filterMonth">
-                    月份
-                </label>
+        <div class="today-box">
 
-                <select id="filterMonth">
-
-                    <option value="">
-                        全部月份
-                    </option>
-
-                    <option value="1">
-                        1 月
-                    </option>
-
-                    <option value="2">
-                        2 月
-                    </option>
-
-                    <option value="3">
-                        3 月
-                    </option>
-
-                    <option value="4">
-                        4 月
-                    </option>
-
-                    <option value="5">
-                        5 月
-                    </option>
-
-                    <option value="6">
-                        6 月
-                    </option>
-
-                    <option value="7">
-                        7 月
-                    </option>
-
-                    <option value="8">
-                        8 月
-                    </option>
-
-                    <option value="9">
-                        9 月
-                    </option>
-
-                    <option value="10">
-                        10 月
-                    </option>
-
-                    <option value="11">
-                        11 月
-                    </option>
-
-                    <option value="12">
-                        12 月
-                    </option>
-
-                </select>
-
+            <div class="today-box-label">
+                每日目標
             </div>
 
+            <div class="today-box-value">
 
-            <div class="field">
-
-                <label>
-                    統計
-                </label>
-
-                <div
-                    id="filterSummary"
-                    class="date-info"
-                    style="padding-top:14px;">
+                <span id="todayTarget">
                     —
-                </div>
+                </span>
+
+                <span>
+                    CC
+                </span>
 
             </div>
 
         </div>
 
-    </section>
+
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         RECORD TABLE
-    ========================== -->
+<!-- =======================================================
+     ANALYSIS
+======================================================== -->
 
-    <section class="table-card">
+<section class="analysis-card">
 
-        <div class="section-title">
-            📋 喝水紀錄
-        </div>
+    <div class="section-title">
+        🔎 喝水變化分析
+    </div>
 
-        <div class="table-wrapper">
 
-            <table>
+    <div
+        id="analysisMessage"
+        class="analysis-message">
 
-                <thead>
+        尚無足夠資料進行分析。
 
-                    <tr>
+    </div>
 
-                        <th>
-                            日期
-                        </th>
 
-                        <th>
-                            星期
-                        </th>
+    <ul
+        id="analysisList"
+        class="analysis-list">
+    </ul>
 
-                        <th>
-                            年份
-                        </th>
 
-                        <th>
-                            喝水量
-                        </th>
+    <div class="extreme-grid">
 
-                        <th>
-                            建立時間
-                        </th>
 
-                        <th>
-                            操作
-                        </th>
+        <div class="extreme-box">
 
-                    </tr>
+            <div class="extreme-label">
+                📈 最高單日
+            </div>
 
-                </thead>
-
-                <tbody
-                    id="recordTableBody">
-                </tbody>
-
-            </table>
+            <div
+                id="maxDaily"
+                class="extreme-value">
+                —
+            </div>
 
         </div>
 
-    </section>
+
+        <div class="extreme-box">
+
+            <div class="extreme-label">
+                📉 最低單日
+            </div>
+
+            <div
+                id="minDaily"
+                class="extreme-value">
+                —
+            </div>
+
+        </div>
 
 
-    <div class="footer">
+    </div>
 
-        Lucky Water Tracker<br>
+</section>
 
-        資料會儲存在目前裝置的瀏覽器中
+
+<!-- =======================================================
+     CHART
+======================================================== -->
+
+<section class="chart-card">
+
+    <div class="section-title">
+        📈 近 30 日喝水趨勢
+    </div>
+
+
+    <div class="chart-wrapper">
+
+        <svg
+            id="waterChart"
+            viewBox="0 0 900 270"
+            preserveAspectRatio="none">
+        </svg>
+
+    </div>
+
+
+    <div
+        id="chartEmpty"
+        class="chart-empty"
+        style="display:none;">
+
+        目前沒有資料可以繪製圖表。
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FILTER
+======================================================== -->
+
+<section class="filter-card">
+
+    <div class="section-title">
+        🔍 查看紀錄
+    </div>
+
+
+    <div class="filter-grid">
+
+
+        <div class="field">
+
+            <label for="filterYear">
+                年份
+            </label>
+
+            <select id="filterYear">
+
+                <option value="">
+                    全部年份
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="filterMonth">
+                月份
+            </label>
+
+            <select id="filterMonth">
+
+                <option value="">
+                    全部月份
+                </option>
+
+                <option value="1">
+                    1 月
+                </option>
+
+                <option value="2">
+                    2 月
+                </option>
+
+                <option value="3">
+                    3 月
+                </option>
+
+                <option value="4">
+                    4 月
+                </option>
+
+                <option value="5">
+                    5 月
+                </option>
+
+                <option value="6">
+                    6 月
+                </option>
+
+                <option value="7">
+                    7 月
+                </option>
+
+                <option value="8">
+                    8 月
+                </option>
+
+                <option value="9">
+                    9 月
+                </option>
+
+                <option value="10">
+                    10 月
+                </option>
+
+                <option value="11">
+                    11 月
+                </option>
+
+                <option value="12">
+                    12 月
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                統計
+            </label>
+
+            <div
+                id="filterSummary"
+                class="date-info"
+                style="padding-top:14px;">
+                —
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     RECORD TABLE
+======================================================== -->
+
+<section class="table-card">
+
+    <div class="section-title">
+        📋 所有喝水紀錄
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        日期
+                    </th>
+
+                    <th>
+                        星期
+                    </th>
+
+                    <th>
+                        年份
+                    </th>
+
+                    <th>
+                        喝水量
+                    </th>
+
+                    <th>
+                        建立時間
+                    </th>
+
+                    <th>
+                        操作
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="recordTableBody">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================== -->
+
+<div class="footer">
+
+    寵物喝水紀錄<br>
+
+    可自由修改寵物名稱、日期與喝水量<br>
+
+    資料會保存在目前裝置的瀏覽器中
+
+</div>
+
+
+</div>
+
+
+<!-- =======================================================
+     VIEW MODAL
+======================================================== -->
+
+<div
+    id="viewModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+            👁️ 查看喝水紀錄
+        </div>
+
+        <div
+            id="viewContent"
+            class="modal-content">
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                id="closeViewBtn"
+                type="button"
+                class="main-button cancel-button">
+                關閉
+            </button>
+
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- =========================
+<!-- =======================================================
      DELETE MODAL
-========================= -->
+======================================================== -->
 
 <div
     id="deleteModal"
@@ -1174,11 +1557,14 @@ td{
     <div class="modal-box">
 
         <div class="modal-title">
-            確定刪除？
+            🗑️ 確定刪除？
         </div>
 
-        <div class="modal-text">
-            這筆喝水紀錄刪除後將無法復原。
+        <div class="modal-content">
+
+            這筆紀錄刪除後無法復原。<br>
+            確定要刪除嗎？
+
         </div>
 
         <div class="modal-actions">
@@ -1186,14 +1572,14 @@ td{
             <button
                 id="cancelDeleteBtn"
                 type="button"
-                class="btn btn-secondary">
+                class="main-button cancel-button">
                 取消
             </button>
 
             <button
                 id="confirmDeleteBtn"
                 type="button"
-                class="btn btn-danger">
+                class="main-button clear-button">
                 確定刪除
             </button>
 
@@ -1207,25 +1593,22 @@ td{
 <script>
 
 /* =========================================================
-   LUCKY PET WATER TRACKER
-   HTML + CSS + JAVASCRIPT
-   ========================================================= */
+   STORAGE KEYS
+========================================================= */
+
+const RECORD_STORAGE_KEY =
+    "PET_WATER_RECORDS_MAIN";
+
+const PET_NAME_STORAGE_KEY =
+    "PET_WATER_PET_NAME";
+
+const TARGET_STORAGE_KEY =
+    "PET_WATER_DAILY_TARGET";
 
 
 /* =========================================================
-   STORAGE
-   ========================================================= */
-
-const STORAGE_KEY =
-    "LUCKY_PET_WATER_RECORDS_2026";
-
-const OLD_STORAGE_KEY =
-    "petWaterRecordsV2";
-
-
-/* =========================================================
-   GLOBAL STATE
-   ========================================================= */
+   APPLICATION STATE
+========================================================= */
 
 let records = [];
 
@@ -1235,131 +1618,242 @@ let pendingDeleteId = null;
 
 
 /* =========================================================
-   DOM ELEMENTS
-   ========================================================= */
+   DOM
+========================================================= */
 
-const yearSelect =
-    document.getElementById("year");
+const headerPetName =
+    document.getElementById(
+        "headerPetName"
+    );
 
-const recordDate =
-    document.getElementById("recordDate");
+const petNameInput =
+    document.getElementById(
+        "petNameInput"
+    );
 
-const ccInput =
-    document.getElementById("cc");
-
-const dailyTargetInput =
-    document.getElementById("dailyTarget");
-
-const todayBtn =
-    document.getElementById("todayBtn");
-
-const clearDateBtn =
-    document.getElementById("clearDateBtn");
-
-const dateInfo =
-    document.getElementById("dateInfo");
-
-const saveBtn =
-    document.getElementById("saveBtn");
-
-const cancelEditBtn =
-    document.getElementById("cancelEditBtn");
-
-const clearAllBtn =
-    document.getElementById("clearAllBtn");
-
-const filterYear =
-    document.getElementById("filterYear");
-
-const filterMonth =
-    document.getElementById("filterMonth");
-
-const recordTableBody =
-    document.getElementById("recordTableBody");
-
-const filterSummary =
-    document.getElementById("filterSummary");
-
-const todayCC =
-    document.getElementById("todayCC");
-
-const weekAverage =
-    document.getElementById("weekAverage");
-
-const monthAverage =
-    document.getElementById("monthAverage");
-
-const goalRate =
-    document.getElementById("goalRate");
-
-const todayWater =
-    document.getElementById("todayWater");
-
-const todayTarget =
-    document.getElementById("todayTarget");
-
-const todayDateText =
-    document.getElementById("todayDateText");
-
-const targetUnit =
-    document.getElementById("targetUnit");
-
-const analysisMessage =
-    document.getElementById("analysisMessage");
-
-const analysisList =
-    document.getElementById("analysisList");
-
-const waterChart =
-    document.getElementById("waterChart");
-
-const chartEmpty =
-    document.getElementById("chartEmpty");
+const savePetNameBtn =
+    document.getElementById(
+        "savePetNameBtn"
+    );
 
 const currentTime =
-    document.getElementById("currentTime");
+    document.getElementById(
+        "currentTime"
+    );
+
+const yearSelect =
+    document.getElementById(
+        "year"
+    );
+
+const recordDate =
+    document.getElementById(
+        "recordDate"
+    );
+
+const ccInput =
+    document.getElementById(
+        "cc"
+    );
+
+const dailyTargetInput =
+    document.getElementById(
+        "dailyTarget"
+    );
+
+const todayBtn =
+    document.getElementById(
+        "todayBtn"
+    );
+
+const clearDateBtn =
+    document.getElementById(
+        "clearDateBtn"
+    );
+
+const dateInfo =
+    document.getElementById(
+        "dateInfo"
+    );
+
+const saveBtn =
+    document.getElementById(
+        "saveBtn"
+    );
+
+const cancelEditBtn =
+    document.getElementById(
+        "cancelEditBtn"
+    );
+
+const clearAllBtn =
+    document.getElementById(
+        "clearAllBtn"
+    );
+
+const formTitle =
+    document.getElementById(
+        "formTitle"
+    );
+
+const filterYear =
+    document.getElementById(
+        "filterYear"
+    );
+
+const filterMonth =
+    document.getElementById(
+        "filterMonth"
+    );
+
+const filterSummary =
+    document.getElementById(
+        "filterSummary"
+    );
+
+const recordTableBody =
+    document.getElementById(
+        "recordTableBody"
+    );
+
+const todayCC =
+    document.getElementById(
+        "todayCC"
+    );
+
+const weekAverage =
+    document.getElementById(
+        "weekAverage"
+    );
+
+const monthAverage =
+    document.getElementById(
+        "monthAverage"
+    );
+
+const goalRate =
+    document.getElementById(
+        "goalRate"
+    );
+
+const todayWater =
+    document.getElementById(
+        "todayWater"
+    );
+
+const todayTarget =
+    document.getElementById(
+        "todayTarget"
+    );
+
+const todayDateText =
+    document.getElementById(
+        "todayDateText"
+    );
+
+const analysisMessage =
+    document.getElementById(
+        "analysisMessage"
+    );
+
+const analysisList =
+    document.getElementById(
+        "analysisList"
+    );
+
+const maxDaily =
+    document.getElementById(
+        "maxDaily"
+    );
+
+const minDaily =
+    document.getElementById(
+        "minDaily"
+    );
+
+const waterChart =
+    document.getElementById(
+        "waterChart"
+    );
+
+const chartEmpty =
+    document.getElementById(
+        "chartEmpty"
+    );
+
+const viewModal =
+    document.getElementById(
+        "viewModal"
+    );
+
+const viewContent =
+    document.getElementById(
+        "viewContent"
+    );
+
+const closeViewBtn =
+    document.getElementById(
+        "closeViewBtn"
+    );
 
 const deleteModal =
-    document.getElementById("deleteModal");
+    document.getElementById(
+        "deleteModal"
+    );
 
 const cancelDeleteBtn =
-    document.getElementById("cancelDeleteBtn");
+    document.getElementById(
+        "cancelDeleteBtn"
+    );
 
 const confirmDeleteBtn =
-    document.getElementById("confirmDeleteBtn");
+    document.getElementById(
+        "confirmDeleteBtn"
+    );
 
 
 /* =========================================================
-   UTILITY FUNCTIONS
-   ========================================================= */
+   UTILITY
+========================================================= */
 
 function generateId(){
 
-    return Date.now().toString()
-        + "_"
-        + Math.random()
+    return (
+        Date.now() +
+        "_" +
+        Math.random()
             .toString(36)
-            .substring(2,9);
+            .substring(2,10)
+    );
 
 }
 
 
 function getTodayISO(){
 
-    const now = new Date();
+    const now =
+        new Date();
 
     const year =
         now.getFullYear();
 
     const month =
-        String(now.getMonth() + 1)
-            .padStart(2,"0");
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0");
 
     const day =
-        String(now.getDate())
-            .padStart(2,"0");
+        String(
+            now.getDate()
+        ).padStart(2,"0");
 
-    return `${year}-${month}-${day}`;
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
 
 }
 
@@ -1371,9 +1865,15 @@ function getROCYear(dateString){
     }
 
     const date =
-        new Date(dateString + "T00:00:00");
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
 
-    return date.getFullYear() - 1911;
+    return (
+        date.getFullYear() -
+        1911
+    );
 
 }
 
@@ -1385,20 +1885,31 @@ function formatDate(dateString){
     }
 
     const date =
-        new Date(dateString + "T00:00:00");
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
 
     const year =
         date.getFullYear();
 
     const month =
-        String(date.getMonth() + 1)
-            .padStart(2,"0");
+        String(
+            date.getMonth()+1
+        ).padStart(2,"0");
 
     const day =
-        String(date.getDate())
-            .padStart(2,"0");
+        String(
+            date.getDate()
+        ).padStart(2,"0");
 
-    return `${year}/${month}/${day}`;
+    return (
+        year +
+        "/" +
+        month +
+        "/" +
+        day
+    );
 
 }
 
@@ -1410,9 +1921,12 @@ function getWeekday(dateString){
     }
 
     const date =
-        new Date(dateString + "T00:00:00");
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
 
-    const weekdays = [
+    const names = [
         "星期日",
         "星期一",
         "星期二",
@@ -1422,46 +1936,9 @@ function getWeekday(dateString){
         "星期六"
     ];
 
-    return weekdays[
+    return names[
         date.getDay()
     ];
-
-}
-
-
-function formatDateTime(value){
-
-    if(!value){
-        return "—";
-    }
-
-    const date =
-        new Date(value);
-
-    if(Number.isNaN(date.getTime())){
-        return "—";
-    }
-
-    const y =
-        date.getFullYear();
-
-    const m =
-        String(date.getMonth()+1)
-            .padStart(2,"0");
-
-    const d =
-        String(date.getDate())
-            .padStart(2,"0");
-
-    const h =
-        String(date.getHours())
-            .padStart(2,"0");
-
-    const min =
-        String(date.getMinutes())
-            .padStart(2,"0");
-
-    return `${y}/${m}/${d} ${h}:${min}`;
 
 }
 
@@ -1471,8 +1948,12 @@ function numberValue(value){
     const n =
         Number(value);
 
-    if(!Number.isFinite(n)){
+    if(
+        !Number.isFinite(n)
+    ){
+
         return 0;
+
     }
 
     return n;
@@ -1489,9 +1970,154 @@ function roundNumber(value){
 }
 
 
+function escapeHTML(value){
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
 /* =========================================================
-   LOCAL STORAGE
-   ========================================================= */
+   PET NAME
+========================================================= */
+
+function loadPetName(){
+
+    const saved =
+        localStorage.getItem(
+            PET_NAME_STORAGE_KEY
+        );
+
+
+    if(saved){
+
+        petNameInput.value =
+            saved;
+
+        headerPetName.textContent =
+            saved;
+
+    }else{
+
+        petNameInput.value =
+            "Lucky";
+
+        headerPetName.textContent =
+            "Lucky";
+
+    }
+
+}
+
+
+function savePetName(){
+
+    let name =
+        petNameInput.value.trim();
+
+
+    if(!name){
+
+        name =
+            "我的寵物";
+
+        petNameInput.value =
+            name;
+
+    }
+
+
+    localStorage.setItem(
+        PET_NAME_STORAGE_KEY,
+        name
+    );
+
+
+    headerPetName.textContent =
+        name;
+
+
+    alert(
+        "寵物名稱已儲存 ❤️"
+    );
+
+}
+
+
+/* =========================================================
+   TARGET
+========================================================= */
+
+function loadTarget(){
+
+    const saved =
+        localStorage.getItem(
+            TARGET_STORAGE_KEY
+        );
+
+
+    if(saved){
+
+        dailyTargetInput.value =
+            saved;
+
+    }
+
+}
+
+
+function saveTarget(){
+
+    const target =
+        numberValue(
+            dailyTargetInput.value
+        );
+
+
+    if(target > 0){
+
+        localStorage.setItem(
+            TARGET_STORAGE_KEY,
+            String(target)
+        );
+
+    }else{
+
+        localStorage.removeItem(
+            TARGET_STORAGE_KEY
+        );
+
+    }
+
+
+    renderDashboard();
+
+}
+
+
+/* =========================================================
+   RECORD STORAGE
+========================================================= */
 
 function loadRecords(){
 
@@ -1499,39 +2125,31 @@ function loadRecords(){
 
         const saved =
             localStorage.getItem(
-                STORAGE_KEY
+                RECORD_STORAGE_KEY
             );
 
-        if(saved){
 
-            const parsed =
-                JSON.parse(saved);
+        if(!saved){
 
-            if(Array.isArray(parsed)){
+            records = [];
 
-                records = parsed;
-
-                return;
-
-            }
+            return;
 
         }
 
 
-        const oldSaved =
-            localStorage.getItem(
-                OLD_STORAGE_KEY
-            );
+        const parsed =
+            JSON.parse(saved);
 
-        if(oldSaved){
 
-            const oldParsed =
-                JSON.parse(oldSaved);
+        if(
+            Array.isArray(parsed)
+        ){
 
-            if(Array.isArray(oldParsed)){
+            records =
+                parsed.map(
+                    item => ({
 
-                records =
-                    oldParsed.map(item => ({
                         id:
                             item.id ||
                             generateId(),
@@ -1552,22 +2170,19 @@ function loadRecords(){
                         createdAt:
                             item.createdAt ||
                             new Date().toISOString()
-                    }));
 
-                saveRecords();
+                    })
+                );
 
-                return;
+        }else{
 
-            }
+            records = [];
 
         }
-
-        records = [];
 
     }catch(error){
 
         console.error(
-            "Load records failed:",
             error
         );
 
@@ -1581,7 +2196,7 @@ function loadRecords(){
 function saveRecords(){
 
     localStorage.setItem(
-        STORAGE_KEY,
+        RECORD_STORAGE_KEY,
         JSON.stringify(records)
     );
 
@@ -1590,37 +2205,54 @@ function saveRecords(){
 
 /* =========================================================
    YEAR OPTIONS
-   ========================================================= */
+========================================================= */
 
 function buildYearOptions(){
 
-    const currentYear =
-        new Date().getFullYear() - 1911;
+    const currentROCYear =
+        new Date()
+            .getFullYear() -
+        1911;
+
 
     yearSelect.innerHTML =
-        `<option value="">
-            請選擇年份
-        </option>`;
+        "";
 
-    filterYear.innerHTML =
-        `<option value="">
-            全部年份
-        </option>`;
+
+    const defaultOption =
+        document.createElement(
+            "option"
+        );
+
+    defaultOption.value =
+        "";
+
+    defaultOption.textContent =
+        "請選擇年份";
+
+    yearSelect.appendChild(
+        defaultOption
+    );
 
 
     for(
-        let year = 100;
-        year <= currentYear + 2;
+        let year = 90;
+        year <= currentROCYear + 5;
         year++
     ){
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = year;
+        option.value =
+            String(year);
 
         option.textContent =
-            `${year} 年`;
+            "民國 " +
+            year +
+            " 年";
 
         yearSelect.appendChild(
             option
@@ -1632,48 +2264,124 @@ function buildYearOptions(){
     const usedYears =
         new Set();
 
-    records.forEach(record => {
 
-        if(record.year){
+    records.forEach(
+        record => {
 
-            usedYears.add(
-                String(record.year)
-            );
+            if(record.year){
+
+                usedYears.add(
+                    String(record.year)
+                );
+
+            }
 
         }
+    );
 
-    });
+
+    usedYears.forEach(
+        year => {
+
+            if(
+                !Array.from(
+                    yearSelect.options
+                ).some(
+                    option =>
+                        option.value ===
+                        year
+                )
+            ){
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    year;
+
+                option.textContent =
+                    "民國 " +
+                    year +
+                    " 年";
+
+                yearSelect.appendChild(
+                    option
+                );
+
+            }
+
+        }
+    );
 
 
-    usedYears.forEach(year => {
+    filterYear.innerHTML =
+        `
+        <option value="">
+            全部年份
+        </option>
+        `;
 
-        const option =
-            document.createElement("option");
 
-        option.value = year;
+    const allYears =
+        new Set();
 
-        option.textContent =
-            `${year} 年`;
 
-        filterYear.appendChild(
-            option
+    records.forEach(
+        record => {
+
+            if(record.year){
+
+                allYears.add(
+                    String(record.year)
+                );
+
+            }
+
+        }
+    );
+
+
+    Array.from(allYears)
+        .sort(
+            (a,b) =>
+                Number(b) -
+                Number(a)
+        )
+        .forEach(
+            year => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    year;
+
+                option.textContent =
+                    "民國 " +
+                    year +
+                    " 年";
+
+                filterYear.appendChild(
+                    option
+                );
+
+            }
         );
-
-    });
 
 }
 
 
 /* =========================================================
-   DATE FUNCTIONS
-   ========================================================= */
+   DATE
+========================================================= */
 
 function updateDateInfo(){
 
-    const value =
-        recordDate.value;
-
-    if(!value){
+    if(!recordDate.value){
 
         dateInfo.textContent =
             "尚未選擇日期";
@@ -1682,14 +2390,23 @@ function updateDateInfo(){
 
     }
 
+
     const rocYear =
-        getROCYear(value);
+        getROCYear(
+            recordDate.value
+        );
 
     const weekday =
-        getWeekday(value);
+        getWeekday(
+            recordDate.value
+        );
+
 
     dateInfo.textContent =
-        `民國 ${rocYear} 年・${weekday}`;
+        "民國 " +
+        rocYear +
+        " 年・" +
+        weekday;
 
 }
 
@@ -1699,13 +2416,18 @@ function setToday(){
     const today =
         getTodayISO();
 
+
     recordDate.value =
         today;
 
+
     yearSelect.value =
         String(
-            getROCYear(today)
+            getROCYear(
+                today
+            )
         );
+
 
     updateDateInfo();
 
@@ -1726,76 +2448,63 @@ function clearDate(){
 
 
 /* =========================================================
-   CURRENT CLOCK
-   ========================================================= */
+   CLOCK
+========================================================= */
 
 function updateClock(){
 
     const now =
         new Date();
 
-    const y =
+
+    const year =
         now.getFullYear();
 
-    const m =
+    const month =
         String(
             now.getMonth()+1
         ).padStart(2,"0");
 
-    const d =
+    const day =
         String(
             now.getDate()
         ).padStart(2,"0");
 
-    const h =
+    const hour =
         String(
             now.getHours()
         ).padStart(2,"0");
 
-    const min =
+    const minute =
         String(
             now.getMinutes()
         ).padStart(2,"0");
 
-    const sec =
+    const second =
         String(
             now.getSeconds()
         ).padStart(2,"0");
 
+
     currentTime.textContent =
-        `${y}/${m}/${d} ${h}:${min}:${sec}`;
+        year +
+        "/" +
+        month +
+        "/" +
+        day +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second;
 
 }
 
 
 /* =========================================================
-   DATE INPUT EVENT
-   ========================================================= */
-
-recordDate.addEventListener(
-    "change",
-    function(){
-
-        if(recordDate.value){
-
-            yearSelect.value =
-                String(
-                    getROCYear(
-                        recordDate.value
-                    )
-                );
-
-        }
-
-        updateDateInfo();
-
-    }
-);
-
-
-/* =========================================================
-   CREATE RECORD
-   ========================================================= */
+   ADD RECORD
+========================================================= */
 
 function addRecord(){
 
@@ -1822,7 +2531,7 @@ function addRecord(){
     if(cc <= 0){
 
         alert(
-            "請輸入大於 0 的喝水量 CC。"
+            "請輸入大於 0 的喝水量。"
         );
 
         return;
@@ -1833,11 +2542,13 @@ function addRecord(){
     const year =
         yearSelect.value ||
         String(
-            getROCYear(date)
+            getROCYear(
+                date
+            )
         );
 
 
-    const record = {
+    const newRecord = {
 
         id:
             generateId(),
@@ -1857,7 +2568,10 @@ function addRecord(){
     };
 
 
-    records.push(record);
+    records.push(
+        newRecord
+    );
+
 
     saveRecords();
 
@@ -1867,14 +2581,26 @@ function addRecord(){
 
     renderAll();
 
+
+    alert(
+        "喝水紀錄已新增 💧"
+    );
+
 }
 
 
 /* =========================================================
    UPDATE RECORD
-   ========================================================= */
+========================================================= */
 
 function updateRecord(){
+
+    if(!editingId){
+
+        return;
+
+    }
+
 
     const date =
         recordDate.value;
@@ -1883,13 +2609,6 @@ function updateRecord(){
         numberValue(
             ccInput.value
         );
-
-
-    if(!editingId){
-
-        return;
-
-    }
 
 
     if(!date){
@@ -1906,7 +2625,7 @@ function updateRecord(){
     if(cc <= 0){
 
         alert(
-            "請輸入大於 0 的喝水量 CC。"
+            "請輸入大於 0 的喝水量。"
         );
 
         return;
@@ -1917,11 +2636,18 @@ function updateRecord(){
     const index =
         records.findIndex(
             record =>
-                record.id === editingId
+                record.id ===
+                editingId
         );
 
 
     if(index === -1){
+
+        alert(
+            "找不到這筆紀錄。"
+        );
+
+        cancelEdit();
 
         return;
 
@@ -1934,7 +2660,9 @@ function updateRecord(){
     records[index].year =
         yearSelect.value ||
         String(
-            getROCYear(date)
+            getROCYear(
+                date
+            )
         );
 
     records[index].cc =
@@ -1949,12 +2677,17 @@ function updateRecord(){
 
     renderAll();
 
+
+    alert(
+        "紀錄已成功修改 ✏️"
+    );
+
 }
 
 
 /* =========================================================
-   SAVE BUTTON
-   ========================================================= */
+   SAVE
+========================================================= */
 
 function handleSave(){
 
@@ -1972,10 +2705,116 @@ function handleSave(){
 
 
 /* =========================================================
-   EDIT
-   ========================================================= */
+   EDIT RECORD
+========================================================= */
 
 function editRecord(id){
+
+    const record =
+        records.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!record){
+
+        alert(
+            "找不到這筆紀錄。"
+        );
+
+        return;
+
+    }
+
+
+    editingId =
+        id;
+
+
+    recordDate.value =
+        record.date || "";
+
+
+    yearSelect.value =
+        String(
+            record.year || ""
+        );
+
+
+    ccInput.value =
+        record.cc;
+
+
+    updateDateInfo();
+
+
+    formTitle.textContent =
+        "✏️ 編輯喝水紀錄";
+
+
+    saveBtn.textContent =
+        "💾 儲存修改";
+
+
+    cancelEditBtn.style.display =
+        "block";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
+
+function cancelEdit(){
+
+    editingId =
+        null;
+
+
+    formTitle.textContent =
+        "💧 新增喝水紀錄";
+
+
+    saveBtn.textContent =
+        "➕ 新增紀錄";
+
+
+    cancelEditBtn.style.display =
+        "none";
+
+
+    resetForm();
+
+}
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetForm(){
+
+    ccInput.value =
+        "";
+
+    setToday();
+
+}
+
+
+/* =========================================================
+   VIEW RECORD
+========================================================= */
+
+function viewRecord(id){
 
     const record =
         records.find(
@@ -1991,91 +2830,137 @@ function editRecord(id){
     }
 
 
-    editingId =
-        id;
+    const petName =
+        petNameInput.value.trim() ||
+        "我的寵物";
 
 
-    recordDate.value =
-        record.date || "";
+    viewContent.innerHTML = `
 
-    yearSelect.value =
+        <div>
+            <strong>🐾 寵物：</strong>
+            ${escapeHTML(petName)}
+        </div>
+
+        <div>
+            <strong>📅 日期：</strong>
+            ${escapeHTML(
+                formatDate(record.date)
+            )}
+        </div>
+
+        <div>
+            <strong>📆 星期：</strong>
+            ${escapeHTML(
+                getWeekday(record.date)
+            )}
+        </div>
+
+        <div>
+            <strong>🗓️ 年份：</strong>
+            民國 ${escapeHTML(record.year)}
+        </div>
+
+        <div>
+            <strong>💧 喝水量：</strong>
+            ${escapeHTML(record.cc)} CC
+        </div>
+
+        <div>
+            <strong>🕐 建立時間：</strong>
+            ${escapeHTML(
+                formatDateTime(
+                    record.createdAt
+                )
+            )}
+        </div>
+
+    `;
+
+
+    viewModal.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT DATETIME
+========================================================= */
+
+function formatDateTime(value){
+
+    if(!value){
+
+        return "—";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "—";
+
+    }
+
+
+    const year =
+        date.getFullYear();
+
+    const month =
         String(
-            record.year || ""
-        );
+            date.getMonth()+1
+        ).padStart(2,"0");
 
-    ccInput.value =
-        record.cc;
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
 
-    updateDateInfo();
+    const hour =
+        String(
+            date.getHours()
+        ).padStart(2,"0");
 
-
-    saveBtn.textContent =
-        "💾 儲存修改";
-
-    cancelEditBtn.style.display =
-        "inline-flex";
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
+    const minute =
+        String(
+            date.getMinutes()
+        ).padStart(2,"0");
 
 
-/* =========================================================
-   CANCEL EDIT
-   ========================================================= */
-
-function cancelEdit(){
-
-    editingId =
-        null;
-
-    saveBtn.textContent =
-        "➕ 新增紀錄";
-
-    cancelEditBtn.style.display =
-        "none";
-
-    resetForm();
-
-}
-
-
-/* =========================================================
-   RESET FORM
-   ========================================================= */
-
-function resetForm(){
-
-    editingId =
-        null;
-
-    ccInput.value =
-        "";
-
-    saveBtn.textContent =
-        "➕ 新增紀錄";
-
-    cancelEditBtn.style.display =
-        "none";
-
-
-    setToday();
+    return (
+        year +
+        "/" +
+        month +
+        "/" +
+        day +
+        " " +
+        hour +
+        ":" +
+        minute
+    );
 
 }
 
 
 /* =========================================================
    DELETE
-   ========================================================= */
+========================================================= */
 
 function askDelete(id){
 
     pendingDeleteId =
         id;
+
 
     deleteModal.classList.add(
         "show"
@@ -2088,6 +2973,7 @@ function closeDeleteModal(){
 
     pendingDeleteId =
         null;
+
 
     deleteModal.classList.remove(
         "show"
@@ -2105,10 +2991,18 @@ function confirmDelete(){
     }
 
 
+    const record =
+        records.find(
+            item =>
+                item.id ===
+                pendingDeleteId
+        );
+
+
     records =
         records.filter(
-            record =>
-                record.id !==
+            item =>
+                item.id !==
                 pendingDeleteId
         );
 
@@ -2121,12 +3015,23 @@ function confirmDelete(){
 
     renderAll();
 
+
+    if(record){
+
+        alert(
+            "已刪除 " +
+            formatDate(record.date) +
+            " 的喝水紀錄。"
+        );
+
+    }
+
 }
 
 
 /* =========================================================
    CLEAR ALL
-   ========================================================= */
+========================================================= */
 
 function clearAllRecords(){
 
@@ -2143,7 +3048,7 @@ function clearAllRecords(){
 
     const answer =
         confirm(
-            "確定要刪除全部喝水紀錄嗎？\n\n這個動作無法復原。"
+            "確定要刪除全部喝水紀錄嗎？\n\n刪除後無法復原。"
         );
 
 
@@ -2156,6 +3061,7 @@ function clearAllRecords(){
 
     records = [];
 
+
     saveRecords();
 
     buildYearOptions();
@@ -2166,30 +3072,40 @@ function clearAllRecords(){
 
 
 /* =========================================================
-   SORT RECORDS
-   ========================================================= */
+   SORT
+========================================================= */
 
-function sortedRecords(){
+function getSortedRecords(){
 
     return [...records].sort(
         (a,b) => {
 
             const dateCompare =
-                String(b.date || "")
-                .localeCompare(
-                    String(a.date || "")
+                String(
+                    b.date || ""
+                ).localeCompare(
+                    String(
+                        a.date || ""
+                    )
                 );
 
-            if(dateCompare !== 0){
+
+            if(
+                dateCompare !== 0
+            ){
 
                 return dateCompare;
 
             }
 
-            return String(b.createdAt || "")
-                .localeCompare(
-                    String(a.createdAt || "")
-                );
+
+            return String(
+                b.createdAt || ""
+            ).localeCompare(
+                String(
+                    a.createdAt || ""
+                )
+            );
 
         }
     );
@@ -2198,8 +3114,8 @@ function sortedRecords(){
 
 
 /* =========================================================
-   FILTER RECORDS
-   ========================================================= */
+   FILTER
+========================================================= */
 
 function getFilteredRecords(){
 
@@ -2210,58 +3126,68 @@ function getFilteredRecords(){
         filterMonth.value;
 
 
-    return sortedRecords()
-        .filter(record => {
-
-            if(
-                selectedYear &&
-                String(record.year) !==
-                String(selectedYear)
-            ){
-
-                return false;
-
-            }
-
-
-            if(selectedMonth){
-
-                if(!record.date){
-
-                    return false;
-
-                }
-
-                const month =
-                    String(
-                        new Date(
-                            record.date +
-                            "T00:00:00"
-                        ).getMonth()+1
-                    );
+    return getSortedRecords()
+        .filter(
+            record => {
 
                 if(
-                    month !==
-                    String(selectedMonth)
+                    selectedYear &&
+                    String(
+                        record.year
+                    ) !==
+                    String(
+                        selectedYear
+                    )
                 ){
 
                     return false;
 
                 }
 
+
+                if(selectedMonth){
+
+                    if(!record.date){
+
+                        return false;
+
+                    }
+
+
+                    const date =
+                        new Date(
+                            record.date +
+                            "T00:00:00"
+                        );
+
+
+                    const month =
+                        date.getMonth()+1;
+
+
+                    if(
+                        String(month) !==
+                        String(selectedMonth)
+                    ){
+
+                        return false;
+
+                    }
+
+                }
+
+
+                return true;
+
             }
-
-
-            return true;
-
-        });
+        );
 
 }
 
 
 /* =========================================================
-   RENDER TABLE
-   ========================================================= */
+   TABLE
+========================================================= */
 
 function renderTable(){
 
@@ -2273,181 +3199,260 @@ function renderTable(){
         "";
 
 
-    if(list.length === 0){
+    if(
+        list.length === 0
+    ){
 
-        const tr =
-            document.createElement("tr");
+        recordTableBody.innerHTML = `
 
-        tr.innerHTML = `
-            <td colspan="6"
-                style="text-align:center;padding:35px;color:#999;">
-                目前沒有喝水紀錄
-            </td>
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                        color:#999;
+                    ">
+
+                    尚無喝水紀錄
+
+                </td>
+
+            </tr>
+
         `;
 
-        recordTableBody.appendChild(
-            tr
-        );
 
         updateFilterSummary(
             list
         );
+
 
         return;
 
     }
 
 
-    list.forEach(record => {
+    list.forEach(
+        record => {
 
-        const tr =
-            document.createElement("tr");
-
-
-        const tdDate =
-            document.createElement("td");
-
-        tdDate.textContent =
-            formatDate(record.date);
+            const tr =
+                document.createElement(
+                    "tr"
+                );
 
 
-        const tdWeekday =
-            document.createElement("td");
+            const dateCell =
+                document.createElement(
+                    "td"
+                );
 
-        tdWeekday.textContent =
-            getWeekday(record.date);
-
-
-        const tdYear =
-            document.createElement("td");
-
-        tdYear.textContent =
-            record.year
-                ? `民國 ${record.year}`
-                : "—";
+            dateCell.textContent =
+                formatDate(
+                    record.date
+                );
 
 
-        const tdCC =
-            document.createElement("td");
+            const weekdayCell =
+                document.createElement(
+                    "td"
+                );
 
-        tdCC.className =
-            "cc-value";
+            weekdayCell.textContent =
+                getWeekday(
+                    record.date
+                );
 
-        tdCC.textContent =
-            `${record.cc} CC`;
+
+            const yearCell =
+                document.createElement(
+                    "td"
+                );
+
+            yearCell.textContent =
+                record.year
+                    ? "民國 " +
+                      record.year +
+                      " 年"
+                    : "—";
 
 
-        const tdCreated =
-            document.createElement("td");
+            const ccCell =
+                document.createElement(
+                    "td"
+                );
 
-        tdCreated.textContent =
-            formatDateTime(
-                record.createdAt
+            ccCell.className =
+                "cc-value";
+
+            ccCell.textContent =
+                record.cc +
+                " CC";
+
+
+            const createdCell =
+                document.createElement(
+                    "td"
+                );
+
+            createdCell.textContent =
+                formatDateTime(
+                    record.createdAt
+                );
+
+
+            const actionCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            const actionGroup =
+                document.createElement(
+                    "div"
+                );
+
+            actionGroup.className =
+                "action-group";
+
+
+            /* VIEW */
+
+            const viewButton =
+                document.createElement(
+                    "button"
+                );
+
+            viewButton.type =
+                "button";
+
+            viewButton.className =
+                "table-button view-button";
+
+            viewButton.textContent =
+                "👁️ 查看";
+
+
+            viewButton.addEventListener(
+                "click",
+                function(){
+
+                    viewRecord(
+                        record.id
+                    );
+
+                }
             );
 
 
-        const tdAction =
-            document.createElement("td");
+            /* EDIT */
 
-
-        const actionGroup =
-            document.createElement("div");
-
-        actionGroup.className =
-            "action-group";
-
-
-        const editButton =
-            document.createElement("button");
-
-        editButton.type =
-            "button";
-
-        editButton.className =
-            "table-btn edit-btn";
-
-        editButton.textContent =
-            "✏️ 編輯";
-
-        editButton.addEventListener(
-            "click",
-            function(){
-
-                editRecord(
-                    record.id
+            const editButton =
+                document.createElement(
+                    "button"
                 );
 
-            }
-        );
+            editButton.type =
+                "button";
+
+            editButton.className =
+                "table-button edit-button";
+
+            editButton.textContent =
+                "✏️ 編輯";
 
 
-        const deleteButton =
-            document.createElement("button");
+            editButton.addEventListener(
+                "click",
+                function(){
 
-        deleteButton.type =
-            "button";
+                    editRecord(
+                        record.id
+                    );
 
-        deleteButton.className =
-            "table-btn delete-btn";
+                }
+            );
 
-        deleteButton.textContent =
-            "🗑️ 刪除";
 
-        deleteButton.addEventListener(
-            "click",
-            function(){
+            /* DELETE */
 
-                askDelete(
-                    record.id
+            const deleteButton =
+                document.createElement(
+                    "button"
                 );
 
-            }
-        );
+            deleteButton.type =
+                "button";
+
+            deleteButton.className =
+                "table-button delete-button";
+
+            deleteButton.textContent =
+                "🗑️ 刪除";
 
 
-        actionGroup.appendChild(
-            editButton
-        );
+            deleteButton.addEventListener(
+                "click",
+                function(){
 
-        actionGroup.appendChild(
-            deleteButton
-        );
+                    askDelete(
+                        record.id
+                    );
 
-        tdAction.appendChild(
-            actionGroup
-        );
-
-
-        tr.appendChild(
-            tdDate
-        );
-
-        tr.appendChild(
-            tdWeekday
-        );
-
-        tr.appendChild(
-            tdYear
-        );
-
-        tr.appendChild(
-            tdCC
-        );
-
-        tr.appendChild(
-            tdCreated
-        );
-
-        tr.appendChild(
-            tdAction
-        );
+                }
+            );
 
 
-        recordTableBody.appendChild(
-            tr
-        );
+            actionGroup.appendChild(
+                viewButton
+            );
 
-    });
+            actionGroup.appendChild(
+                editButton
+            );
+
+            actionGroup.appendChild(
+                deleteButton
+            );
+
+
+            actionCell.appendChild(
+                actionGroup
+            );
+
+
+            tr.appendChild(
+                dateCell
+            );
+
+            tr.appendChild(
+                weekdayCell
+            );
+
+            tr.appendChild(
+                yearCell
+            );
+
+            tr.appendChild(
+                ccCell
+            );
+
+            tr.appendChild(
+                createdCell
+            );
+
+            tr.appendChild(
+                actionCell
+            );
+
+
+            recordTableBody.appendChild(
+                tr
+            );
+
+        }
+    );
 
 
     updateFilterSummary(
@@ -2459,28 +3464,37 @@ function renderTable(){
 
 /* =========================================================
    FILTER SUMMARY
-   ========================================================= */
+========================================================= */
 
 function updateFilterSummary(list){
 
     const total =
         list.reduce(
-            (sum,record) =>
+            (
+                sum,
+                record
+            ) =>
                 sum +
-                numberValue(record.cc),
+                numberValue(
+                    record.cc
+                ),
             0
         );
 
 
     filterSummary.textContent =
-        `共 ${list.length} 筆・合計 ${roundNumber(total)} CC`;
+        "共 " +
+        list.length +
+        " 筆・合計 " +
+        roundNumber(total) +
+        " CC";
 
 }
 
 
 /* =========================================================
-   DAILY TOTAL MAP
-   ========================================================= */
+   DAILY MAP
+========================================================= */
 
 function buildDailyMap(){
 
@@ -2488,26 +3502,32 @@ function buildDailyMap(){
         new Map();
 
 
-    records.forEach(record => {
+    records.forEach(
+        record => {
 
-        if(!record.date){
+            if(!record.date){
 
-            return;
+                return;
+
+            }
+
+
+            const old =
+                map.get(
+                    record.date
+                ) || 0;
+
+
+            map.set(
+                record.date,
+                old +
+                numberValue(
+                    record.cc
+                )
+            );
 
         }
-
-
-        const old =
-            map.get(record.date) || 0;
-
-
-        map.set(
-            record.date,
-            old +
-            numberValue(record.cc)
-        );
-
-    });
+    );
 
 
     return map;
@@ -2516,73 +3536,8 @@ function buildDailyMap(){
 
 
 /* =========================================================
-   TODAY STATISTICS
-   ========================================================= */
-
-function renderToday(){
-
-    const today =
-        getTodayISO();
-
-
-    const map =
-        buildDailyMap();
-
-
-    const todayTotal =
-        map.get(today) || 0;
-
-
-    todayCC.textContent =
-        roundNumber(
-            todayTotal
-        );
-
-
-    todayWater.textContent =
-        roundNumber(
-            todayTotal
-        );
-
-
-    todayDateText.textContent =
-        `${formatDate(today)} ${getWeekday(today)}`;
-
-
-    const target =
-        numberValue(
-            dailyTargetInput.value
-        );
-
-
-    if(target > 0){
-
-        todayTarget.textContent =
-            roundNumber(target);
-
-        goalRate.textContent =
-            `${roundNumber(
-                todayTotal /
-                target *
-                100
-            )}%`;
-
-    }else{
-
-        todayTarget.textContent =
-            "—";
-
-        goalRate.textContent =
-            "—";
-
-    }
-
-}
-
-
-/* =========================================================
-   GET LAST N DAYS
-   ========================================================= */
+   LAST N DAYS
+========================================================= */
 
 function getLastNDays(numberOfDays){
 
@@ -2591,22 +3546,28 @@ function getLastNDays(numberOfDays){
     const today =
         new Date();
 
+
     today.setHours(
         0,0,0,0
     );
 
 
     for(
-        let i = numberOfDays - 1;
+        let i =
+            numberOfDays - 1;
+
         i >= 0;
+
         i--
     ){
 
         const date =
             new Date(today);
 
+
         date.setDate(
-            today.getDate() - i
+            today.getDate() -
+            i
         );
 
 
@@ -2624,11 +3585,13 @@ function getLastNDays(numberOfDays){
             ).padStart(2,"0");
 
 
-        const iso =
-            `${year}-${month}-${day}`;
-
-
-        result.push(iso);
+        result.push(
+            year +
+            "-" +
+            month +
+            "-" +
+            day
+        );
 
     }
 
@@ -2639,13 +3602,79 @@ function getLastNDays(numberOfDays){
 
 
 /* =========================================================
+   TODAY
+========================================================= */
+
+function renderToday(){
+
+    const today =
+        getTodayISO();
+
+
+    const map =
+        buildDailyMap();
+
+
+    const total =
+        map.get(today) || 0;
+
+
+    todayCC.textContent =
+        roundNumber(total);
+
+
+    todayWater.textContent =
+        roundNumber(total);
+
+
+    todayDateText.textContent =
+        formatDate(today) +
+        " " +
+        getWeekday(today);
+
+
+    const target =
+        numberValue(
+            dailyTargetInput.value
+        );
+
+
+    if(target > 0){
+
+        todayTarget.textContent =
+            roundNumber(target);
+
+
+        goalRate.textContent =
+            roundNumber(
+                total /
+                target *
+                100
+            ) +
+            "%";
+
+    }else{
+
+        todayTarget.textContent =
+            "—";
+
+        goalRate.textContent =
+            "—";
+
+    }
+
+}
+
+
+/* =========================================================
    WEEK AVERAGE
-   ========================================================= */
+========================================================= */
 
 function calculateWeekAverage(){
 
     const days =
         getLastNDays(7);
+
 
     const map =
         buildDailyMap();
@@ -2653,29 +3682,28 @@ function calculateWeekAverage(){
 
     let total = 0;
 
-    let recordedDays = 0;
+    let count = 0;
 
 
-    days.forEach(date => {
+    days.forEach(
+        date => {
 
-        const value =
-            map.get(date);
+            if(
+                map.has(date)
+            ){
 
+                total +=
+                    map.get(date);
 
-        if(
-            value !== undefined
-        ){
+                count++;
 
-            total += value;
-
-            recordedDays++;
+            }
 
         }
+    );
 
-    });
 
-
-    if(recordedDays === 0){
+    if(count === 0){
 
         return 0;
 
@@ -2683,8 +3711,7 @@ function calculateWeekAverage(){
 
 
     return roundNumber(
-        total /
-        recordedDays
+        total / count
     );
 
 }
@@ -2692,17 +3719,18 @@ function calculateWeekAverage(){
 
 /* =========================================================
    MONTH AVERAGE
-   ========================================================= */
+========================================================= */
 
 function calculateMonthAverage(){
 
     const now =
         new Date();
 
-    const year =
+
+    const currentYear =
         now.getFullYear();
 
-    const month =
+    const currentMonth =
         now.getMonth();
 
 
@@ -2712,27 +3740,33 @@ function calculateMonthAverage(){
 
     let total = 0;
 
-    let days = 0;
+    let count = 0;
 
 
     map.forEach(
-        (value,date) => {
+        (
+            value,
+            dateString
+        ) => {
 
-            const d =
+            const date =
                 new Date(
-                    date +
+                    dateString +
                     "T00:00:00"
                 );
 
 
             if(
-                d.getFullYear() === year &&
-                d.getMonth() === month
+                date.getFullYear() ===
+                    currentYear &&
+
+                date.getMonth() ===
+                    currentMonth
             ){
 
                 total += value;
 
-                days++;
+                count++;
 
             }
 
@@ -2740,7 +3774,7 @@ function calculateMonthAverage(){
     );
 
 
-    if(days === 0){
+    if(count === 0){
 
         return 0;
 
@@ -2748,86 +3782,79 @@ function calculateMonthAverage(){
 
 
     return roundNumber(
-        total / days
+        total / count
     );
 
 }
 
 
 /* =========================================================
-   MAX / MIN DAILY
-   ========================================================= */
+   EXTREMES
+========================================================= */
 
-function calculateDailyExtremes(){
+function renderExtremes(){
 
     const map =
         buildDailyMap();
 
-    const values =
+
+    const entries =
         Array.from(
             map.entries()
         );
 
 
-    if(values.length === 0){
+    if(
+        entries.length === 0
+    ){
 
-        return {
-            max:null,
-            min:null
-        };
+        maxDaily.textContent =
+            "—";
+
+        minDaily.textContent =
+            "—";
+
+        return;
 
     }
 
 
-    values.sort(
+    entries.sort(
         (a,b) =>
-            b[1] - a[1]
+            b[1] -
+            a[1]
     );
 
 
-    return {
-
-        max:values[0],
-
-        min:
-            values[
-                values.length - 1
-            ]
-
-    };
-
-}
+    const max =
+        entries[0];
 
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-function renderDashboard(){
-
-    const week =
-        calculateWeekAverage();
-
-    const month =
-        calculateMonthAverage();
+    const min =
+        entries[
+            entries.length - 1
+        ];
 
 
-    weekAverage.textContent =
-        week || 0;
+    maxDaily.textContent =
+        formatDate(max[0]) +
+        "・" +
+        roundNumber(max[1]) +
+        " CC";
 
 
-    monthAverage.textContent =
-        month || 0;
-
-
-    renderToday();
+    minDaily.textContent =
+        formatDate(min[0]) +
+        "・" +
+        roundNumber(min[1]) +
+        " CC";
 
 }
 
 
 /* =========================================================
    ANALYSIS
-   ========================================================= */
+========================================================= */
 
 function renderAnalysis(){
 
@@ -2841,13 +3868,16 @@ function renderAnalysis(){
         ).sort();
 
 
-    if(dates.length < 2){
+    analysisList.innerHTML =
+        "";
+
+
+    if(
+        dates.length < 2
+    ){
 
         analysisMessage.textContent =
-            "目前紀錄較少，至少累積幾天後，可以更準確觀察 Lucky 的喝水變化。";
-
-        analysisList.innerHTML =
-            "";
+            "目前紀錄較少，累積更多天數後，可以更清楚觀察喝水趨勢。";
 
         return;
 
@@ -2873,58 +3903,57 @@ function renderAnalysis(){
         ];
 
 
-    let change = 0;
-
-
-    if(previous > 0){
-
-        change =
-            (latest - previous) /
-            previous *
-            100;
-
-    }
-
-
     const average =
         values.reduce(
-            (sum,value) =>
+            (
+                sum,
+                value
+            ) =>
                 sum + value,
             0
         ) /
         values.length;
 
 
-    const recentDates =
-        dates.slice(-3);
+    let change = 0;
 
 
-    const recentValues =
-        recentDates.map(
-            date =>
-                map.get(date)
-        );
+    if(previous > 0){
+
+        change =
+            (
+                latest -
+                previous
+            ) /
+            previous *
+            100;
+
+    }
 
 
-    const recentAverage =
-        recentValues.reduce(
-            (sum,value) =>
-                sum + value,
-            0
-        ) /
-        recentValues.length;
+    analysisMessage.textContent =
+        "以下是依照 " +
+        (
+            petNameInput.value.trim() ||
+            "寵物"
+        ) +
+        " 自己過去的紀錄進行趨勢比較，不代表醫療診斷。";
 
 
-    const list = [];
+    const messages = [];
 
 
-    list.push(
-        `最近一筆單日喝水量約 ${roundNumber(latest)} CC。`
+    messages.push(
+        "目前有紀錄日期的平均喝水量約 " +
+        roundNumber(average) +
+        " CC。"
     );
 
 
-    list.push(
-        `目前有紀錄日期的平均喝水量約 ${roundNumber(average)} CC。`
+    messages.push(
+        "最近一天的喝水量約 " +
+        roundNumber(latest) +
+        " CC。"
     );
 
 
@@ -2932,20 +3961,28 @@ function renderAnalysis(){
 
         if(change >= 20){
 
-            list.push(
-                `與前一天相比增加約 ${roundNumber(change)}%，可以繼續觀察是否為短期波動。`
+            messages.push(
+                "最近一天比前一天增加約 " +
+                roundNumber(change) +
+                "%。可以持續觀察是否只是短期變化。"
             );
 
         }else if(change <= -20){
 
-            list.push(
-                `與前一天相比減少約 ${roundNumber(Math.abs(change))}%，建議持續記錄幾天觀察趨勢。`
+            messages.push(
+                "最近一天比前一天減少約 " +
+                roundNumber(
+                    Math.abs(change)
+                ) +
+                "%。建議繼續記錄幾天觀察。"
             );
 
         }else{
 
-            list.push(
-                `與前一天相比變化約 ${roundNumber(change)}%，目前看起來沒有非常明顯的單日變化。`
+            messages.push(
+                "最近一天與前一天的變化約 " +
+                roundNumber(change) +
+                "%，目前沒有非常明顯的單日變化。"
             );
 
         }
@@ -2953,68 +3990,99 @@ function renderAnalysis(){
     }
 
 
+    const last7Days =
+        getLastNDays(7);
+
+
+    const recordedLast7 =
+        last7Days
+            .filter(
+                date =>
+                    map.has(date)
+            )
+            .map(
+                date =>
+                    map.get(date)
+            );
+
+
     if(
-        recentAverage >
-        average * 1.3
+        recordedLast7.length >= 2
     ){
 
-        list.push(
-            "最近幾天的平均值明顯高於過去紀錄，可以留意是否有環境、飲食或活動量變化。"
-        );
+        const recentAverage =
+            recordedLast7.reduce(
+                (
+                    sum,
+                    value
+                ) =>
+                    sum + value,
+                0
+            ) /
+            recordedLast7.length;
+
+
+        if(
+            recentAverage >
+            average * 1.3
+        ){
+
+            messages.push(
+                "最近 7 天平均值明顯高於長期平均，可以留意是否受到天氣、活動量或食物含水量影響。"
+            );
+
+        }
+
+
+        if(
+            recentAverage <
+            average * 0.7
+        ){
+
+            messages.push(
+                "最近 7 天平均值明顯低於長期平均，建議確認紀錄是否完整並持續觀察。"
+            );
+
+        }
 
     }
 
 
-    if(
-        recentAverage <
-        average * 0.7
-    ){
-
-        list.push(
-            "最近幾天的平均值明顯低於過去紀錄，建議持續觀察並確認飲水紀錄是否完整。"
-        );
-
-    }
-
-
-    list.push(
+    messages.push(
         "喝水量會受到體重、食物含水量、天氣、活動量等因素影響，單靠喝水紀錄不能判斷疾病。"
     );
 
 
-    analysisMessage.textContent =
-        "以下分析是依照 Lucky 自己過去的紀錄做趨勢比較，不代表醫療診斷。";
+    messages.forEach(
+        message => {
 
+            const li =
+                document.createElement(
+                    "li"
+                );
 
-    analysisList.innerHTML =
-        "";
+            li.textContent =
+                message;
 
+            analysisList.appendChild(
+                li
+            );
 
-    list.forEach(text => {
-
-        const li =
-            document.createElement("li");
-
-        li.textContent =
-            text;
-
-        analysisList.appendChild(
-            li
-        );
-
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
    CHART
-   ========================================================= */
+========================================================= */
 
 function renderChart(){
 
     const days =
         getLastNDays(30);
+
 
     const map =
         buildDailyMap();
@@ -3056,40 +4124,39 @@ function renderChart(){
 
     const width = 900;
 
-    const height = 260;
+    const height = 270;
 
-    const paddingLeft = 45;
+    const left = 45;
 
-    const paddingRight = 15;
+    const right = 15;
 
-    const paddingTop = 20;
+    const top = 20;
 
-    const paddingBottom = 35;
+    const bottom = 38;
 
 
     const chartWidth =
         width -
-        paddingLeft -
-        paddingRight;
+        left -
+        right;
 
 
     const chartHeight =
         height -
-        paddingTop -
-        paddingBottom;
+        top -
+        bottom;
 
 
-    const maxValue =
+    const rawMax =
         Math.max(
             ...values,
             1
         );
 
 
-    const niceMax =
+    const maxValue =
         Math.ceil(
-            maxValue /
-            100
+            rawMax / 100
         ) * 100;
 
 
@@ -3102,15 +4169,8 @@ function renderChart(){
     ){
 
         const y =
-            paddingTop +
+            top +
             chartHeight *
-            i /
-            4;
-
-
-        const value =
-            niceMax -
-            niceMax *
             i /
             4;
 
@@ -3124,13 +4184,12 @@ function renderChart(){
 
         line.setAttribute(
             "x1",
-            paddingLeft
+            left
         );
 
         line.setAttribute(
             "x2",
-            width -
-            paddingRight
+            width - right
         );
 
         line.setAttribute(
@@ -3145,7 +4204,7 @@ function renderChart(){
 
         line.setAttribute(
             "stroke",
-            "#e8ebf1"
+            "#e7eaf0"
         );
 
         line.setAttribute(
@@ -3186,8 +4245,16 @@ function renderChart(){
             "#888"
         );
 
+
         text.textContent =
-            Math.round(value);
+            Math.round(
+                maxValue -
+                (
+                    maxValue *
+                    i /
+                    4
+                )
+            );
 
 
         waterChart.appendChild(
@@ -3197,14 +4264,17 @@ function renderChart(){
     }
 
 
-    /* POLYLINE */
+    /* LINE */
 
     const points =
         values.map(
-            (value,index) => {
+            (
+                value,
+                index
+            ) => {
 
                 const x =
-                    paddingLeft +
+                    left +
                     chartWidth *
                     (
                         index /
@@ -3215,16 +4285,20 @@ function renderChart(){
 
 
                 const y =
-                    paddingTop +
+                    top +
                     chartHeight *
                     (
                         1 -
                         value /
-                        niceMax
+                        maxValue
                     );
 
 
-                return `${x},${y}`;
+                return (
+                    x +
+                    "," +
+                    y
+                );
 
             }
         ).join(" ");
@@ -3249,7 +4323,7 @@ function renderChart(){
 
     polyline.setAttribute(
         "stroke",
-        "#5c6cff"
+        "#6574ff"
     );
 
     polyline.setAttribute(
@@ -3276,7 +4350,10 @@ function renderChart(){
     /* POINTS */
 
     values.forEach(
-        (value,index) => {
+        (
+            value,
+            index
+        ) => {
 
             if(value <= 0){
 
@@ -3286,7 +4363,7 @@ function renderChart(){
 
 
             const x =
-                paddingLeft +
+                left +
                 chartWidth *
                 (
                     index /
@@ -3297,12 +4374,12 @@ function renderChart(){
 
 
             const y =
-                paddingTop +
+                top +
                 chartHeight *
                 (
                     1 -
                     value /
-                    niceMax
+                    maxValue
                 );
 
 
@@ -3335,7 +4412,7 @@ function renderChart(){
 
             circle.setAttribute(
                 "stroke",
-                "#5c6cff"
+                "#6574ff"
             );
 
             circle.setAttribute(
@@ -3363,72 +4440,95 @@ function renderChart(){
     ];
 
 
-    labelIndexes.forEach(index => {
+    labelIndexes.forEach(
+        index => {
 
-        const date =
-            days[index];
+            const date =
+                days[index];
 
 
-        const x =
-            paddingLeft +
-            chartWidth *
-            (
-                index /
+            const x =
+                left +
+                chartWidth *
                 (
-                    days.length - 1
-                )
+                    index /
+                    (
+                        days.length - 1
+                    )
+                );
+
+
+            const text =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "text"
+                );
+
+
+            text.setAttribute(
+                "x",
+                x
+            );
+
+            text.setAttribute(
+                "y",
+                height - 9
+            );
+
+            text.setAttribute(
+                "font-size",
+                "11"
+            );
+
+            text.setAttribute(
+                "text-anchor",
+                "middle"
+            );
+
+            text.setAttribute(
+                "fill",
+                "#888"
             );
 
 
-        const text =
-            document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "text"
+            text.textContent =
+                date.substring(5);
+
+
+            waterChart.appendChild(
+                text
             );
 
+        }
+    );
 
-        text.setAttribute(
-            "x",
-            x
-        );
-
-        text.setAttribute(
-            "y",
-            height - 8
-        );
-
-        text.setAttribute(
-            "font-size",
-            "11"
-        );
-
-        text.setAttribute(
-            "text-anchor",
-            "middle"
-        );
-
-        text.setAttribute(
-            "fill",
-            "#888"
-        );
+}
 
 
-        text.textContent =
-            date.slice(5);
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard(){
+
+    weekAverage.textContent =
+        calculateWeekAverage();
 
 
-        waterChart.appendChild(
-            text
-        );
+    monthAverage.textContent =
+        calculateMonthAverage();
 
-    });
+
+    renderToday();
+
+    renderExtremes();
 
 }
 
 
 /* =========================================================
    RENDER ALL
-   ========================================================= */
+========================================================= */
 
 function renderAll(){
 
@@ -3444,63 +4544,49 @@ function renderAll(){
 
 
 /* =========================================================
-   DAILY TARGET STORAGE
-   ========================================================= */
+   EVENT: PET NAME
+========================================================= */
 
-const TARGET_KEY =
-    "LUCKY_DAILY_WATER_TARGET";
+savePetNameBtn.addEventListener(
+    "click",
+    function(){
 
+        savePetName();
 
-function loadTarget(){
-
-    const value =
-        localStorage.getItem(
-            TARGET_KEY
-        );
-
-
-    if(value){
-
-        dailyTargetInput.value =
-            value;
+        renderAnalysis();
 
     }
-
-}
-
-
-function saveTarget(){
-
-    const value =
-        numberValue(
-            dailyTargetInput.value
-        );
-
-
-    if(value > 0){
-
-        localStorage.setItem(
-            TARGET_KEY,
-            String(value)
-        );
-
-    }else{
-
-        localStorage.removeItem(
-            TARGET_KEY
-        );
-
-    }
-
-
-    renderDashboard();
-
-}
+);
 
 
 /* =========================================================
-   EVENT LISTENERS
-   ========================================================= */
+   EVENT: DATE
+========================================================= */
+
+recordDate.addEventListener(
+    "change",
+    function(){
+
+        if(recordDate.value){
+
+            yearSelect.value =
+                String(
+                    getROCYear(
+                        recordDate.value
+                    )
+                );
+
+        }
+
+        updateDateInfo();
+
+    }
+);
+
+
+/* =========================================================
+   EVENT: TODAY
+========================================================= */
 
 todayBtn.addEventListener(
     "click",
@@ -3512,6 +4598,10 @@ todayBtn.addEventListener(
 );
 
 
+/* =========================================================
+   EVENT: CLEAR DATE
+========================================================= */
+
 clearDateBtn.addEventListener(
     "click",
     function(){
@@ -3521,6 +4611,10 @@ clearDateBtn.addEventListener(
     }
 );
 
+
+/* =========================================================
+   EVENT: SAVE
+========================================================= */
 
 saveBtn.addEventListener(
     "click",
@@ -3532,6 +4626,10 @@ saveBtn.addEventListener(
 );
 
 
+/* =========================================================
+   EVENT: CANCEL EDIT
+========================================================= */
+
 cancelEditBtn.addEventListener(
     "click",
     function(){
@@ -3542,6 +4640,10 @@ cancelEditBtn.addEventListener(
 );
 
 
+/* =========================================================
+   EVENT: CLEAR ALL
+========================================================= */
+
 clearAllBtn.addEventListener(
     "click",
     function(){
@@ -3551,6 +4653,10 @@ clearAllBtn.addEventListener(
     }
 );
 
+
+/* =========================================================
+   EVENT: TARGET
+========================================================= */
 
 dailyTargetInput.addEventListener(
     "change",
@@ -3572,6 +4678,10 @@ dailyTargetInput.addEventListener(
 );
 
 
+/* =========================================================
+   EVENT: FILTER YEAR
+========================================================= */
+
 filterYear.addEventListener(
     "change",
     function(){
@@ -3582,6 +4692,10 @@ filterYear.addEventListener(
 );
 
 
+/* =========================================================
+   EVENT: FILTER MONTH
+========================================================= */
+
 filterMonth.addEventListener(
     "change",
     function(){
@@ -3591,6 +4705,45 @@ filterMonth.addEventListener(
     }
 );
 
+
+/* =========================================================
+   EVENT: VIEW CLOSE
+========================================================= */
+
+closeViewBtn.addEventListener(
+    "click",
+    function(){
+
+        viewModal.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+viewModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            viewModal
+        ){
+
+            viewModal.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EVENT: DELETE
+========================================================= */
 
 cancelDeleteBtn.addEventListener(
     "click",
@@ -3630,14 +4783,21 @@ deleteModal.addEventListener(
 
 
 /* =========================================================
-   KEYBOARD
-   ========================================================= */
+   ESC KEY
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function(event){
 
-        if(event.key === "Escape"){
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            viewModal.classList.remove(
+                "show"
+            );
 
             closeDeleteModal();
 
@@ -3649,11 +4809,13 @@ document.addEventListener(
 
 /* =========================================================
    INITIALIZE
-   ========================================================= */
+========================================================= */
 
 function initialize(){
 
     loadRecords();
+
+    loadPetName();
 
     loadTarget();
 
@@ -3665,6 +4827,7 @@ function initialize(){
 
     updateClock();
 
+
     setInterval(
         updateClock,
         1000
@@ -3674,8 +4837,8 @@ function initialize(){
 
 
 /* =========================================================
-   START APPLICATION
-   ========================================================= */
+   START
+========================================================= */
 
 initialize();
 
