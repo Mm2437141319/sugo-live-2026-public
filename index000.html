@@ -1,337 +1,1836 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
 <meta name="theme-color" content="#ffffff">
-<title>🐾 寵物年度喝水紀錄</title>
+
+<title>🐾 Lucky 年度喝水紀錄</title>
+
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
 body{
-  margin:0;background:#f7f8fa;color:#333;
-  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+    margin:0;
+    padding:0;
+    background:#f5f6f8;
+    color:#333;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
 }
-.container{max-width:720px;margin:auto;padding:18px 14px 45px}
+
+body{
+    padding-bottom:40px;
+}
+
+.container{
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+    padding:16px 14px 40px;
+}
+
+
+/* =========================
+   卡片
+========================= */
+
 .card{
-  background:#fff;border-radius:22px;padding:20px;margin-bottom:14px;
-  box-shadow:0 4px 18px rgba(0,0,0,.06)
+    background:#fff;
+    border-radius:24px;
+    padding:22px 20px;
+    margin-bottom:15px;
+    box-shadow:
+        0 3px 16px rgba(0,0,0,.06);
 }
-h1{font-size:28px;margin:0;font-weight:850}
-.sub{color:#888;margin-top:7px}
-.pet input,.field input,.field select,.filter select{
-  width:100%;height:48px;border:1px solid #ddd;border-radius:13px;
-  background:#fff;padding:0 13px;font-size:16px;outline:none
+
+
+/* =========================
+   標題
+========================= */
+
+.main-title{
+    font-size:29px;
+    font-weight:900;
+    line-height:1.3;
+    margin:0;
 }
-.pet{margin-top:15px}
-.title{font-size:20px;font-weight:800;margin-bottom:15px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.field label{display:block;color:#777;font-size:14px;margin-bottom:6px}
-.add,.save{
-  width:100%;height:50px;border:0;border-radius:14px;
-  background:#333;color:#fff;font-size:17px;font-weight:750;margin-top:14px
+
+.sub-title{
+    color:#888;
+    font-size:18px;
+    margin-top:7px;
+    font-weight:600;
 }
-.cancel{
-  width:100%;height:44px;border:1px solid #ddd;border-radius:13px;
-  background:#fff;color:#666;font-size:15px;margin-top:8px
+
+
+/* =========================
+   寵物名稱
+========================= */
+
+.pet-input{
+    margin-top:18px;
 }
+
+.pet-input input{
+    width:100%;
+    height:56px;
+    border:2px solid #ddd;
+    border-radius:17px;
+    padding:0 16px;
+    font-size:21px;
+    font-weight:700;
+    outline:none;
+    background:#fff;
+}
+
+.pet-input input:focus{
+    border-color:#777;
+}
+
+
+/* =========================
+   區塊標題
+========================= */
+
+.section-title{
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+
+/* =========================
+   表單
+========================= */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-size:17px;
+    color:#777;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    height:54px;
+    border:2px solid #ddd;
+    border-radius:16px;
+    padding:0 15px;
+    font-size:18px;
+    font-weight:600;
+    background:#fff;
+    outline:none;
+    appearance:auto;
+    -webkit-appearance:auto;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#777;
+}
+
+
+/* =========================
+   年份＋月份
+========================= */
+
+.two-column{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+
+/* =========================
+   按鈕
+========================= */
+
+.main-button{
+    width:100%;
+    height:56px;
+    margin-top:5px;
+    border:none;
+    border-radius:16px;
+    background:#333;
+    color:#fff;
+    font-size:20px;
+    font-weight:900;
+    cursor:pointer;
+    touch-action:manipulation;
+}
+
+.main-button:active{
+    transform:scale(.98);
+}
+
+.cancel-button{
+    width:100%;
+    height:48px;
+    margin-top:9px;
+    border:2px solid #ddd;
+    border-radius:15px;
+    background:#fff;
+    color:#666;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+}
+
 .editing{
-  background:#fff9e8;border:1px solid #f0d98c
+    border:2px solid #e7c75c;
+    background:#fffdf3;
 }
-.editing .title{color:#8a6810}
-.filter{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.filter label{font-size:13px;color:#777;display:block;margin-bottom:5px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.stat{background:#fafafa;border-radius:15px;text-align:center;padding:13px 5px}
-.num{font-size:21px;font-weight:850}
-.lab{font-size:12px;color:#888;margin-top:3px}
+
+.editing .section-title{
+    color:#8a6a00;
+}
+
+
+/* =========================
+   提示
+========================= */
+
+.note{
+    margin-top:12px;
+    color:#999;
+    font-size:14px;
+    line-height:1.7;
+}
+
+
+/* =========================
+   查看紀錄
+========================= */
+
+.filter-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.filter-group label{
+    display:block;
+    font-size:15px;
+    color:#777;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.filter-group select{
+    width:100%;
+    height:52px;
+    border:2px solid #ddd;
+    border-radius:15px;
+    background:#fff;
+    padding:0 12px;
+    font-size:17px;
+    font-weight:700;
+}
+
+
+/* =========================
+   統計
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap:10px;
+}
+
+.stat{
+    background:#f7f7f7;
+    border-radius:17px;
+    text-align:center;
+    padding:15px 5px;
+}
+
+.stat-number{
+    font-size:24px;
+    font-weight:900;
+}
+
+.stat-label{
+    margin-top:4px;
+    font-size:13px;
+    color:#888;
+    font-weight:600;
+}
+
+
+/* =========================
+   總計
+========================= */
+
+.total-box{
+    background:#f7f7f7;
+    border-radius:16px;
+    padding:14px 16px;
+    margin-bottom:5px;
+    font-size:17px;
+    font-weight:800;
+}
+
+
+/* =========================
+   紀錄
+========================= */
+
 .record{
-  padding:15px 0;border-bottom:1px solid #eee
+    padding:17px 0;
+    border-bottom:
+        1px solid #eee;
 }
-.record:last-child{border-bottom:0}
-.recordTop{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.date{font-size:19px;font-weight:750}
-.year{font-size:13px;color:#999;margin-top:3px}
-.cc{font-size:23px;font-weight:850;white-space:nowrap}
-.cc small{font-size:13px;color:#777;font-weight:500}
-.actions{display:flex;gap:8px;margin-top:9px}
-.actions button{
-  border:0;border-radius:9px;padding:8px 13px;font-size:13px
+
+.record:last-child{
+    border-bottom:none;
 }
-.edit{background:#eee}
-.del{background:#ffe8e8;color:#a33}
-.empty{text-align:center;color:#aaa;padding:30px 8px}
-.monthTotal{
-  background:#f7f7f7;border-radius:14px;padding:12px 14px;margin-bottom:4px;
-  font-weight:700
+
+.record-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
 }
-.clear{
-  width:100%;height:44px;border:1px solid #ddd;background:#fff;
-  border-radius:12px;color:#888;margin-top:12px
+
+.record-date{
+    font-size:21px;
+    font-weight:900;
 }
-.note{font-size:12px;color:#999;line-height:1.6;margin-top:10px}
+
+.record-year{
+    color:#999;
+    font-size:14px;
+    margin-top:4px;
+}
+
+.record-cc{
+    font-size:25px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.record-cc span{
+    font-size:14px;
+    color:#777;
+    font-weight:600;
+}
+
+.record-buttons{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.record-buttons button{
+    border:none;
+    border-radius:10px;
+    padding:9px 14px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.edit-btn{
+    background:#eee;
+    color:#333;
+}
+
+.delete-btn{
+    background:#ffe8e8;
+    color:#a33;
+}
+
+
+/* =========================
+   空白
+========================= */
+
+.empty{
+    text-align:center;
+    color:#aaa;
+    padding:35px 10px;
+    font-size:17px;
+}
+
+
+/* =========================
+   清除
+========================= */
+
+.clear-button{
+    width:100%;
+    height:46px;
+    margin-top:12px;
+    border:2px solid #eee;
+    border-radius:13px;
+    background:#fff;
+    color:#999;
+    font-size:15px;
+    font-weight:700;
+}
+
+
+/* =========================
+   編輯狀態
+========================= */
+
+.editing-tag{
+    display:none;
+    color:#9a7600;
+    font-size:14px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.editing .editing-tag{
+    display:block;
+}
+
+
+/* =========================
+   iPhone
+========================= */
+
 @media(max-width:480px){
-  .grid,.filter{grid-template-columns:1fr}
-  h1{font-size:25px}
+
+    .container{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .card{
+        padding:20px 17px;
+        border-radius:23px;
+    }
+
+    .main-title{
+        font-size:27px;
+    }
+
+    .section-title{
+        font-size:23px;
+    }
+
+    .two-column,
+    .filter-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        gap:7px;
+    }
+
+    .stat-number{
+        font-size:21px;
+    }
+
 }
+
+
+/* =========================
+   防止 iOS 自動縮放
+========================= */
+
+input,
+select,
+button{
+    font-family:inherit;
+}
+
 </style>
 </head>
+
+
 <body>
+
 <div class="container">
 
-  <div class="card">
-    <h1>🐾 寵物年度喝水紀錄</h1>
-    <div class="sub">記錄每天喝水量 💧</div>
-    <div class="pet">
-      <input id="petName" placeholder="寵物名字（可不填）">
-    </div>
-  </div>
 
-  <div class="card" id="formCard">
-    <div class="title" id="formTitle">💧 新增喝水紀錄</div>
+<!-- =========================
+     寵物資料
+========================= -->
 
-    <div class="grid">
-      <div class="field">
-        <label>年份（可選填）</label>
-        <select id="year">
-          <option value="">請選擇</option>
-        </select>
-      </div>
+<div class="card">
 
-      <div class="field">
-        <label>日期（可選填）</label>
-        <input id="date" type="text" inputmode="numeric" placeholder="例如 06/02">
-      </div>
+    <h1 class="main-title">
+        🐾 Lucky 年度喝水紀錄
+    </h1>
+
+    <div class="sub-title">
+        記錄每天喝水量 💧
     </div>
 
-    <div class="field" style="margin-top:11px">
-      <label>喝水量 CC（可選填）</label>
-      <input id="cc" type="number" min="0" step="1" inputmode="numeric" placeholder="例如 230">
+    <div class="pet-input">
+
+        <input
+            id="petName"
+            type="text"
+            placeholder="寵物名字（可不填）"
+        >
+
     </div>
-
-    <button class="add" id="mainButton" onclick="submitRecord()">＋ 新增紀錄</button>
-    <button class="cancel" id="cancelButton" onclick="cancelEdit()" style="display:none">取消編輯</button>
-
-    <div class="note">
-      年份、日期、CC 數都可以留白。日期建議輸入 MM/DD，例如 06/02。
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="title">📅 查看紀錄</div>
-    <div class="filter">
-      <div>
-        <label>年份</label>
-        <select id="filterYear" onchange="render()">
-          <option value="all">全部年份</option>
-        </select>
-      </div>
-      <div>
-        <label>月份</label>
-        <select id="filterMonth" onchange="render()">
-          <option value="all">全部月份</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="title">📊 統計</div>
-    <div class="stats">
-      <div class="stat"><div class="num" id="totalCC">0</div><div class="lab">總 CC</div></div>
-      <div class="stat"><div class="num" id="count">0</div><div class="lab">紀錄筆數</div></div>
-      <div class="stat"><div class="num" id="avg">0</div><div class="lab">平均 CC</div></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="title">📋 喝水紀錄</div>
-    <div id="monthTotal"></div>
-    <div id="records"></div>
-    <button class="clear" onclick="clearAll()">清除全部紀錄</button>
-  </div>
 
 </div>
 
+
+
+<!-- =========================
+     新增／編輯
+========================= -->
+
+<div
+    class="card"
+    id="formCard"
+>
+
+    <div class="editing-tag">
+        ✏️ 目前正在編輯紀錄
+    </div>
+
+    <div
+        class="section-title"
+        id="formTitle"
+    >
+        💧 新增喝水紀錄
+    </div>
+
+
+    <!-- 年份 -->
+
+    <div class="form-group">
+
+        <label>
+            年份（可選填）
+        </label>
+
+        <select id="year">
+
+            <option value="">
+                請選擇
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- 日期 -->
+
+    <div class="form-group">
+
+        <label>
+            日期（可選填）
+        </label>
+
+        <input
+            id="date"
+            type="text"
+            inputmode="numeric"
+            placeholder="例如 06/02"
+        >
+
+    </div>
+
+
+    <!-- CC -->
+
+    <div class="form-group">
+
+        <label>
+            喝水量 CC（可選填）
+        </label>
+
+        <input
+            id="cc"
+            type="number"
+            inputmode="numeric"
+            min="0"
+            step="1"
+            placeholder="例如 230"
+        >
+
+    </div>
+
+
+    <!-- 主按鈕 -->
+
+    <button
+        type="button"
+        class="main-button"
+        id="mainButton"
+        onclick="saveRecord()"
+    >
+        ＋ 新增紀錄
+    </button>
+
+
+    <!-- 取消編輯 -->
+
+    <button
+        type="button"
+        class="cancel-button"
+        id="cancelButton"
+        onclick="cancelEdit()"
+        style="display:none"
+    >
+        取消編輯
+    </button>
+
+
+    <div class="note">
+
+        年份、日期、CC 數都可以留白。<br>
+        日期輸入例如：06/02。
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     查看紀錄
+========================= -->
+
+<div class="card">
+
+    <div class="section-title">
+        📅 查看紀錄
+    </div>
+
+
+    <div class="filter-grid">
+
+        <div class="filter-group">
+
+            <label>
+                年份
+            </label>
+
+            <select
+                id="filterYear"
+                onchange="renderRecords()"
+            >
+
+                <option value="all">
+                    全部年份
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="filter-group">
+
+            <label>
+                月份
+            </label>
+
+            <select
+                id="filterMonth"
+                onchange="renderRecords()"
+            >
+
+                <option value="all">
+                    全部月份
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     統計
+========================= -->
+
+<div class="card">
+
+    <div class="section-title">
+        📊 統計
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="totalCC"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                總 CC
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="recordCount"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                紀錄筆數
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="averageCC"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                平均 CC
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     紀錄列表
+========================= -->
+
+<div class="card">
+
+    <div class="section-title">
+        📋 喝水紀錄
+    </div>
+
+
+    <div
+        class="total-box"
+        id="totalBox"
+    >
+        💧 目前總量：0 CC
+    </div>
+
+
+    <div id="records"></div>
+
+
+    <button
+        type="button"
+        class="clear-button"
+        onclick="clearAll()"
+    >
+        清除全部紀錄
+    </button>
+
+</div>
+
+
+</div>
+
+
+
 <script>
-const STORAGE_KEY="petWaterRecordsV2";
-const PET_KEY="petWaterPetNameV2";
-let records=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
-let editingId=null;
 
-const year=document.getElementById("year");
-const filterYear=document.getElementById("filterYear");
-const filterMonth=document.getElementById("filterMonth");
+/* =====================================================
+   儲存資料
+===================================================== */
 
-for(let y=100;y<=130;y++){
-  year.insertAdjacentHTML("beforeend",`<option value="${y}">${y} 年</option>`);
-  filterYear.insertAdjacentHTML("beforeend",`<option value="${y}">${y} 年</option>`);
+const STORAGE_KEY =
+    "LUCKY_PET_WATER_RECORDS_2026";
+
+const PET_NAME_KEY =
+    "LUCKY_PET_NAME_2026";
+
+
+let records = [];
+
+let editingId = null;
+
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const yearSelect =
+    document.getElementById("year");
+
+const filterYear =
+    document.getElementById("filterYear");
+
+const filterMonth =
+    document.getElementById("filterMonth");
+
+const dateInput =
+    document.getElementById("date");
+
+const ccInput =
+    document.getElementById("cc");
+
+const mainButton =
+    document.getElementById("mainButton");
+
+const cancelButton =
+    document.getElementById("cancelButton");
+
+const formCard =
+    document.getElementById("formCard");
+
+const formTitle =
+    document.getElementById("formTitle");
+
+const petName =
+    document.getElementById("petName");
+
+
+
+/* =====================================================
+   年份
+   民國 100～130
+===================================================== */
+
+function createYears(){
+
+    for(
+        let y = 100;
+        y <= 130;
+        y++
+    ){
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            String(y);
+
+        option.textContent =
+            y + " 年";
+
+        yearSelect.appendChild(
+            option
+        );
+
+
+        const filterOption =
+            document.createElement("option");
+
+        filterOption.value =
+            String(y);
+
+        filterOption.textContent =
+            y + " 年";
+
+        filterYear.appendChild(
+            filterOption
+        );
+
+    }
+
 }
-for(let m=1;m<=12;m++){
-  const mm=String(m).padStart(2,"0");
-  filterMonth.insertAdjacentHTML("beforeend",`<option value="${mm}">${mm} 月</option>`);
+
+
+
+/* =====================================================
+   月份
+===================================================== */
+
+function createMonths(){
+
+    for(
+        let m = 1;
+        m <= 12;
+        m++
+    ){
+
+        const month =
+            String(m).padStart(2,"0");
+
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            month;
+
+        option.textContent =
+            month + " 月";
+
+        filterMonth.appendChild(
+            option
+        );
+
+    }
+
 }
 
-const petName=document.getElementById("petName");
-petName.value=localStorage.getItem(PET_KEY)||"";
-petName.addEventListener("input",()=>localStorage.setItem(PET_KEY,petName.value));
 
-function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(records));}
 
-function normalizeDate(v){
-  v=(v||"").trim().replace(/[^\d]/g,"");
-  if(!v) return "";
-  if(v.length===3) v="0"+v;
-  if(v.length===4) return v.slice(0,2)+"/"+v.slice(2);
-  return null;
+/* =====================================================
+   讀取資料
+===================================================== */
+
+function loadData(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+        if(saved){
+
+            const parsed =
+                JSON.parse(saved);
+
+            if(Array.isArray(parsed)){
+
+                records =
+                    parsed;
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "讀取資料失敗",
+            error
+        );
+
+        records = [];
+
+    }
+
+
+    petName.value =
+        localStorage.getItem(
+            PET_NAME_KEY
+        ) || "";
+
 }
 
-function validDate(v){
-  if(v==="") return true;
-  const m=v.match(/^(0[1-9]|1[0-2])\\/(0[1-9]|[12]\\d|3[01])$/);
-  if(!m) return false;
-  const mm=Number(m[1]), dd=Number(m[2]);
-  const days=new Date(2000,mm,0).getDate();
-  return dd<=days;
+
+
+/* =====================================================
+   儲存資料
+===================================================== */
+
+function saveData(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+    );
+
 }
 
-function submitRecord(){
-  let y=year.value;
-  let d=normalizeDate(document.getElementById("date").value);
-  let c=document.getElementById("cc").value.trim();
 
-  if(d===null || !validDate(d)){
-    alert("日期請輸入 MM/DD，例如 06/02");
-    return;
-  }
 
-  const data={year:y,date:d,cc:c===""?"":Number(c)};
+/* =====================================================
+   寵物名字
+===================================================== */
 
-  if(editingId!==null){
-    const i=records.findIndex(r=>r.id===editingId);
-    if(i>=0) records[i]={...records[i],...data};
-    editingId=null;
-    resetForm();
-  }else{
-    records.push({id:Date.now()+Math.random(),...data});
-    resetForm();
-  }
+petName.addEventListener(
+    "input",
+    function(){
 
-  save();
-  render();
+        localStorage.setItem(
+            PET_NAME_KEY,
+            petName.value
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   日期整理
+===================================================== */
+
+function normalizeDate(value){
+
+    let v =
+        String(value || "")
+        .trim()
+        .replace(/[^\d]/g,"");
+
+
+    if(v === ""){
+
+        return "";
+
+    }
+
+
+    if(v.length === 3){
+
+        v =
+            "0" + v;
+
+    }
+
+
+    if(v.length !== 4){
+
+        return null;
+
+    }
+
+
+    const month =
+        v.substring(0,2);
+
+    const day =
+        v.substring(2,4);
+
+
+    return month + "/" + day;
+
 }
 
-function resetForm(){
-  year.value="";
-  document.getElementById("date").value="";
-  document.getElementById("cc").value="";
-  document.getElementById("formCard").classList.remove("editing");
-  document.getElementById("formTitle").textContent="💧 新增喝水紀錄";
-  document.getElementById("mainButton").textContent="＋ 新增紀錄";
-  document.getElementById("cancelButton").style.display="none";
+
+
+/* =====================================================
+   日期檢查
+===================================================== */
+
+function checkDate(value){
+
+    if(value === ""){
+
+        return true;
+
+    }
+
+
+    const match =
+        value.match(
+            /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/
+        );
+
+
+    if(!match){
+
+        return false;
+
+    }
+
+
+    const month =
+        Number(match[1]);
+
+    const day =
+        Number(match[2]);
+
+
+    const maxDays =
+        new Date(
+            2000,
+            month,
+            0
+        ).getDate();
+
+
+    return day <= maxDays;
+
 }
 
-function startEdit(id){
-  const r=records.find(x=>x.id===id);
-  if(!r)return;
-  editingId=id;
-  year.value=r.year||"";
-  document.getElementById("date").value=r.date||"";
-  document.getElementById("cc").value=r.cc===""?"":r.cc;
-  document.getElementById("formCard").classList.add("editing");
-  document.getElementById("formTitle").textContent="✏️ 編輯喝水紀錄";
-  document.getElementById("mainButton").textContent="💾 儲存修改";
-  document.getElementById("cancelButton").style.display="block";
-  window.scrollTo({top:0,behavior:"smooth"});
+
+
+/* =====================================================
+   新增／儲存修改
+===================================================== */
+
+function saveRecord(){
+
+    const selectedYear =
+        yearSelect.value;
+
+
+    const rawDate =
+        dateInput.value;
+
+
+    const normalizedDate =
+        normalizeDate(
+            rawDate
+        );
+
+
+    const rawCC =
+        ccInput.value.trim();
+
+
+    /* 日期錯誤 */
+
+    if(
+        normalizedDate === null ||
+        !checkDate(normalizedDate)
+    ){
+
+        alert(
+            "日期請輸入正確格式，例如 06/02"
+        );
+
+        return;
+
+    }
+
+
+    /* CC */
+
+    let ccValue = "";
+
+    if(rawCC !== ""){
+
+        const number =
+            Number(rawCC);
+
+
+        if(
+            !Number.isFinite(number) ||
+            number < 0
+        ){
+
+            alert(
+                "喝水量 CC 請輸入 0 或以上的數字"
+            );
+
+            return;
+
+        }
+
+
+        ccValue =
+            Math.round(number);
+
+    }
+
+
+    const data = {
+
+        year:
+            selectedYear,
+
+        date:
+            normalizedDate,
+
+        cc:
+            ccValue
+
+    };
+
+
+
+    /* ==============================================
+       編輯
+    ============================================== */
+
+    if(editingId !== null){
+
+        const index =
+            records.findIndex(
+                function(item){
+
+                    return item.id === editingId;
+
+                }
+            );
+
+
+        if(index !== -1){
+
+            records[index] = {
+
+                ...records[index],
+
+                ...data
+
+            };
+
+        }
+
+
+        editingId = null;
+
+        resetForm();
+
+    }
+
+
+    /* ==============================================
+       新增
+    ============================================== */
+
+    else{
+
+        const newRecord = {
+
+            id:
+                Date.now() +
+                Math.floor(
+                    Math.random() * 100000
+                ),
+
+            ...data
+
+        };
+
+
+        records.push(
+            newRecord
+        );
+
+    }
+
+
+    saveData();
+
+    renderRecords();
+
 }
+
+
+
+/* =====================================================
+   編輯紀錄
+===================================================== */
+
+function editRecord(id){
+
+    const record =
+        records.find(
+            function(item){
+
+                return item.id === id;
+
+            }
+        );
+
+
+    if(!record){
+
+        return;
+
+    }
+
+
+    editingId =
+        id;
+
+
+    yearSelect.value =
+        record.year || "";
+
+
+    dateInput.value =
+        record.date || "";
+
+
+    ccInput.value =
+        record.cc === ""
+        ? ""
+        : record.cc;
+
+
+    formCard.classList.add(
+        "editing"
+    );
+
+
+    formTitle.textContent =
+        "✏️ 編輯喝水紀錄";
+
+
+    mainButton.textContent =
+        "💾 儲存修改";
+
+
+    cancelButton.style.display =
+        "block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+
+/* =====================================================
+   取消編輯
+===================================================== */
 
 function cancelEdit(){
-  editingId=null;
-  resetForm();
+
+    editingId =
+        null;
+
+    resetForm();
+
 }
+
+
+
+/* =====================================================
+   重設表單
+===================================================== */
+
+function resetForm(){
+
+    yearSelect.value =
+        "";
+
+    dateInput.value =
+        "";
+
+    ccInput.value =
+        "";
+
+
+    formCard.classList.remove(
+        "editing"
+    );
+
+
+    formTitle.textContent =
+        "💧 新增喝水紀錄";
+
+
+    mainButton.textContent =
+        "＋ 新增紀錄";
+
+
+    cancelButton.style.display =
+        "none";
+
+}
+
+
+
+/* =====================================================
+   刪除
+===================================================== */
 
 function deleteRecord(id){
-  if(!confirm("確定要刪除這筆紀錄嗎？"))return;
-  records=records.filter(r=>r.id!==id);
-  save();render();
+
+    const ok =
+        confirm(
+            "確定要刪除這筆喝水紀錄嗎？"
+        );
+
+
+    if(!ok){
+
+        return;
+
+    }
+
+
+    records =
+        records.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
+
+    if(editingId === id){
+
+        editingId =
+            null;
+
+        resetForm();
+
+    }
+
+
+    saveData();
+
+    renderRecords();
+
 }
+
+
+
+/* =====================================================
+   清除全部
+===================================================== */
 
 function clearAll(){
-  if(!records.length)return;
-  if(!confirm("確定要清除全部喝水紀錄嗎？"))return;
-  records=[];save();render();
-}
 
-function dateSortValue(r){
-  if(!r.date)return "99/99";
-  return r.date;
-}
+    if(records.length === 0){
 
-function render(){
-  const fy=filterYear.value, fm=filterMonth.value;
-  let list=records.filter(r=>{
-    if(fy!=="all" && r.year!==fy)return false;
-    if(fm!=="all"){
-      if(!r.date || r.date.slice(0,2)!==fm)return false;
+        alert(
+            "目前沒有紀錄可以清除。"
+        );
+
+        return;
+
     }
-    return true;
-  });
 
-  list.sort((a,b)=>{
-    const ya=a.year||"999", yb=b.year||"999";
-    if(ya!==yb)return yb.localeCompare(ya);
-    return dateSortValue(b).localeCompare(dateSortValue(a));
-  });
 
-  const values=list.filter(r=>r.cc!=="" && Number.isFinite(Number(r.cc))).map(r=>Number(r.cc));
-  const total=values.reduce((a,b)=>a+b,0);
-  const avg=values.length?Math.round(total/values.length):0;
+    const ok =
+        confirm(
+            "確定要清除全部喝水紀錄嗎？"
+        );
 
-  document.getElementById("totalCC").textContent=total.toLocaleString();
-  document.getElementById("count").textContent=list.length;
-  document.getElementById("avg").textContent=avg.toLocaleString();
 
-  let scope="";
-  if(fy!=="all")scope+=fy+" 年";
-  if(fm!=="all")scope+=(scope?" ":"")+fm+" 月";
-  if(!scope)scope="目前篩選";
-  document.getElementById("monthTotal").innerHTML=
-    `<div class="monthTotal">💧 ${scope}：${total.toLocaleString()} CC</div>`;
+    if(!ok){
 
-  const box=document.getElementById("records");
-  if(!list.length){
-    box.innerHTML='<div class="empty">尚無紀錄 💧</div>';
-    return;
-  }
+        return;
 
-  box.innerHTML=list.map(r=>{
-    const y=r.year?r.year+" 年":"年份未填";
-    const d=r.date||"日期未填";
-    const cc=r.cc===""?"未填":Number(r.cc).toLocaleString()+" <small>CC</small>";
-    return `
-      <div class="record">
-        <div class="recordTop">
-          <div>
-            <div class="date">${d}</div>
-            <div class="year">${y}</div>
-          </div>
-          <div class="cc">${cc}</div>
-        </div>
-        <div class="actions">
-          <button class="edit" onclick="startEdit(${r.id})">✏️ 編輯</button>
-          <button class="del" onclick="deleteRecord(${r.id})">🗑️ 刪除</button>
-        </div>
-      </div>`;
-  }).join("");
+    }
+
+
+    records = [];
+
+
+    editingId =
+        null;
+
+
+    resetForm();
+
+    saveData();
+
+    renderRecords();
+
 }
 
-render();
+
+
+/* =====================================================
+   日期排序
+===================================================== */
+
+function dateSortValue(record){
+
+    if(!record.date){
+
+        return "99/99";
+
+    }
+
+
+    return record.date;
+
+}
+
+
+
+/* =====================================================
+   篩選
+===================================================== */
+
+function getFilteredRecords(){
+
+    const selectedYear =
+        filterYear.value;
+
+    const selectedMonth =
+        filterMonth.value;
+
+
+    return records.filter(
+        function(record){
+
+            if(
+                selectedYear !== "all" &&
+                String(record.year) !==
+                String(selectedYear)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                selectedMonth !== "all"
+            ){
+
+                if(
+                    !record.date ||
+                    record.date.substring(
+                        0,
+                        2
+                    ) !== selectedMonth
+                ){
+
+                    return false;
+
+                }
+
+            }
+
+
+            return true;
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   顯示紀錄
+===================================================== */
+
+function renderRecords(){
+
+    const list =
+        getFilteredRecords();
+
+
+    /* ==============================================
+       排序
+    ============================================== */
+
+    list.sort(
+        function(a,b){
+
+            const ya =
+                a.year || "999";
+
+            const yb =
+                b.year || "999";
+
+
+            if(ya !== yb){
+
+                return Number(yb) -
+                       Number(ya);
+
+            }
+
+
+            return dateSortValue(b)
+                .localeCompare(
+                    dateSortValue(a)
+                );
+
+        }
+    );
+
+
+
+    /* ==============================================
+       統計 CC
+    ============================================== */
+
+    const ccList =
+        list
+        .filter(
+            function(record){
+
+                return (
+                    record.cc !== "" &&
+                    Number.isFinite(
+                        Number(record.cc)
+                    )
+                );
+
+            }
+        )
+        .map(
+            function(record){
+
+                return Number(
+                    record.cc
+                );
+
+            }
+        );
+
+
+    const total =
+        ccList.reduce(
+            function(sum,value){
+
+                return sum + value;
+
+            },
+            0
+        );
+
+
+    const average =
+        ccList.length > 0
+
+        ? Math.round(
+            total / ccList.length
+          )
+
+        : 0;
+
+
+
+    /* ==============================================
+       更新統計
+    ============================================== */
+
+    document.getElementById(
+        "totalCC"
+    ).textContent =
+        total.toLocaleString();
+
+
+    document.getElementById(
+        "recordCount"
+    ).textContent =
+        list.length;
+
+
+    document.getElementById(
+        "averageCC"
+    ).textContent =
+        average.toLocaleString();
+
+
+
+    /* ==============================================
+       總量文字
+    ============================================== */
+
+    let scopeText =
+        "";
+
+
+    if(
+        filterYear.value !== "all"
+    ){
+
+        scopeText +=
+            filterYear.value +
+            " 年";
+
+    }
+
+
+    if(
+        filterMonth.value !== "all"
+    ){
+
+        if(scopeText !== ""){
+
+            scopeText += " ";
+
+        }
+
+
+        scopeText +=
+            filterMonth.value +
+            " 月";
+
+    }
+
+
+    if(scopeText === ""){
+
+        scopeText =
+            "全部紀錄";
+
+    }
+
+
+    document.getElementById(
+        "totalBox"
+    ).textContent =
+        "💧 " +
+        scopeText +
+        "：" +
+        total.toLocaleString() +
+        " CC";
+
+
+
+    /* ==============================================
+       顯示列表
+    ============================================== */
+
+    const container =
+        document.getElementById(
+            "records"
+        );
+
+
+    if(list.length === 0){
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                尚無喝水紀錄 💧
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+
+    container.innerHTML =
+        list.map(
+            function(record){
+
+                const yearText =
+                    record.year
+                    ? record.year + " 年"
+                    : "年份未填";
+
+
+                const dateText =
+                    record.date
+                    ? record.date
+                    : "日期未填";
+
+
+                let ccText;
+
+
+                if(
+                    record.cc === ""
+                ){
+
+                    ccText =
+                        "未填";
+
+                }else{
+
+                    ccText =
+                        Number(
+                            record.cc
+                        ).toLocaleString() +
+                        ' <span>CC</span>';
+
+                }
+
+
+                return `
+                <div class="record">
+
+                    <div class="record-top">
+
+                        <div>
+
+                            <div class="record-date">
+                                ${dateText}
+                            </div>
+
+                            <div class="record-year">
+                                ${yearText}
+                            </div>
+
+                        </div>
+
+
+                        <div class="record-cc">
+                            ${ccText}
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-buttons">
+
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            onclick="editRecord(${record.id})"
+                        >
+                            ✏️ 編輯
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="delete-btn"
+                            onclick="deleteRecord(${record.id})"
+                        >
+                            🗑️ 刪除
+                        </button>
+
+                    </div>
+
+                </div>
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+
+/* =====================================================
+   啟動
+===================================================== */
+
+createYears();
+
+createMonths();
+
+loadData();
+
+renderRecords();
+
 </script>
+
 </body>
 </html>
-'''
-
-path = Path("/mnt/data/pet-water-record-v2.html")
-path.write_text(html, encoding="utf-8")
-print(f"已完成：{path}")
